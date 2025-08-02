@@ -107,12 +107,16 @@ const About = () => {
             </p>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-4 mb-16">
-            {skills.map((skill) => (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto mb-16">
+            {skills.map((skill, index) => (
               <Badge
                 key={skill}
                 variant="secondary"
-                className="px-6 py-3 text-base font-medium hover:bg-primary hover:text-primary-foreground transition-colors duration-300 cursor-default"
+                className={`px-4 py-2 text-sm font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-300 cursor-default text-center ${
+                  index % 3 === 0 ? 'md:col-span-1' : 
+                  index % 5 === 0 ? 'md:col-span-2' : 
+                  'md:col-span-1'
+                }`}
               >
                 {skill}
               </Badge>
