@@ -103,25 +103,27 @@ const Blog = () => {
             </div>
 
             {/* Category Filter */}
-            <div className="flex items-center space-x-4">
-              <Filter size={20} className="text-muted-foreground" />
-              <div className="flex flex-wrap gap-2">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => setSelectedCategory(category)}
-                    className={cn(
-                      'px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative',
-                      'after:content-[""] after:absolute after:w-full after:h-[2px] after:bottom-0 after:left-0',
-                      'after:bg-primary after:transition-transform after:duration-300',
-                      selectedCategory === category
-                        ? 'text-primary after:scale-x-100 font-semibold'
-                        : 'text-muted-foreground hover:text-foreground after:scale-x-0 hover:after:scale-x-100'
-                    )}
-                  >
-                    {category}
-                  </button>
-                ))}
+            <div className="flex items-center space-x-4 flex-1">
+              <Filter size={20} className="text-muted-foreground flex-shrink-0" />
+              <div className="overflow-x-auto">
+                <div className="flex gap-2 pb-1" style={{ minWidth: 'max-content' }}>
+                  {categories.map((category) => (
+                    <button
+                      key={category}
+                      onClick={() => setSelectedCategory(category)}
+                      className={cn(
+                        'px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative whitespace-nowrap flex-shrink-0',
+                        'after:content-[""] after:absolute after:w-full after:h-[2px] after:bottom-0 after:left-0',
+                        'after:bg-primary after:transition-transform after:duration-300',
+                        selectedCategory === category
+                          ? 'text-primary after:scale-x-100 font-semibold'
+                          : 'text-muted-foreground hover:text-foreground after:scale-x-0 hover:after:scale-x-100'
+                      )}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
