@@ -96,9 +96,9 @@ const Gallery = () => {
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Category Filter */}
-            <div className="flex items-center space-x-4 flex-1">
+            <div className="flex items-center space-x-4">
               <Filter size={20} className="text-muted-foreground flex-shrink-0" />
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto scrollbar-hide w-80 md:w-96">
                 <div className="flex gap-2 pb-1" style={{ minWidth: 'max-content' }}>
                   {categories.map((category) => (
                     <button
