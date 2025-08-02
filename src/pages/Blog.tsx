@@ -103,9 +103,9 @@ const Blog = () => {
             </div>
 
             {/* Category Filter */}
-            <div className="flex items-center space-x-4 flex-1">
+            <div className="flex items-center space-x-4">
               <Filter size={20} className="text-muted-foreground flex-shrink-0" />
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto scrollbar-hide w-80 md:w-96">
                 <div className="flex gap-2 pb-1" style={{ minWidth: 'max-content' }}>
                   {categories.map((category) => (
                     <button
