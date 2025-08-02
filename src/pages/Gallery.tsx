@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Filter, Grid3X3, Grid, Eye } from 'lucide-react';
+import { cn } from '@/lib/utils';
 import portraitImage from '@/assets/portfolio-portrait.jpg';
 import architectureImage from '@/assets/portfolio-architecture.jpg';
 import streetImage from '@/assets/portfolio-street.jpg';
@@ -76,9 +77,9 @@ const Gallery = () => {
       <Navigation />
       
       {/* Header */}
-      <section className="pt-32 pb-16 bg-background">
+      <section className="pt-28 pb-8 bg-background">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h1 className="font-serif text-5xl md:text-6xl font-bold text-foreground mb-6">
               Photography Gallery
             </h1>
@@ -87,23 +88,32 @@ const Gallery = () => {
               and moments captured through my lens.
             </p>
           </div>
+        </div>
+      </section>
 
-          {/* Controls */}
-          <div className="flex flex-col md:flex-row justify-between items-center mb-12 space-y-4 md:space-y-0">
+      {/* Sticky Filter Bar */}
+      <section className="sticky top-20 z-40 bg-background/95 backdrop-blur-md border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Category Filter */}
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-4">
               <Filter size={20} className="text-muted-foreground" />
               <div className="flex flex-wrap gap-2">
                 {categories.map((category) => (
-                  <Button
+                  <button
                     key={category}
-                    variant={selectedCategory === category ? "default" : "outline"}
-                    size="sm"
                     onClick={() => setSelectedCategory(category)}
-                    className="transition-all duration-300"
+                    className={cn(
+                      'px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative',
+                      'after:content-[""] after:absolute after:w-full after:h-[2px] after:bottom-0 after:left-0',
+                      'after:bg-primary after:transition-transform after:duration-300',
+                      selectedCategory === category
+                        ? 'text-primary after:scale-x-100 font-semibold'
+                        : 'text-muted-foreground hover:text-foreground after:scale-x-0 hover:after:scale-x-100'
+                    )}
                   >
                     {category}
-                  </Button>
+                  </button>
                 ))}
               </div>
             </div>
@@ -132,7 +142,12 @@ const Gallery = () => {
       {/* Gallery Grid */}
       <section className="pb-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className={cn(
+            'grid gap-6 pt-8',
+            viewMode === 'masonry' 
+              ? 'grid-cols-1 md:grid-cols-3 lg:grid-cols-4' 
+              : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+          )}>
             {filteredItems.map((item) => (
               <Card
                 key={item.id}

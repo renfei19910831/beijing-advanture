@@ -1,11 +1,16 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { Calendar, Clock, Search, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, Search, ArrowRight, ChevronRight, Filter } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const Blog = () => {
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  
   const blogPosts = [
     {
       id: 1,
@@ -70,9 +75,9 @@ const Blog = () => {
       <Navigation />
       
       {/* Header */}
-      <section className="pt-32 pb-16 bg-background">
+      <section className="pt-28 pb-8 bg-background">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <h1 className="font-serif text-5xl md:text-6xl font-bold text-foreground mb-6">
               Photography Blog
             </h1>
@@ -81,29 +86,43 @@ const Blog = () => {
               craft, and philosophy of contemporary photography.
             </p>
           </div>
+        </div>
+      </section>
 
-          {/* Search and Filter */}
-          <div className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-6 mb-12">
+      {/* Sticky Filter Bar */}
+      <section className="sticky top-20 z-40 bg-background/95 backdrop-blur-md border-b border-border">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             {/* Search */}
             <div className="relative w-full md:w-96">
               <Search size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
               <Input
                 placeholder="Search articles..."
-                className="pl-10 h-12"
+                className="pl-10 h-10"
               />
             </div>
 
-            {/* Category Pills */}
-            <div className="flex flex-wrap justify-center gap-2">
-              {categories.map((category) => (
-                <Badge
-                  key={category}
-                  variant="outline"
-                  className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors px-4 py-2"
-                >
-                  {category}
-                </Badge>
-              ))}
+            {/* Category Filter */}
+            <div className="flex items-center space-x-4">
+              <Filter size={20} className="text-muted-foreground" />
+              <div className="flex flex-wrap gap-2">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={cn(
+                      'px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative',
+                      'after:content-[""] after:absolute after:w-full after:h-[2px] after:bottom-0 after:left-0',
+                      'after:bg-primary after:transition-transform after:duration-300',
+                      selectedCategory === category
+                        ? 'text-primary after:scale-x-100 font-semibold'
+                        : 'text-muted-foreground hover:text-foreground after:scale-x-0 hover:after:scale-x-100'
+                    )}
+                  >
+                    {category}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -112,69 +131,72 @@ const Blog = () => {
       {/* Blog Grid */}
       <section className="pb-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {blogPosts.map((post, index) => (
-              <Card
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-8">
+            {blogPosts
+              .filter(post => selectedCategory === 'All' || post.category === selectedCategory)
+              .map((post, index) => (
+              <Link
                 key={post.id}
-                className={`group relative overflow-hidden bg-card border-border shadow-elegant hover:shadow-hover transition-all duration-500 cursor-pointer ${
-                  index === 0 ? 'lg:col-span-2' : ''
-                }`}
+                to={`/blog/${post.id}`}
+                className={`block ${index === 0 ? 'lg:col-span-2' : ''}`}
               >
-                <div className="p-8 h-full flex flex-col">
-                  {/* Meta Information */}
-                  <div className="flex items-center justify-between mb-4">
-                    <Badge 
-                      variant="secondary" 
-                      className="text-xs font-medium"
-                    >
-                      {post.category}
-                    </Badge>
-                    {post.featured && (
+                <Card className="group relative overflow-hidden bg-card border-border shadow-elegant hover:shadow-hover transition-all duration-500 cursor-pointer hover:scale-[1.02]">
+                  <div className="p-8 h-full flex flex-col">
+                    {/* Meta Information */}
+                    <div className="flex items-center justify-between mb-4">
                       <Badge 
-                        className="bg-primary text-primary-foreground text-xs"
+                        variant="secondary" 
+                        className="text-xs font-medium"
                       >
-                        Featured
+                        {post.category}
                       </Badge>
-                    )}
-                  </div>
+                      {post.featured && (
+                        <Badge 
+                          className="bg-primary text-primary-foreground text-xs"
+                        >
+                          Featured
+                        </Badge>
+                      )}
+                    </div>
 
-                  {/* Title */}
-                  <h2 className={`font-serif font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-300 ${
-                    index === 0 ? 'text-3xl md:text-4xl' : 'text-2xl'
-                  }`}>
-                    {post.title}
-                  </h2>
+                    {/* Title */}
+                    <h2 className={`font-serif font-semibold text-foreground mb-4 group-hover:text-primary transition-colors duration-300 ${
+                      index === 0 ? 'text-3xl md:text-4xl' : 'text-2xl'
+                    }`}>
+                      {post.title}
+                    </h2>
 
-                  {/* Excerpt */}
-                  <p className={`text-muted-foreground leading-relaxed mb-6 flex-grow ${
-                    index === 0 ? 'text-lg' : 'text-base'
-                  }`}>
-                    {post.excerpt}
-                  </p>
+                    {/* Excerpt */}
+                    <p className={`text-muted-foreground leading-relaxed mb-6 flex-grow ${
+                      index === 0 ? 'text-lg' : 'text-base'
+                    }`}>
+                      {post.excerpt}
+                    </p>
 
-                  {/* Footer */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-                      <div className="flex items-center">
-                        <Calendar size={14} className="mr-1" />
-                        <span>{new Date(post.publishDate).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
-                        })}</span>
+                    {/* Footer */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                        <div className="flex items-center">
+                          <Calendar size={14} className="mr-1" />
+                          <span>{new Date(post.publishDate).toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            year: 'numeric'
+                          })}</span>
+                        </div>
+                        <div className="flex items-center">
+                          <Clock size={14} className="mr-1" />
+                          <span>{post.readTime}</span>
+                        </div>
                       </div>
-                      <div className="flex items-center">
-                        <Clock size={14} className="mr-1" />
-                        <span>{post.readTime}</span>
+                      <div className="flex items-center text-primary font-medium group-hover:translate-x-1 transition-transform duration-300">
+                        <span className="mr-2">Read More</span>
+                        <ChevronRight size={16} />
                       </div>
                     </div>
-                    <div className="flex items-center text-primary font-medium group-hover:translate-x-1 transition-transform duration-300">
-                      <span className="mr-2">Read More</span>
-                      <ArrowRight size={16} />
-                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
+              </Link>
             ))}
           </div>
 
