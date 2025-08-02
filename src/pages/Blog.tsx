@@ -71,7 +71,7 @@ const Blog = () => {
   const categories = ['All', 'Techniques', 'Philosophy', 'Inspiration', 'Process', 'Theory'];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Navigation />
       
       {/* Header */}
