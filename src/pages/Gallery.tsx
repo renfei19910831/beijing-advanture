@@ -4,7 +4,7 @@ import Footer from '@/components/Footer';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Filter, Grid3X3, Grid, Eye } from 'lucide-react';
+import { Filter, Eye } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import portraitImage from '@/assets/portfolio-portrait.jpg';
 import architectureImage from '@/assets/portfolio-architecture.jpg';
@@ -12,7 +12,6 @@ import streetImage from '@/assets/portfolio-street.jpg';
 
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [viewMode, setViewMode] = useState('grid');
 
   const categories = ['All', 'Portrait', 'Architecture', 'Street', 'Landscape'];
 
@@ -94,48 +93,27 @@ const Gallery = () => {
       {/* Sticky Filter Bar */}
       <section className="sticky top-20 z-40 bg-background/95 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            {/* Category Filter */}
-            <div className="flex items-center space-x-4">
-              <Filter size={20} className="text-muted-foreground flex-shrink-0" />
-              <div className="overflow-x-auto scrollbar-hide w-80 md:w-96">
-                <div className="flex gap-2 pb-1" style={{ minWidth: 'max-content' }}>
-                  {categories.map((category) => (
-                    <button
-                      key={category}
-                      onClick={() => setSelectedCategory(category)}
-                      className={cn(
-                        'px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative whitespace-nowrap flex-shrink-0',
-                        'after:content-[""] after:absolute after:w-full after:h-[2px] after:bottom-0 after:left-0',
-                        'after:bg-primary after:transition-transform after:duration-300',
-                        selectedCategory === category
-                          ? 'text-primary after:scale-x-100 font-semibold'
-                          : 'text-muted-foreground hover:text-foreground after:scale-x-0 hover:after:scale-x-100'
-                      )}
-                    >
-                      {category}
-                    </button>
-                  ))}
-                </div>
+          <div className="flex items-center space-x-4">
+            <Filter size={20} className="text-muted-foreground flex-shrink-0" />
+            <div className="overflow-x-auto scrollbar-hide w-80 md:w-96">
+              <div className="flex gap-2 pb-1" style={{ minWidth: 'max-content' }}>
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={cn(
+                      'px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative whitespace-nowrap flex-shrink-0',
+                      'after:content-[""] after:absolute after:w-full after:h-[2px] after:bottom-0 after:left-0',
+                      'after:bg-primary after:transition-transform after:duration-300',
+                      selectedCategory === category
+                        ? 'text-primary after:scale-x-100 font-semibold'
+                        : 'text-muted-foreground hover:text-foreground after:scale-x-0 hover:after:scale-x-100'
+                    )}
+                  >
+                    {category}
+                  </button>
+                ))}
               </div>
-            </div>
-
-            {/* View Toggle */}
-            <div className="flex items-center space-x-2">
-              <Button
-                variant={viewMode === 'grid' ? "default" : "outline"}
-                size="sm"
-                onClick={() => setViewMode('grid')}
-              >
-                <Grid3X3 size={16} />
-              </Button>
-              <Button
-                variant={viewMode === 'masonry' ? "default" : "outline"}
-                size="sm"
-                onClick={() => setViewMode('masonry')}
-              >
-                <Grid size={16} />
-              </Button>
             </div>
           </div>
         </div>
@@ -144,12 +122,7 @@ const Gallery = () => {
       {/* Gallery Grid */}
       <section className="pb-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className={cn(
-            'grid gap-6 pt-8',
-            viewMode === 'masonry' 
-              ? 'grid-cols-1 md:grid-cols-3 lg:grid-cols-4' 
-              : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-          )}>
+          <div className="grid gap-6 pt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             {filteredItems.map((item) => (
               <Card
                 key={item.id}
