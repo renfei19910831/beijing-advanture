@@ -16,7 +16,7 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden pt-[120px] md:pt-[120px] pb-[15vh]">
       {/* Hero Image */}
       <div className="absolute inset-0">
         <img
@@ -28,7 +28,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto">
+      <div className="relative z-10 text-center text-white px-6 max-w-4xl mx-auto transform translate-y-[25%]">
         <div
           className={`transform transition-all duration-1000 ${
             isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'

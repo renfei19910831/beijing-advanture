@@ -27,12 +27,7 @@ const Navigation = () => {
 
   return (
     <nav
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-        isScrolled
-          ? 'bg-background/95 backdrop-blur-md shadow-elegant'
-          : 'bg-background/90 backdrop-blur-sm'
-      )}
+      className="fixed top-0 left-0 right-0 z-[1000] bg-white/86 backdrop-blur-md border-b border-black/8 transition-all duration-500"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
@@ -52,7 +47,7 @@ const Navigation = () => {
                 to={item.path}
                 className={cn(
                   'text-sm font-medium tracking-wide transition-all duration-300 relative',
-                  'after:content-[""] after:absolute after:w-full after:h-[2px] after:bottom-[-4px] after:left-0',
+                  'after:content-[""] after:absolute after:w-full after:h-[3px] after:bottom-[-4px] after:left-0',
                   'after:bg-primary after:scale-x-0 after:transition-transform after:duration-300',
                   'hover:after:scale-x-100 hover:text-primary',
                   location.pathname === item.path
