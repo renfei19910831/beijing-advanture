@@ -63,14 +63,10 @@ const About = () => {
                 our daily experiences. Each photograph is an opportunity to freeze 
                 a moment in time and transform it into lasting art.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div>
                 <Button size="lg" className="px-8">
                   <Mail size={16} className="mr-2" />
                   Get In Touch
-                </Button>
-                <Button variant="outline" size="lg" className="px-8">
-                  <Download size={16} className="mr-2" />
-                  Download Portfolio
                 </Button>
               </div>
             </div>
