@@ -63,12 +63,6 @@ const About = () => {
                 our daily experiences. Each photograph is an opportunity to freeze 
                 a moment in time and transform it into lasting art.
               </p>
-              <div>
-                <Button size="lg" className="px-8">
-                  <Mail size={16} className="mr-2" />
-                  Get In Touch
-                </Button>
-              </div>
             </div>
 
             {/* Profile Image Placeholder */}
@@ -78,13 +72,6 @@ const About = () => {
                   <Camera size={64} className="text-muted-foreground" />
                 </div>
               </Card>
-              {/* Floating Badge */}
-              <div className="absolute -bottom-6 -right-6 bg-primary text-primary-foreground px-6 py-3 rounded-lg shadow-hover">
-                <div className="text-center">
-                  <div className="text-2xl font-bold">8+</div>
-                  <div className="text-sm">Years</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -192,6 +179,14 @@ const About = () => {
       </section>
 
       <Footer />
+      
+      {/* Fixed Get In Touch Button */}
+      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50">
+        <Button size="lg" className="px-8 shadow-lg">
+          <Mail size={16} className="mr-2" />
+          Get In Touch
+        </Button>
+      </div>
     </div>
   );
 };
