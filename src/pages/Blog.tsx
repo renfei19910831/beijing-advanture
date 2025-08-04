@@ -10,6 +10,8 @@ import { cn } from '@/lib/utils';
 
 const Blog = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [currentPage, setCurrentPage] = useState(1);
+  const postsPerPage = 4;
   
   const blogPosts = [
     {
@@ -110,7 +112,10 @@ const Blog = () => {
                   {categories.map((category) => (
                     <button
                       key={category}
-                      onClick={() => setSelectedCategory(category)}
+                      onClick={() => {
+                        setSelectedCategory(category);
+                        setCurrentPage(1); // Reset to first page when changing category
+                      }}
                       className={cn(
                         'px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative whitespace-nowrap flex-shrink-0',
                         'after:content-[""] after:absolute after:w-full after:h-[2px] after:bottom-0 after:left-0',
@@ -134,9 +139,13 @@ const Blog = () => {
       <section className="pb-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-8">
-            {blogPosts
-              .filter(post => selectedCategory === 'All' || post.category === selectedCategory)
-              .map((post, index) => (
+            {(() => {
+              const filteredPosts = blogPosts.filter(post => selectedCategory === 'All' || post.category === selectedCategory);
+              const startIndex = (currentPage - 1) * postsPerPage;
+              const endIndex = startIndex + postsPerPage;
+              const currentPosts = filteredPosts.slice(startIndex, endIndex);
+              
+              return currentPosts.map((post, index) => (
               <Link
                 key={post.id}
                 to={`/blog/${post.id}`}
@@ -199,29 +208,52 @@ const Blog = () => {
                   </div>
                 </Card>
               </Link>
-            ))}
+              ));
+            })()}
           </div>
 
           {/* Pagination */}
-          <div className="flex justify-center mt-16">
-            <div className="flex space-x-2">
-              <button className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors">
-                Previous
-              </button>
-              <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md">
-                1
-              </button>
-              <button className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors">
-                2
-              </button>
-              <button className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors">
-                3
-              </button>
-              <button className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors">
-                Next
-              </button>
-            </div>
-          </div>
+          {(() => {
+            const filteredPosts = blogPosts.filter(post => selectedCategory === 'All' || post.category === selectedCategory);
+            const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+            
+            if (totalPages <= 1) return null;
+            
+            return (
+              <div className="flex justify-center mt-16">
+                <div className="flex space-x-2">
+                  <button 
+                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Previous
+                  </button>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={cn(
+                        "px-4 py-2 rounded-md transition-colors",
+                        currentPage === page
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:text-foreground"
+                      )}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                  <button 
+                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </section>
 
