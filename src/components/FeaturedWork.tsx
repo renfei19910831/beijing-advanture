@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Eye } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import portraitImage from '@/assets/portfolio-portrait.jpg';
 import architectureImage from '@/assets/portfolio-architecture.jpg';
 import streetImage from '@/assets/portfolio-street.jpg';
@@ -116,10 +117,13 @@ const FeaturedWork = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <button className="inline-flex items-center px-8 py-3 text-primary hover:text-primary/80 font-medium transition-colors duration-300 group">
+          <Link 
+            to="/gallery" 
+            className="inline-flex items-center px-8 py-3 text-primary hover:text-primary/80 font-medium transition-colors duration-300 group"
+          >
             <span className="mr-2">View Complete Gallery</span>
             <ExternalLink size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-          </button>
+          </Link>
         </div>
       </div>
     </section>

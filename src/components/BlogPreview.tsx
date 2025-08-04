@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const BlogPreview = () => {
   const latestPosts = [
@@ -116,10 +117,13 @@ const BlogPreview = () => {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <button className="inline-flex items-center px-8 py-3 text-primary hover:text-primary/80 font-medium transition-colors duration-300 group">
+          <Link 
+            to="/blog" 
+            className="inline-flex items-center px-8 py-3 text-primary hover:text-primary/80 font-medium transition-colors duration-300 group"
+          >
             <span className="mr-2">Read All Posts</span>
             <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-          </button>
+          </Link>
         </div>
       </div>
     </section>
