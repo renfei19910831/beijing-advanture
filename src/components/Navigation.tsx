@@ -27,14 +27,19 @@ const Navigation = () => {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-[1000] bg-white/86 backdrop-blur-md border-b border-black/8 transition-all duration-500"
+      className={cn(
+        "fixed top-0 left-0 right-0 z-[1000] backdrop-blur-md border-b transition-all duration-500",
+        isScrolled 
+          ? "bg-background/95 border-border shadow-sm" 
+          : "bg-background/70 border-border/50"
+      )}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link 
             to="/" 
-            className="font-serif text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-300"
+            className="font-serif text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-300 drop-shadow-sm"
           >
             Atelier Capture
           </Link>
@@ -46,7 +51,7 @@ const Navigation = () => {
                 key={item.path}
                 to={item.path}
                 className={cn(
-                  'text-sm font-medium tracking-wide transition-all duration-300 relative',
+                  'text-sm font-medium tracking-wide transition-all duration-300 relative drop-shadow-sm',
                   'after:content-[""] after:absolute after:w-full after:h-[3px] after:bottom-[-4px] after:left-0',
                   'after:bg-primary after:scale-x-0 after:transition-transform after:duration-300',
                   'hover:after:scale-x-100 hover:text-primary',
@@ -62,7 +67,7 @@ const Navigation = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 text-foreground hover:text-primary transition-colors"
+            className="md:hidden p-2 text-foreground hover:text-primary transition-colors drop-shadow-sm"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
