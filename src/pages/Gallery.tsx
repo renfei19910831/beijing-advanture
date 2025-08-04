@@ -12,6 +12,7 @@ import streetImage from '@/assets/portfolio-street.jpg';
 
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [visibleCount, setVisibleCount] = useState(6);
 
   const categories = ['All', 'Portrait', 'Architecture', 'Street', 'Landscape'];
 
@@ -40,7 +41,7 @@ const Gallery = () => {
       date: '2024-01-10',
       location: 'Market Street',
     },
-    // Duplicate items for demonstration
+    // Additional items for demonstration
     {
       id: 4,
       title: 'Evening Grace',
@@ -65,11 +66,72 @@ const Gallery = () => {
       date: '2024-01-03',
       location: 'Old Town',
     },
+    {
+      id: 7,
+      title: 'Midnight Reflection',
+      category: 'Portrait',
+      image: portraitImage,
+      date: '2024-01-01',
+      location: 'Urban Rooftop',
+    },
+    {
+      id: 8,
+      title: 'Concrete Dreams',
+      category: 'Architecture',
+      image: architectureImage,
+      date: '2023-12-28',
+      location: 'Downtown Core',
+    },
+    {
+      id: 9,
+      title: 'Life in Motion',
+      category: 'Street',
+      image: streetImage,
+      date: '2023-12-25',
+      location: 'Central Plaza',
+    },
+    {
+      id: 10,
+      title: 'Silent Moments',
+      category: 'Portrait',
+      image: portraitImage,
+      date: '2023-12-22',
+      location: 'Gallery Space',
+    },
+    {
+      id: 11,
+      title: 'Modern Lines',
+      category: 'Architecture',
+      image: architectureImage,
+      date: '2023-12-20',
+      location: 'Tech District',
+    },
+    {
+      id: 12,
+      title: 'Urban Poetry',
+      category: 'Street',
+      image: streetImage,
+      date: '2023-12-18',
+      location: 'Arts Quarter',
+    },
   ];
 
   const filteredItems = selectedCategory === 'All' 
     ? galleryItems 
     : galleryItems.filter(item => item.category === selectedCategory);
+
+  const visibleItems = filteredItems.slice(0, visibleCount);
+  const hasMoreItems = visibleCount < filteredItems.length;
+
+  const handleLoadMore = () => {
+    setVisibleCount(prev => prev + 6);
+  };
+
+  // Reset visible count when category changes
+  const handleCategoryChange = (category: string) => {
+    setSelectedCategory(category);
+    setVisibleCount(6);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -100,7 +162,7 @@ const Gallery = () => {
                 {categories.map((category) => (
                   <button
                     key={category}
-                    onClick={() => setSelectedCategory(category)}
+                    onClick={() => handleCategoryChange(category)}
                     className={cn(
                       'px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 relative whitespace-nowrap flex-shrink-0',
                       'after:content-[""] after:absolute after:w-full after:h-[2px] after:bottom-0 after:left-0',
@@ -123,7 +185,7 @@ const Gallery = () => {
       <section className="pb-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="grid gap-6 pt-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {filteredItems.map((item) => (
+            {visibleItems.map((item) => (
               <Card
                 key={item.id}
                 className="group relative overflow-hidden bg-card border-border shadow-elegant hover:shadow-hover transition-all duration-500 cursor-pointer"
@@ -172,11 +234,18 @@ const Gallery = () => {
           </div>
 
           {/* Load More */}
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg" className="px-8">
-              Load More Images
-            </Button>
-          </div>
+          {hasMoreItems && (
+            <div className="text-center mt-12">
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="px-8"
+                onClick={handleLoadMore}
+              >
+                Load More Images
+              </Button>
+            </div>
+          )}
         </div>
       </section>
 
