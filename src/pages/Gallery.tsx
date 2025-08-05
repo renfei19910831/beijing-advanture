@@ -4,7 +4,9 @@ import Footer from '@/components/Footer';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Filter, Eye } from 'lucide-react';
+import { Filter, Eye, Share2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
 import portraitImage from '@/assets/portfolio-portrait.jpg';
 import architectureImage from '@/assets/portfolio-architecture.jpg';
@@ -13,6 +15,8 @@ import streetImage from '@/assets/portfolio-street.jpg';
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [visibleCount, setVisibleCount] = useState(6);
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const categories = ['All', 'Portrait', 'Architecture', 'Street', 'Landscape'];
 
@@ -201,13 +205,46 @@ const Gallery = () => {
                   {/* Overlay */}
                   <div className="absolute inset-0 bg-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <Button
-                        size="sm"
-                        className="bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30"
-                      >
-                        <Eye size={16} className="mr-2" />
-                        View
-                      </Button>
+                      <div className="flex space-x-3">
+                        <Button
+                          size="sm"
+                          onClick={() => navigate(`/photo/${item.id}`)}
+                          className="bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30"
+                        >
+                          <Eye size={16} className="mr-2" />
+                          View
+                        </Button>
+                        <Button
+                          size="sm"
+                          onClick={async () => {
+                            const url = `${window.location.origin}/photo/${item.id}`;
+                            if (navigator.share) {
+                              try {
+                                await navigator.share({
+                                  title: item.title,
+                                  text: `Check out this photo: ${item.title}`,
+                                  url: url,
+                                });
+                              } catch (error) {
+                                await navigator.clipboard.writeText(url);
+                                toast({
+                                  title: "Link copied!",
+                                  description: "Photo URL has been copied to your clipboard.",
+                                });
+                              }
+                            } else {
+                              await navigator.clipboard.writeText(url);
+                              toast({
+                                title: "Link copied!",
+                                description: "Photo URL has been copied to your clipboard.",
+                              });
+                            }
+                          }}
+                          className="bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30"
+                        >
+                          <Share2 size={16} />
+                        </Button>
+                      </div>
                     </div>
                   </div>
 

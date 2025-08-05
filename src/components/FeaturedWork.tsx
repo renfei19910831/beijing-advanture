@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ExternalLink, Eye } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { ExternalLink, Eye, Share2 } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 import portraitImage from '@/assets/portfolio-portrait.jpg';
 import architectureImage from '@/assets/portfolio-architecture.jpg';
 import streetImage from '@/assets/portfolio-street.jpg';
 
 const FeaturedWork = () => {
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+  const navigate = useNavigate();
+  const { toast } = useToast();
 
   const featuredWorks = [
     {
@@ -74,11 +77,40 @@ const FeaturedWork = () => {
                 }`}>
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="flex space-x-4">
-                      <button className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors">
+                      <button 
+                        onClick={() => navigate(`/photo/${work.id}`)}
+                        className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
+                      >
                         <Eye size={20} />
                       </button>
-                      <button className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors">
-                        <ExternalLink size={20} />
+                      <button 
+                        onClick={async () => {
+                          const url = `${window.location.origin}/photo/${work.id}`;
+                          if (navigator.share) {
+                            try {
+                              await navigator.share({
+                                title: work.title,
+                                text: work.description,
+                                url: url,
+                              });
+                            } catch (error) {
+                              await navigator.clipboard.writeText(url);
+                              toast({
+                                title: "Link copied!",
+                                description: "Photo URL has been copied to your clipboard.",
+                              });
+                            }
+                          } else {
+                            await navigator.clipboard.writeText(url);
+                            toast({
+                              title: "Link copied!",
+                              description: "Photo URL has been copied to your clipboard.",
+                            });
+                          }
+                        }}
+                        className="p-3 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
+                      >
+                        <Share2 size={20} />
                       </button>
                     </div>
                   </div>
