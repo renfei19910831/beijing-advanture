@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+import LanguageSwitcher from './LanguageSwitcher';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,11 +21,11 @@ const Navigation = () => {
   }, []);
 
   const navItems = [
-    { name: 'Home', path: '/' },
-    { name: 'Gallery', path: '/gallery' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' },
+    { name: t('nav.home'), path: '/' },
+    { name: t('nav.gallery'), path: '/gallery' },
+    { name: t('nav.blog'), path: '/blog' },
+    { name: t('nav.about'), path: '/about' },
+    { name: t('nav.contact'), path: '/contact' },
   ];
 
   return (
@@ -63,15 +66,19 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            <LanguageSwitcher />
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 text-foreground hover:text-primary transition-colors drop-shadow-sm"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile Menu Button & Language Switcher */}
+          <div className="md:hidden flex items-center space-x-2">
+            <LanguageSwitcher />
+            <button
+              className="p-2 text-foreground hover:text-primary transition-colors drop-shadow-sm"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
