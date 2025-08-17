@@ -8,40 +8,44 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Elegant Photography Portfolio Design System */
-    --background: 32 20% 98%; /* Ivory base */
-    --foreground: 210 15% 15%; /* Charcoal text */
+    /* Luxury Photography Portfolio Design System */
+    --background: 30 15% 97%; /* Warm pearl white */
+    --foreground: 240 20% 8%; /* Rich charcoal */
 
-    --card: 32 20% 98%;
-    --card-foreground: 210 15% 15%;
+    --card: 30 15% 97%;
+    --card-foreground: 240 20% 8%;
 
-    --popover: 32 20% 98%;
-    --popover-foreground: 210 15% 15%;
+    --popover: 30 15% 97%;
+    --popover-foreground: 240 20% 8%;
 
-    --primary: 213 20% 60%; /* #5E81AC accent blue */
-    --primary-foreground: 32 20% 98%;
+    --primary: 45 80% 65%; /* Champagne gold */
+    --primary-foreground: 240 20% 8%;
 
-    --secondary: 210 8% 92%; /* Subtle grey */
-    --secondary-foreground: 210 15% 25%;
+    --secondary: 30 8% 88%; /* Platinum grey */
+    --secondary-foreground: 240 15% 20%;
 
-    --muted: 210 8% 95%;
-    --muted-foreground: 210 10% 55%;
+    --muted: 30 8% 92%;
+    --muted-foreground: 240 10% 45%;
 
-    --accent: 213 20% 60%;
-    --accent-foreground: 32 20% 98%;
+    --accent: 15 90% 55%; /* Rose gold */
+    --accent-foreground: 30 15% 97%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 32 20% 98%;
+    --destructive-foreground: 30 15% 97%;
 
-    --border: 210 12% 88%;
-    --input: 210 12% 90%;
-    --ring: 213 20% 60%;
+    --border: 30 12% 85%;
+    --input: 30 12% 88%;
+    --ring: 45 80% 65%;
 
-    /* Design tokens for sophisticated photography portfolio */
-    --hero-gradient: linear-gradient(135deg, hsl(210 15% 8% / 0.4), hsl(213 20% 60% / 0.1));
-    --glass-bg: hsl(32 20% 98% / 0.8);
-    --shadow-elegant: 0 8px 32px hsl(210 15% 15% / 0.08);
-    --shadow-hover: 0 12px 40px hsl(210 15% 15% / 0.12);
+    /* Luxury design tokens */
+    --hero-gradient: linear-gradient(135deg, hsl(240 20% 8% / 0.6), hsl(45 80% 65% / 0.15));
+    --glass-bg: hsl(30 15% 97% / 0.85);
+    --shadow-luxury: 0 16px 64px hsl(240 20% 8% / 0.15);
+    --shadow-gold: 0 8px 32px hsl(45 80% 65% / 0.25);
+    --shadow-hover: 0 20px 80px hsl(240 20% 8% / 0.2);
+    --gradient-gold: linear-gradient(135deg, hsl(45 90% 70%), hsl(35 85% 60%));
+    --gradient-platinum: linear-gradient(180deg, hsl(30 8% 92%), hsl(30 12% 85%));
+    --transition-luxury: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --transition-quick: all 0.2s ease-out;
 
