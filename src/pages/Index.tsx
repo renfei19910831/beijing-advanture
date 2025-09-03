@@ -2,7 +2,6 @@ import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
 import FeaturedWork from '@/components/FeaturedWork';
 import ServiceHighlight from '@/components/ServiceHighlight';
-import BeijingShowcase from '@/components/BeijingShowcase';
 import BlogPreview from '@/components/BlogPreview';
 import Footer from '@/components/Footer';
 
@@ -13,7 +12,6 @@ const Index = () => {
       <Hero />
       <FeaturedWork />
       <ServiceHighlight />
-      <BeijingShowcase />
       <BlogPreview />
       <Footer />
     </div>
