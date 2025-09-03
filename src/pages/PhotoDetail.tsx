@@ -3,7 +3,7 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Share2, Download, Heart } from 'lucide-react';
+import { ArrowLeft, Share2, Heart } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import portraitImage from '@/assets/portfolio-portrait.jpg';
 import architectureImage from '@/assets/portfolio-architecture.jpg';
@@ -184,16 +184,10 @@ const PhotoDetail = () => {
 
               {/* Actions */}
               <div className="border-t border-border pt-6">
-                <div className="space-y-3">
-                  <Button className="w-full" onClick={handleShare}>
-                    <Share2 size={16} className="mr-2" />
-                    Share Photo
-                  </Button>
-                  <Button variant="outline" className="w-full">
-                    <Download size={16} className="mr-2" />
-                    Download
-                  </Button>
-                </div>
+                <Button className="w-full" onClick={handleShare}>
+                  <Share2 size={16} className="mr-2" />
+                  Share Photo
+                </Button>
               </div>
             </div>
           </div>
