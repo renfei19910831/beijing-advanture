@@ -1,6 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { MapPin, Camera, Star } from 'lucide-react';
+import testimonialSarah from '@/assets/testimonial-sarah.jpg';
+import testimonialMichael from '@/assets/testimonial-michael.jpg';
+import testimonialLisa from '@/assets/testimonial-lisa.jpg';
 
 const ServiceHighlight = () => {
   return (
@@ -73,9 +77,15 @@ const ServiceHighlight = () => {
               <p className="text-muted-foreground mb-4 italic">
                 "Amazing experience! The photos captured the essence of Beijing perfectly. Professional and creative."
               </p>
-              <div className="text-sm">
-                <div className="font-medium text-foreground">Sarah Chen</div>
-                <div className="text-muted-foreground">Wedding Photography</div>
+              <div className="flex items-center space-x-3">
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src={testimonialSarah} alt="Sarah Chen" />
+                  <AvatarFallback>SC</AvatarFallback>
+                </Avatar>
+                <div className="text-sm">
+                  <div className="font-medium text-foreground">Sarah Chen</div>
+                  <div className="text-muted-foreground">Wedding Photography</div>
+                </div>
               </div>
             </Card>
 
@@ -88,9 +98,15 @@ const ServiceHighlight = () => {
               <p className="text-muted-foreground mb-4 italic">
                 "Exceptional quality and service. The photographer knew all the best spots in Beijing. Highly recommend!"
               </p>
-              <div className="text-sm">
-                <div className="font-medium text-foreground">Michael Zhang</div>
-                <div className="text-muted-foreground">Corporate Portraits</div>
+              <div className="flex items-center space-x-3">
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src={testimonialMichael} alt="Michael Zhang" />
+                  <AvatarFallback>MZ</AvatarFallback>
+                </Avatar>
+                <div className="text-sm">
+                  <div className="font-medium text-foreground">Michael Zhang</div>
+                  <div className="text-muted-foreground">Corporate Portraits</div>
+                </div>
               </div>
             </Card>
 
@@ -103,9 +119,15 @@ const ServiceHighlight = () => {
               <p className="text-muted-foreground mb-4 italic">
                 "Beautiful portfolio shots that exceeded expectations. Great attention to detail and lighting."
               </p>
-              <div className="text-sm">
-                <div className="font-medium text-foreground">Lisa Wang</div>
-                <div className="text-muted-foreground">Fashion Portfolio</div>
+              <div className="flex items-center space-x-3">
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src={testimonialLisa} alt="Lisa Wang" />
+                  <AvatarFallback>LW</AvatarFallback>
+                </Avatar>
+                <div className="text-sm">
+                  <div className="font-medium text-foreground">Lisa Wang</div>
+                  <div className="text-muted-foreground">Fashion Portfolio</div>
+                </div>
               </div>
             </Card>
           </div>
