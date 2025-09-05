@@ -58,6 +58,59 @@ const ServiceHighlight = () => {
           </Card>
         </div>
 
+        {/* Client Testimonials */}
+        <div className="mb-16">
+          <div className="text-center mb-12">
+            <p className="text-sm text-muted-foreground uppercase tracking-wider mb-2">What Our Clients Say</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="p-6 bg-glass-bg backdrop-blur-sm border-border/50">
+              <div className="flex items-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                ))}
+              </div>
+              <p className="text-muted-foreground mb-4 italic">
+                "Amazing experience! The photos captured the essence of Beijing perfectly. Professional and creative."
+              </p>
+              <div className="text-sm">
+                <div className="font-medium text-foreground">Sarah Chen</div>
+                <div className="text-muted-foreground">Wedding Photography</div>
+              </div>
+            </Card>
+
+            <Card className="p-6 bg-glass-bg backdrop-blur-sm border-border/50">
+              <div className="flex items-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                ))}
+              </div>
+              <p className="text-muted-foreground mb-4 italic">
+                "Exceptional quality and service. The photographer knew all the best spots in Beijing. Highly recommend!"
+              </p>
+              <div className="text-sm">
+                <div className="font-medium text-foreground">Michael Zhang</div>
+                <div className="text-muted-foreground">Corporate Portraits</div>
+              </div>
+            </Card>
+
+            <Card className="p-6 bg-glass-bg backdrop-blur-sm border-border/50">
+              <div className="flex items-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                ))}
+              </div>
+              <p className="text-muted-foreground mb-4 italic">
+                "Beautiful portfolio shots that exceeded expectations. Great attention to detail and lighting."
+              </p>
+              <div className="text-sm">
+                <div className="font-medium text-foreground">Lisa Wang</div>
+                <div className="text-muted-foreground">Fashion Portfolio</div>
+              </div>
+            </Card>
+          </div>
+        </div>
+
         {/* Subtle CTA */}
         <div className="text-center">
           <Button 
