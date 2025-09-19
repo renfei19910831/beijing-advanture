@@ -6,6 +6,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Star, MapPin, Eye, Heart } from 'lucide-react';
 import { Photographer } from '@/types/photographer';
+import PhotographerSearch from '@/components/PhotographerSearch';
 
 // 模拟摄影师数据
 import heroImage from '@/assets/hero-landscape.jpg';
@@ -29,7 +30,9 @@ const mockPhotographers: Photographer[] = [
     bio: '专注人像摄影5年，擅长捕捉自然情感',
     portfolio: [
       { id: '1-1', url: portfolioPortrait, title: '夏日午后', category: '人像', description: '自然光人像摄影' },
-      { id: '1-2', url: heroImage, title: '城市漫步', category: '街拍', description: '都市情侣写真' }
+      { id: '1-2', url: heroImage, title: '城市漫步', category: '街拍', description: '都市情侣写真' },
+      { id: '1-3', url: portfolioStreet, title: '街角时光', category: '街拍', description: '日常生活记录' },
+      { id: '1-4', url: portfolioArchitecture, title: '光影对话', category: '人像', description: '建筑背景人像' }
     ],
     featured: true
   },
@@ -45,7 +48,9 @@ const mockPhotographers: Photographer[] = [
     bio: '建筑系出身，善于用镜头诠释空间之美',
     portfolio: [
       { id: '2-1', url: portfolioArchitecture, title: '现代建筑', category: '建筑', description: '几何美学展现' },
-      { id: '2-2', url: portfolioStreet, title: '街道印象', category: '街拍', description: '城市节奏感' }
+      { id: '2-2', url: portfolioStreet, title: '街道印象', category: '街拍', description: '城市节奏感' },
+      { id: '2-3', url: heroImage, title: '黄昏城市', category: '风光', description: '城市风光摄影' },
+      { id: '2-4', url: portfolioPortrait, title: '商务肖像', category: '商业', description: '专业商务摄影' }
     ],
     featured: true
   },
@@ -61,15 +66,80 @@ const mockPhotographers: Photographer[] = [
     bio: '温暖的镜头语言，记录生活中的美好瞬间',
     portfolio: [
       { id: '3-1', url: heroImage, title: '温馨时光', category: '家庭', description: '家庭温馨瞬间' },
-      { id: '3-2', url: portfolioPortrait, title: '纯真笑容', category: '儿童', description: '孩子天真时刻' }
+      { id: '3-2', url: portfolioPortrait, title: '纯真笑容', category: '儿童', description: '孩子天真时刻' },
+      { id: '3-3', url: portfolioStreet, title: '婚纱掠影', category: '婚纱', description: '浪漫婚纱摄影' }
     ],
     featured: false
+  },
+  {
+    id: '4',
+    name: '陈浩然',
+    avatar: testimonialMichael,
+    rating: 4.6,
+    reviewCount: 78,
+    specialties: ['街拍摄影', '纪实摄影', '旅行摄影'],
+    location: '北京',
+    priceRange: '¥500-1200',
+    bio: '热爱街头文化，用镜头记录城市的真实面貌',
+    portfolio: [
+      { id: '4-1', url: portfolioStreet, title: '街头故事', category: '街拍', description: '真实的街头瞬间' },
+      { id: '4-2', url: portfolioArchitecture, title: '都市节拍', category: '纪实', description: '城市生活记录' }
+    ],
+    featured: false
+  },
+  {
+    id: '5',
+    name: '刘思雨',
+    avatar: testimonialSarah,
+    rating: 4.8,
+    reviewCount: 132,
+    specialties: ['时尚摄影', '艺术摄影', '人像摄影'],
+    location: '上海',
+    priceRange: '¥1000-2500',
+    bio: '时尚摄影师，擅长创意人像和时尚大片',
+    portfolio: [
+      { id: '5-1', url: portfolioPortrait, title: '时尚力量', category: '时尚', description: '现代时尚摄影' },
+      { id: '5-2', url: heroImage, title: '艺术表达', category: '艺术', description: '创意艺术摄影' }
+    ],
+    featured: true
   }
 ];
 
 const PhotographerFeed = () => {
   const [hoveredPhoto, setHoveredPhoto] = useState<string | null>(null);
+  const [filteredPhotographers, setFilteredPhotographers] = useState(mockPhotographers);
   const navigate = useNavigate();
+
+  const handleSearch = (filters: {
+    searchTerm: string;
+    location: string;
+    category: string;
+  }) => {
+    const { searchTerm, location, category } = filters;
+    
+    const filtered = mockPhotographers.filter(photographer => {
+      const matchesSearch = !searchTerm || 
+        photographer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        photographer.bio.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        photographer.specialties.some(specialty => 
+          specialty.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      
+      const matchesLocation = !location || photographer.location === location;
+      
+      const matchesCategory = !category || 
+        photographer.portfolio.some(photo => 
+          photo.category.includes(category)
+        ) ||
+        photographer.specialties.some(specialty => 
+          specialty.includes(category)
+        );
+
+      return matchesSearch && matchesLocation && matchesCategory;
+    });
+
+    setFilteredPhotographers(filtered);
+  };
 
   const handleViewPhotographer = (photographerId: string) => {
     navigate(`/photographer/${photographerId}`);
@@ -78,13 +148,16 @@ const PhotographerFeed = () => {
   return (
     <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-foreground mb-4">精选摄影师作品</h2>
           <p className="text-muted-foreground text-lg">发现你喜欢的拍摄风格，找到最适合的摄影师</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {mockPhotographers.map((photographer) => 
+        {/* Search and Filter Component */}
+        <PhotographerSearch onSearch={handleSearch} />
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredPhotographers.map((photographer) => 
             photographer.portfolio.map((photo) => (
               <Card 
                 key={`${photographer.id}-${photo.id}`}
