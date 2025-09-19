@@ -7,29 +7,29 @@ const BlogPreview = () => {
   const latestPosts = [
     {
       id: 1,
-      title: 'The Art of Golden Hour Photography',
-      excerpt: 'Discover the secrets behind capturing that perfect golden light and how it transforms ordinary scenes into magical moments.',
-      category: 'Techniques',
+      title: '北京拍照圣地大盘点：10个绝美取景地',
+      excerpt: '从故宫到798艺术区，从胡同到现代建筑，为你盘点北京最适合拍照的10个绝美取景地，让你的照片瞬间刷爆朋友圈。',
+      category: '拍摄地点',
       publishDate: '2024-01-15',
-      readTime: '5 min read',
+      readTime: '5分钟阅读',
       featured: true,
     },
     {
       id: 2,
-      title: 'Street Photography Ethics',
-      excerpt: 'A thoughtful exploration of the responsibilities and considerations when documenting human stories in public spaces.',
-      category: 'Philosophy',
-      publishDate: '2024-01-08',
-      readTime: '7 min read',
+      title: '春季拍摄指南：如何拍出樱花季的浪漫感',
+      excerpt: '春暖花开，樱花盛放。掌握这些拍摄技巧，让你在樱花季拍出电影般的浪漫大片，记录最美的春日时光。',
+      category: '拍摄技巧',
+      publishDate: '2024-01-12',
+      readTime: '7分钟阅读',
       featured: false,
     },
     {
       id: 3,
-      title: 'Minimalism in Urban Landscapes',
-      excerpt: 'How to find simplicity and elegance in the complexity of modern cityscapes through careful composition.',
-      category: 'Inspiration',
-      publishDate: '2024-01-01',
-      readTime: '4 min read',
+      title: '情侣写真拍摄攻略：自然互动的秘诀',
+      excerpt: '想要拍出自然甜蜜的情侣写真？这些实用技巧帮你营造轻松氛围，捕捉最真实的爱情瞬间。',
+      category: '拍摄攻略',
+      publishDate: '2024-01-10',
+      readTime: '4分钟阅读',
       featured: false,
     },
   ];
@@ -40,11 +40,10 @@ const BlogPreview = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Latest Insights
+            旅行攻略 & 拍摄指南
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Thoughts on photography, visual storytelling, and the creative process 
-            behind capturing compelling images.
+            最佳拍摄地点推荐、摄影技巧分享和旅行拍摄攻略，让你的每次拍摄都收获满满
           </p>
         </div>
 
@@ -70,7 +69,7 @@ const BlogPreview = () => {
                     <Badge 
                       className="bg-primary text-primary-foreground text-xs"
                     >
-                      Featured
+                      精选
                     </Badge>
                   )}
                 </div>
@@ -121,7 +120,7 @@ const BlogPreview = () => {
             to="/blog" 
             className="inline-flex items-center px-8 py-3 text-primary hover:text-primary/80 font-medium transition-colors duration-300 group"
           >
-            <span className="mr-2">Read All Posts</span>
+            <span className="mr-2">查看所有攻略</span>
             <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
