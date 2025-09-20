@@ -73,8 +73,8 @@ const mockPhotographers: Photographer[] = [
 
 const Photographers = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const navigate = useNavigate();
 
   const locations = ['北京', '上海', '广州', '深圳', '杭州'];
@@ -87,9 +87,9 @@ const Photographers = () => {
                            specialty.toLowerCase().includes(searchTerm.toLowerCase())
                          );
     
-    const matchesLocation = !selectedLocation || photographer.location === selectedLocation;
+    const matchesLocation = !selectedLocation || selectedLocation === 'all' || photographer.location === selectedLocation;
     
-    const matchesCategory = !selectedCategory || 
+    const matchesCategory = !selectedCategory || selectedCategory === 'all' || 
                            photographer.portfolio.some(photo => 
                              photo.category.includes(selectedCategory)
                            ) ||
@@ -130,7 +130,7 @@ const Photographers = () => {
                     <SelectValue placeholder="选择城市" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">全部城市</SelectItem>
+                    <SelectItem value="all">全部城市</SelectItem>
                     {locations.map(location => (
                       <SelectItem key={location} value={location}>{location}</SelectItem>
                     ))}
@@ -141,7 +141,7 @@ const Photographers = () => {
                     <SelectValue placeholder="拍摄类型" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">全部类型</SelectItem>
+                    <SelectItem value="all">全部类型</SelectItem>
                     {categories.map(category => (
                       <SelectItem key={category} value={category}>{category}</SelectItem>
                     ))}

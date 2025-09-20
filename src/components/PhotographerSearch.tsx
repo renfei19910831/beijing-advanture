@@ -15,8 +15,8 @@ interface PhotographerSearchProps {
 
 const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedLocation, setSelectedLocation] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const locations = ['北京', '上海', '广州', '深圳', '杭州', '成都', '南京'];
   const categories = ['人像', '街拍', '建筑', '风光', '家庭', '儿童', '婚纱', '时尚', '商业', '艺术'];
@@ -31,8 +31,8 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
 
   const clearFilters = () => {
     setSearchTerm('');
-    setSelectedLocation('');
-    setSelectedCategory('');
+    setSelectedLocation('all');
+    setSelectedCategory('all');
     onSearch({
       searchTerm: '',
       location: '',
@@ -115,13 +115,13 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
             {selectedLocation && selectedLocation !== 'all' && (
               <Badge variant="secondary" className="flex items-center gap-1">
                 城市: {selectedLocation}
-                <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedLocation('')} />
+                <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedLocation('all')} />
               </Badge>
             )}
             {selectedCategory && selectedCategory !== 'all' && (
               <Badge variant="secondary" className="flex items-center gap-1">
                 类型: {selectedCategory}
-                <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedCategory('')} />
+                <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedCategory('all')} />
               </Badge>
             )}
           </div>
