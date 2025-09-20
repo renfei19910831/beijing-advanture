@@ -125,9 +125,9 @@ const PhotographerFeed = () => {
           specialty.toLowerCase().includes(searchTerm.toLowerCase())
         );
       
-      const matchesLocation = !location || photographer.location === location;
+      const matchesLocation = !location || location === 'all' || photographer.location === location;
       
-      const matchesCategory = !category || 
+      const matchesCategory = !category || category === 'all' || 
         photographer.portfolio.some(photo => 
           photo.category.includes(category)
         ) ||
