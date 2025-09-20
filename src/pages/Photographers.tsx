@@ -80,7 +80,10 @@ const Photographers = () => {
   const locations = ['北京', '上海', '广州', '深圳', '杭州'];
   const categories = ['人像', '街拍', '建筑', '风光', '家庭', '儿童', '婚纱'];
 
-  const filteredPhotographers = mockPhotographers.filter(photographer => {
+  // Separate exact matches and recommendations
+  const hasActiveFilters = searchTerm || selectedLocation !== 'all' || selectedCategory !== 'all';
+  
+  const exactMatches = mockPhotographers.filter(photographer => {
     const matchesSearch = photographer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          photographer.bio.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          photographer.specialties.some(specialty => 
@@ -99,6 +102,29 @@ const Photographers = () => {
 
     return matchesSearch && matchesLocation && matchesCategory;
   });
+
+  // Get recommendations when there are few exact matches
+  const recommendations = exactMatches.length < 3 && hasActiveFilters ? 
+    mockPhotographers.filter(photographer => {
+      // Don't include photographers already in exact matches
+      if (exactMatches.find(p => p.id === photographer.id)) return false;
+      
+      // Recommend based on category similarity
+      if (selectedCategory !== 'all') {
+        return photographer.specialties.some(specialty => 
+          specialty.includes(selectedCategory)
+        ) || photographer.portfolio.some(photo => 
+          photo.category.includes(selectedCategory)
+        );
+      }
+      
+      // Recommend based on location if only location filter is active
+      if (selectedLocation !== 'all' && !searchTerm) {
+        return photographer.location === selectedLocation;
+      }
+      
+      return false;
+    }).slice(0, 6) : [];
 
   return (
     <div className="min-h-screen bg-background">
@@ -151,7 +177,10 @@ const Photographers = () => {
 
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Filter className="w-4 h-4" />
-                <span>找到 {filteredPhotographers.length} 位摄影师</span>
+                <span>找到 {exactMatches.length} 位摄影师</span>
+                {recommendations.length > 0 && (
+                  <span>，推荐 {recommendations.length} 位相似摄影师</span>
+                )}
               </div>
             </div>
           </div>
@@ -160,70 +189,170 @@ const Photographers = () => {
         {/* Photographers Grid */}
         <section className="py-12">
           <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredPhotographers.map((photographer) => (
-                <Card key={photographer.id} className="group hover:shadow-elegant transition-all duration-300">
-                  <CardContent className="p-6">
-                    {/* Photographer Info */}
-                    <div className="flex items-center space-x-4 mb-4">
-                      <Avatar className="w-16 h-16">
-                        <AvatarImage src={photographer.avatar} alt={photographer.name} />
-                        <AvatarFallback>{photographer.name[0]}</AvatarFallback>
-                      </Avatar>
-                      <div className="flex-1">
-                        <h3 className="font-bold text-lg text-foreground">{photographer.name}</h3>
-                        <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-1">
-                          <MapPin className="w-3 h-3" />
-                          <span>{photographer.location}</span>
+            {/* Exact Matches */}
+            {exactMatches.length > 0 && (
+              <div className="mb-12">
+                {hasActiveFilters && (
+                  <div className="mb-6">
+                    <h2 className="text-2xl font-bold text-foreground mb-2">精确匹配的摄影师</h2>
+                    <p className="text-muted-foreground">根据您的搜索条件找到的摄影师</p>
+                  </div>
+                )}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {exactMatches.map((photographer) => (
+                    <Card key={photographer.id} className="group hover:shadow-elegant transition-all duration-300">
+                      <CardContent className="p-6">
+                        {/* Photographer Info */}
+                        <div className="flex items-center space-x-4 mb-4">
+                          <Avatar className="w-16 h-16">
+                            <AvatarImage src={photographer.avatar} alt={photographer.name} />
+                            <AvatarFallback>{photographer.name[0]}</AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1">
+                            <h3 className="font-bold text-lg text-foreground">{photographer.name}</h3>
+                            <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-1">
+                              <MapPin className="w-3 h-3" />
+                              <span>{photographer.location}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <Star className="w-4 h-4 fill-primary text-primary" />
+                              <span className="font-semibold text-foreground">{photographer.rating}</span>
+                              <span className="text-xs text-muted-foreground">({photographer.reviewCount}评价)</span>
+                            </div>
+                          </div>
                         </div>
-                        <div className="flex items-center space-x-1">
-                          <Star className="w-4 h-4 fill-primary text-primary" />
-                          <span className="font-semibold text-foreground">{photographer.rating}</span>
-                          <span className="text-xs text-muted-foreground">({photographer.reviewCount}评价)</span>
+
+                        {/* Bio */}
+                        <p className="text-muted-foreground text-sm mb-4">{photographer.bio}</p>
+
+                        {/* Specialties */}
+                        <div className="flex flex-wrap gap-1 mb-4">
+                          {photographer.specialties.map((specialty) => (
+                            <Badge key={specialty} variant="outline" className="text-xs">
+                              {specialty}
+                            </Badge>
+                          ))}
                         </div>
-                      </div>
-                    </div>
 
-                    {/* Bio */}
-                    <p className="text-muted-foreground text-sm mb-4">{photographer.bio}</p>
-
-                    {/* Specialties */}
-                    <div className="flex flex-wrap gap-1 mb-4">
-                      {photographer.specialties.map((specialty) => (
-                        <Badge key={specialty} variant="outline" className="text-xs">
-                          {specialty}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    {/* Portfolio Preview */}
-                    <div className="grid grid-cols-2 gap-2 mb-4">
-                      {photographer.portfolio.slice(0, 2).map((photo) => (
-                        <div key={photo.id} className="aspect-square rounded-lg overflow-hidden">
-                          <img 
-                            src={photo.url} 
-                            alt={photo.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
+                        {/* Portfolio Preview */}
+                        <div className="grid grid-cols-2 gap-2 mb-4">
+                          {photographer.portfolio.slice(0, 2).map((photo) => (
+                            <div key={photo.id} className="aspect-square rounded-lg overflow-hidden">
+                              <img 
+                                src={photo.url} 
+                                alt={photo.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
 
-                    {/* Price and Action */}
-                    <div className="flex items-center justify-between">
-                      <p className="text-sm font-semibold text-primary">{photographer.priceRange}</p>
-                      <Button 
-                        size="sm"
-                        onClick={() => navigate(`/photographer/${photographer.id}`)}
-                        className="bg-gradient-primary hover:opacity-90"
-                      >
-                        查看详情
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                        {/* Price and Action */}
+                        <div className="flex items-center justify-between">
+                          <p className="text-sm font-semibold text-primary">{photographer.priceRange}</p>
+                          <Button 
+                            size="sm"
+                            onClick={() => navigate(`/photographer/${photographer.id}`)}
+                            className="bg-gradient-primary hover:opacity-90"
+                          >
+                            查看详情
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Recommendations */}
+            {recommendations.length > 0 && (
+              <div className="mb-12">
+                <div className="mb-6">
+                  <h2 className="text-2xl font-bold text-foreground mb-2">推荐相似摄影师</h2>
+                  <p className="text-muted-foreground">您可能也会喜欢这些摄影师</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {recommendations.map((photographer) => (
+                    <Card key={`rec-${photographer.id}`} className="group hover:shadow-elegant transition-all duration-300 border-dashed">
+                      <CardContent className="p-6">
+                        {/* Photographer Info */}
+                        <div className="flex items-center space-x-4 mb-4">
+                          <Avatar className="w-16 h-16">
+                            <AvatarImage src={photographer.avatar} alt={photographer.name} />
+                            <AvatarFallback>{photographer.name[0]}</AvatarFallback>
+                          </Avatar>
+                          <div className="flex-1">
+                            <h3 className="font-bold text-lg text-foreground">{photographer.name}</h3>
+                            <div className="flex items-center space-x-2 text-sm text-muted-foreground mb-1">
+                              <MapPin className="w-3 h-3" />
+                              <span>{photographer.location}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <Star className="w-4 h-4 fill-primary text-primary" />
+                              <span className="font-semibold text-foreground">{photographer.rating}</span>
+                              <span className="text-xs text-muted-foreground">({photographer.reviewCount}评价)</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Bio */}
+                        <p className="text-muted-foreground text-sm mb-4">{photographer.bio}</p>
+
+                        {/* Specialties */}
+                        <div className="flex flex-wrap gap-1 mb-4">
+                          {photographer.specialties.map((specialty) => (
+                            <Badge key={specialty} variant="outline" className="text-xs">
+                              {specialty}
+                            </Badge>
+                          ))}
+                        </div>
+
+                        {/* Portfolio Preview */}
+                        <div className="grid grid-cols-2 gap-2 mb-4">
+                          {photographer.portfolio.slice(0, 2).map((photo) => (
+                            <div key={photo.id} className="aspect-square rounded-lg overflow-hidden">
+                              <img 
+                                src={photo.url} 
+                                alt={photo.title}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                              />
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Price and Action */}
+                        <div className="flex items-center justify-between">
+                          <p className="text-sm font-semibold text-primary">{photographer.priceRange}</p>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => navigate(`/photographer/${photographer.id}`)}
+                          >
+                            查看详情
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* No Results */}
+            {exactMatches.length === 0 && recommendations.length === 0 && hasActiveFilters && (
+              <div className="text-center py-12">
+                <h3 className="text-xl font-semibold text-foreground mb-2">未找到匹配的摄影师</h3>
+                <p className="text-muted-foreground mb-4">尝试调整搜索条件或浏览所有摄影师</p>
+                <Button variant="outline" onClick={() => {
+                  setSearchTerm('');
+                  setSelectedLocation('all');
+                  setSelectedCategory('all');
+                }}>
+                  清除筛选条件
+                </Button>
+              </div>
+            )}
           </div>
         </section>
       </main>
