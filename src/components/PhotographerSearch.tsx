@@ -24,8 +24,8 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
   const handleSearch = () => {
     onSearch({
       searchTerm,
-      location: selectedLocation,
-      category: selectedCategory
+      location: selectedLocation === 'all' ? '' : selectedLocation,
+      category: selectedCategory === 'all' ? '' : selectedCategory
     });
   };
 
@@ -40,7 +40,7 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
     });
   };
 
-  const hasFilters = searchTerm || selectedLocation || selectedCategory;
+  const hasFilters = searchTerm || (selectedLocation && selectedLocation !== 'all') || (selectedCategory && selectedCategory !== 'all');
 
   return (
     <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 mb-8">
@@ -67,7 +67,7 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
               </div>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">全部城市</SelectItem>
+              <SelectItem value="all">全部城市</SelectItem>
               {locations.map(location => (
                 <SelectItem key={location} value={location}>{location}</SelectItem>
               ))}
@@ -82,7 +82,7 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
               </div>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">全部类型</SelectItem>
+              <SelectItem value="all">全部类型</SelectItem>
               {categories.map(category => (
                 <SelectItem key={category} value={category}>{category}</SelectItem>
               ))}
@@ -112,13 +112,13 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
                 <X className="w-3 h-3 cursor-pointer" onClick={() => setSearchTerm('')} />
               </Badge>
             )}
-            {selectedLocation && (
+            {selectedLocation && selectedLocation !== 'all' && (
               <Badge variant="secondary" className="flex items-center gap-1">
                 城市: {selectedLocation}
                 <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedLocation('')} />
               </Badge>
             )}
-            {selectedCategory && (
+            {selectedCategory && selectedCategory !== 'all' && (
               <Badge variant="secondary" className="flex items-center gap-1">
                 类型: {selectedCategory}
                 <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedCategory('')} />
