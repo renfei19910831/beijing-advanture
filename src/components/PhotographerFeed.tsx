@@ -125,10 +125,9 @@ const PhotographerFeed = () => {
 
   const handleSearch = (filters: {
     searchTerm: string;
-    gender: string;
     category: string;
   }) => {
-    const { searchTerm, gender, category } = filters;
+    const { searchTerm, category } = filters;
     
     const filtered = mockPhotographers.filter(photographer => {
       const matchesSearch = !searchTerm || 
@@ -138,8 +137,6 @@ const PhotographerFeed = () => {
           specialty.toLowerCase().includes(searchTerm.toLowerCase())
         );
       
-      const matchesGender = !gender || gender === 'all' || photographer.gender === gender;
-      
       const matchesCategory = !category || category === 'all' || 
         photographer.portfolio.some(photo => 
           photo.category.includes(category)
@@ -148,7 +145,7 @@ const PhotographerFeed = () => {
           specialty.includes(category)
         );
 
-      return matchesSearch && matchesGender && matchesCategory;
+      return matchesSearch && matchesCategory;
     });
 
     setFilteredPhotographers(filtered);
@@ -158,7 +155,6 @@ const PhotographerFeed = () => {
     setActiveCategory(category);
     handleSearch({
       searchTerm: '',
-      gender: '',
       category: category === 'all' ? '' : category
     });
   };

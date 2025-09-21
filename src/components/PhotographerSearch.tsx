@@ -1,13 +1,11 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Users, Camera, X, Filter } from 'lucide-react';
+import { X } from 'lucide-react';
 
 interface PhotographerSearchProps {
   onSearch: (filters: {
     searchTerm: string;
-    gender: string;
     category: string;
   }) => void;
   categories?: Array<{ value: string; label: string }>;
@@ -21,34 +19,23 @@ const PhotographerSearch = ({
   activeCategory = 'all',
   onCategoryChange 
 }: PhotographerSearchProps) => {
-  const [selectedGender, setSelectedGender] = useState('all');
 
-  const genders = [
-    { value: 'female', label: '女摄影师' },
-    { value: 'male', label: '男摄影师' }
-  ];
-
-  const handleFiltersChange = (gender: string) => {
+  const handleFiltersChange = () => {
     onSearch({
       searchTerm: '',
-      gender: gender === 'all' ? '' : gender,
       category: activeCategory === 'all' ? '' : activeCategory
     });
   };
 
-  const handleGenderChange = (value: string) => {
-    setSelectedGender(value);
-    handleFiltersChange(value);
-  };
-
   const clearFilters = () => {
-    setSelectedGender('all');
     onCategoryChange?.('all');
-    handleFiltersChange('all');
+    onSearch({
+      searchTerm: '',
+      category: ''
+    });
   };
 
-  const hasFilters = (selectedGender && selectedGender !== 'all') || 
-                    (activeCategory && activeCategory !== 'all');
+  const hasFilters = activeCategory && activeCategory !== 'all';
 
   return (
     <div className="space-y-8 mb-12">
@@ -86,24 +73,9 @@ const PhotographerSearch = ({
         </div>
       )}
 
-      {/* 次级筛选 - 性别选择 */}
-      <div className="flex items-center justify-center gap-4">
-        <div className="flex items-center space-x-2">
-          <Users className="w-4 h-4 text-muted-foreground" />
-          <Select value={selectedGender} onValueChange={handleGenderChange}>
-            <SelectTrigger className="w-32 h-9 border-muted">
-              <SelectValue placeholder="性别" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">全部</SelectItem>
-              {genders.map(gender => (
-                <SelectItem key={gender.value} value={gender.value}>{gender.label}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        {hasFilters && (
+      {/* 清除筛选按钮 */}
+      {hasFilters && (
+        <div className="flex items-center justify-center">
           <Button 
             variant="outline" 
             size="sm" 
@@ -113,22 +85,6 @@ const PhotographerSearch = ({
             <X className="w-3 h-3 mr-1" />
             清除筛选
           </Button>
-        )}
-      </div>
-
-      {/* 活跃筛选标签 */}
-      {hasFilters && (
-        <div className="flex flex-wrap justify-center gap-2">
-          {selectedGender && selectedGender !== 'all' && (
-            <Badge variant="outline" className="flex items-center gap-1 px-3 py-1 bg-primary/10 text-primary border-primary/20">
-              <Users className="w-3 h-3" />
-              {genders.find(g => g.value === selectedGender)?.label}
-              <X 
-                className="w-3 h-3 cursor-pointer hover:text-destructive ml-1" 
-                onClick={() => handleGenderChange('all')} 
-              />
-            </Badge>
-          )}
         </div>
       )}
     </div>
