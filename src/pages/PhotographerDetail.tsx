@@ -237,35 +237,25 @@ const PhotographerDetail = () => {
               ))}
             </div>
 
-            {/* Portfolio Grid - Enhanced Masonry Layout */}
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 auto-rows-[200px]">
+            {/* Portfolio Grid - Simplified Elegant Layout */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
               {filteredPortfolio.map((photo, index) => {
-                // 创建更有趣的布局模式
+                // 简化布局：主要使用正方形，偶尔有大图
                 const getGridClass = (index: number) => {
-                  const patterns = [
-                    // 大图模式 - 占据 2x2 空间
-                    'col-span-2 row-span-2',
-                    // 横长模式 - 占据 2x1 空间
-                    'col-span-2 row-span-1',
-                    // 竖长模式 - 占据 1x2 空间
-                    'col-span-1 row-span-2',
-                    // 正方形 - 占据 1x1 空间
-                    'col-span-1 row-span-1',
-                    'col-span-1 row-span-1',
-                    'col-span-1 row-span-1'
-                  ];
-                  
-                  // 每6张照片重复一次模式，让布局更有规律但不单调
-                  return patterns[index % patterns.length];
+                  // 每8张图片中有一张大图，其余都是正方形
+                  if (index % 8 === 0 && index !== 0) {
+                    return 'col-span-2 row-span-2'; // 大图
+                  }
+                  return 'col-span-1 row-span-1'; // 正方形
                 };
 
                 return (
                   <Card 
                     key={photo.id} 
                     className={`group overflow-hidden hover:shadow-elegant transition-all duration-500 animate-fade-in border-0 bg-card hover:shadow-button-hover ${getGridClass(index)}`}
-                    style={{ animationDelay: `${index * 80}ms` }}
+                    style={{ animationDelay: `${index * 60}ms` }}
                   >
-                    <div className="relative w-full h-full overflow-hidden rounded-lg">
+                    <div className="relative aspect-square overflow-hidden rounded-lg">
                       <img 
                         src={photo.url} 
                         alt={photo.title}
@@ -285,16 +275,16 @@ const PhotographerDetail = () => {
                       {/* Hover Overlay with Gradient */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end z-10">
                         <div className="p-4 text-white transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-smooth">
-                          <h3 className="font-bold text-lg mb-2 font-serif">{photo.title}</h3>
+                          <h3 className="font-bold text-base mb-1 font-serif">{photo.title}</h3>
                           <p className="text-sm text-white/90 line-clamp-2 leading-relaxed">{photo.description}</p>
                         </div>
                       </div>
 
                       {/* 光晕效果 */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                       
                       {/* 边框高光效果 */}
-                      <div className="absolute inset-0 rounded-lg border-2 border-primary/0 group-hover:border-primary/30 transition-all duration-500" />
+                      <div className="absolute inset-0 rounded-lg border-2 border-primary/0 group-hover:border-primary/20 transition-all duration-500" />
                     </div>
                   </Card>
                 );
