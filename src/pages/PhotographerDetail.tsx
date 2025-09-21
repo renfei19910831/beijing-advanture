@@ -366,98 +366,129 @@ const PhotographerDetail = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold text-foreground mb-8">客户评价</h2>
             
-            <Carousel
-              opts={{
-                align: "center",
-                loop: true,
-              }}
-              plugins={[
-                Autoplay({
-                  delay: 6000,
-                  stopOnInteraction: false,
-                }),
-              ]}
-              className="w-full max-w-5xl mx-auto"
-            >
-              <CarouselContent className="-ml-2 md:-ml-4">
-                {/* Sample reviews with real data */}
-                {[
-                  {
-                    id: 1,
-                    name: "张小雨",
-                    avatar: testimonialSarah,
-                    rating: 5,
-                    comment: "拍摄效果非常好，摄影师很专业，能够很好地捕捉自然的表情和动作。整个拍摄过程很愉快！",
-                    date: "2024年8月",
-                    service: "情侣写真"
-                  },
-                  {
-                    id: 2,
-                    name: "李雅婷",
-                    avatar: testimonialLisa,
-                    rating: 5,
-                    comment: "超级满意！张老师的拍摄技术一流，后期制作也很用心。照片质量远超预期，强烈推荐！",
-                    date: "2024年7月",
-                    service: "个人写真"
-                  },
-                  {
-                    id: 3,
-                    name: "王明华",
-                    avatar: testimonialMichael,
-                    rating: 4,
-                    comment: "第一次拍全家福，摄影师很有耐心，尤其是和小朋友的互动很棒。成片效果温馨自然。",
-                    date: "2024年7月",
-                    service: "全家福"
-                  },
-                  {
-                    id: 4,
-                    name: "陈思思",
-                    avatar: testimonialSarah,
-                    rating: 5,
-                    comment: "婚纱照拍得太美了，每一张都是艺术品。摄影师的创意和构图都很棒，值得信赖！",
-                    date: "2024年6月",
-                    service: "婚纱摄影"
-                  }
-                ].map((review) => (
-                  <CarouselItem key={review.id} className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
-                    <Card className="h-full bg-card/80 backdrop-blur-sm border hover:shadow-lg transition-all duration-300">
-                      <CardContent className="p-6">
-                        <div className="flex flex-col items-center text-center space-y-4">
-                          {/* 用户头像 - 在上 */}
-                          <Avatar className="w-16 h-16 border-2 border-primary/20">
-                            <AvatarImage src={review.avatar} alt={review.name} />
-                            <AvatarFallback className="bg-primary/10 text-primary font-medium">
-                              {review.name[0]}
-                            </AvatarFallback>
-                          </Avatar>
-                          
-                          {/* 用户反馈打分 - 中间 */}
-                          <div className="flex items-center justify-center space-x-1">
-                            {[...Array(review.rating)].map((_, i) => (
-                              <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                            ))}
-                            {[...Array(5 - review.rating)].map((_, i) => (
-                              <Star key={`empty-${i}`} className="w-5 h-5 text-gray-300" />
-                            ))}
+            <div className="space-y-8 max-w-5xl mx-auto">
+              {/* Sample reviews with real data */}
+              {[
+                {
+                  id: 1,
+                  name: "张小雨",
+                  avatar: testimonialSarah,
+                  rating: 5,
+                  comment: "拍摄效果非常好，摄影师很专业，能够很好地捕捉自然的表情和动作。整个拍摄过程很愉快！\n\n从前期沟通到现场拍摄，张老师都非常耐心和细心。特别是在选景和构图方面给了很多专业建议。\n\n最终的成片效果超出了我的预期，每一张都很有感觉，真的很感谢！",
+                  date: "2024年8月20日投稿",
+                  service: ["情侣写真", "户外拍摄", "自然光"],
+                  photos: [portfolioPortrait, heroImage, portfolioStreet]
+                },
+                {
+                  id: 2,
+                  name: "李雅婷",
+                  avatar: testimonialLisa,
+                  rating: 5,
+                  comment: "超级满意！张老师的拍摄技术一流，后期制作也很用心。照片质量远超预期，强烈推荐！\n\n这次是拍个人写真，张老师很会引导动作和表情，让我这个不太会拍照的人也能拍出很自然的效果。\n\n色调处理得特别好，很有质感。朋友们看了都说要找张老师拍照！",
+                  date: "2024年8月15日投稿",
+                  service: ["个人写真", "室内拍摄", "商务形象"],
+                  photos: [portfolioArchitecture, portfolioPortrait]
+                },
+                {
+                  id: 3,
+                  name: "王明华",
+                  avatar: testimonialMichael,
+                  rating: 4,
+                  comment: "第一次拍全家福，摄影师很有耐心，尤其是和小朋友的互动很棒。成片效果温馨自然。\n\n孩子一开始有点害羞，但张老师很会哄小朋友，慢慢就配合了。拍摄过程中还给了很多摆pose的建议。\n\n虽然天气有点热，但最终的照片都很满意，记录了一家人美好的时光。",
+                  date: "2024年8月10日投稿",
+                  service: ["全家福", "家庭摄影", "儿童摄影"],
+                  photos: [heroImage, portfolioStreet, portfolioArchitecture]
+                },
+                {
+                  id: 4,
+                  name: "陈思思",
+                  avatar: testimonialSarah,
+                  rating: 5,
+                  comment: "婚纱照拍得太美了，每一张都是艺术品。摄影师的创意和构图都很棒，值得信赖！\n\n选了几个不同的场景，每个场景都有不同的感觉。张老师很会抓拍，连我们没注意的瞬间都拍得很美。\n\n后期调色也很有感觉，整体风格很统一。这次拍摄体验真的很棒！",
+                  date: "2024年8月5日投稿",
+                  service: ["婚纱摄影", "外景拍摄", "情侣写真"],
+                  photos: [portfolioPortrait, heroImage]
+                }
+              ].map((review) => (
+                <div key={review.id} className="bg-background border border-border/20 rounded-lg p-6 shadow-sm">
+                  <div className="flex space-x-4">
+                    {/* 左侧头像 */}
+                    <div className="flex-shrink-0">
+                      <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
+                        <Avatar className="w-10 h-10">
+                          <AvatarImage src={review.avatar} alt={review.name} />
+                          <AvatarFallback className="bg-primary/10 text-primary text-sm font-medium">
+                            {review.name[0]}
+                          </AvatarFallback>
+                        </Avatar>
+                      </div>
+                    </div>
+                    
+                    {/* 右侧内容 */}
+                    <div className="flex-1">
+                      {/* 用户名 */}
+                      <div className="font-medium text-foreground mb-2">{review.name}</div>
+                      
+                      {/* 星级评分 */}
+                      <div className="flex items-center space-x-1 mb-3">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                        ))}
+                        {[...Array(5 - review.rating)].map((_, i) => (
+                          <Star key={`empty-${i}`} className="w-4 h-4 text-gray-300" />
+                        ))}
+                      </div>
+                      
+                      {/* 投稿日期 */}
+                      <div className="text-sm text-muted-foreground mb-4">{review.date}</div>
+                      
+                      {/* 服务类型标签 */}
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        {review.service.map((tag) => (
+                          <Badge key={tag} variant="secondary" className="bg-blue-50 text-blue-700 text-xs px-2 py-1">
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                      
+                      {/* 评论内容 */}
+                      <div className="text-muted-foreground leading-relaxed mb-4">
+                        {review.comment.split('\n\n').map((paragraph, index) => (
+                          <p key={index} className="mb-3 last:mb-0">
+                            {paragraph}
+                          </p>
+                        ))}
+                      </div>
+                      
+                      {/* 相关照片 */}
+                      <div className="grid grid-cols-3 gap-2 mb-4">
+                        {review.photos.map((photo, index) => (
+                          <div key={index} className="aspect-square overflow-hidden rounded-md">
+                            <img 
+                              src={photo} 
+                              alt={`评价照片 ${index + 1}`}
+                              className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
+                            />
                           </div>
-                          
-                          {/* 用户反馈内容 - 在下 */}
-                          <blockquote className="text-muted-foreground italic leading-relaxed text-sm px-2">
-                            "{review.comment}"
-                          </blockquote>
-                          
-                          {/* 用户名 - 最后 */}
-                          <div className="text-center">
-                            <div className="font-semibold text-foreground text-base">{review.name}</div>
-                            <div className="text-xs text-muted-foreground mt-1">{review.service} · {review.date}</div>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+                        ))}
+                      </div>
+                      
+                      {/* 查看更多链接 */}
+                      <Button variant="link" className="p-0 h-auto text-blue-600 hover:text-blue-800">
+                        查看更多
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              
+              {/* 查看所有评价按钮 */}
+              <div className="text-center pt-8">
+                <Button variant="outline" size="lg">
+                  查看所有评价 (351件)
+                </Button>
+              </div>
+            </div>
           </div>
         </section>
       </main>
