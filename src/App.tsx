@@ -4,7 +4,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import { AuthProvider } from "@/components/AuthProvider";
 import Index from "./pages/Index";
 import Gallery from "./pages/Gallery";
 import PhotoDetail from "./pages/PhotoDetail";
@@ -15,18 +14,16 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Photographers from "./pages/Photographers";
 import PhotographerDetail from "./pages/PhotographerDetail";
-import MyFollows from "./pages/MyFollows";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <LanguageProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
+    <LanguageProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/gallery" element={<Gallery />} />
@@ -37,15 +34,13 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/photographers" element={<Photographers />} />
             <Route path="/photographer/:id" element={<PhotographerDetail />} />
-            <Route path="/my-follows" element={<MyFollows />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
     </LanguageProvider>
-  </AuthProvider>
-</QueryClientProvider>
+  </QueryClientProvider>
 );
 
 export default App;

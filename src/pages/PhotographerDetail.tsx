@@ -8,7 +8,6 @@ import { Star, MapPin, ArrowLeft, Calendar, MessageCircle, Camera } from 'lucide
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { PhotoModal } from '@/components/PhotoModal';
-import { FollowButton } from '@/components/FollowButton';
 import { Photographer } from '@/types/photographer';
 
 // Import images (same as in other components)
@@ -192,24 +191,16 @@ const PhotographerDetail = () => {
 
                 <p className="text-muted-foreground mb-6">{photographer.bio}</p>
 
-                <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <div className="flex items-center space-x-4">
                   <div className="text-2xl font-bold text-primary">{photographer.priceRange}</div>
-                  
-                  <div className="flex flex-wrap items-center gap-3">
-                    <FollowButton 
-                      photographerId={photographer.id} 
-                      photographerName={photographer.name}
-                      className="min-w-[100px]"
-                    />
-                    <Button size="lg" className="bg-gradient-primary hover:opacity-90">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      立即预约
-                    </Button>
-                    <Button variant="outline" size="lg">
-                      <MessageCircle className="w-4 h-4 mr-2" />
-                      咨询详情
-                    </Button>
-                  </div>
+                  <Button size="lg" className="bg-gradient-primary hover:opacity-90">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    立即预约
+                  </Button>
+                  <Button variant="outline" size="lg">
+                    <MessageCircle className="w-4 h-4 mr-2" />
+                    咨询详情
+                  </Button>
                 </div>
               </div>
             </div>
