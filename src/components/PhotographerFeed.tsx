@@ -183,27 +183,13 @@ const PhotographerFeed = () => {
           <p className="text-muted-foreground text-lg">发现你喜欢的拍摄风格，找到最适合的摄影师</p>
         </div>
 
-        {/* Category Tags */}
-        <div className="flex flex-wrap justify-center gap-3 mb-8">
-          {categories.map((category) => (
-            <Button
-              key={category.value}
-              variant={activeCategory === category.value ? "default" : "outline"}
-              size="sm"
-              onClick={() => handleCategoryClick(category.value)}
-              className={`transition-all duration-300 ${
-                activeCategory === category.value 
-                  ? "bg-gradient-primary hover:opacity-90 shadow-lg" 
-                  : "hover:border-primary hover:text-primary"
-              }`}
-            >
-              {category.label}
-            </Button>
-          ))}
-        </div>
-
         {/* Search and Filter Component */}
-        <PhotographerSearch onSearch={handleSearch} />
+        <PhotographerSearch 
+          onSearch={handleSearch}
+          categories={categories}
+          activeCategory={activeCategory}
+          onCategoryChange={handleCategoryClick}
+        />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredPhotographers.map((photographer) => 

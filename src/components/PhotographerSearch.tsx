@@ -11,9 +11,17 @@ interface PhotographerSearchProps {
     gender: string;
     category: string;
   }) => void;
+  categories?: Array<{ value: string; label: string }>;
+  activeCategory?: string;
+  onCategoryChange?: (category: string) => void;
 }
 
-const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
+const PhotographerSearch = ({ 
+  onSearch, 
+  categories = [], 
+  activeCategory = 'all',
+  onCategoryChange 
+}: PhotographerSearchProps) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedGender, setSelectedGender] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -22,7 +30,7 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
     { value: 'female', label: '女摄影师' },
     { value: 'male', label: '男摄影师' }
   ];
-  const categories = ['人像', '街拍', '建筑', '风光', '家庭', '儿童', '婚纱', '时尚', '商业', '艺术'];
+  const internalCategories = ['人像', '街拍', '建筑', '风光', '家庭', '儿童', '婚纱', '时尚', '商业', '艺术'];
 
   const handleSearch = () => {
     onSearch({
@@ -47,7 +55,33 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
 
   return (
     <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 mb-8">
-      <div className="flex flex-col space-y-4">
+      <div className="flex flex-col space-y-6">
+        
+        {/* Category Tags */}
+        {categories.length > 0 && (
+          <div className="space-y-3">
+            <h3 className="text-sm font-medium text-muted-foreground">摄影类型</h3>
+            <div className="flex flex-wrap gap-2">
+              {categories.map((category) => (
+                <Button
+                  key={category.value}
+                  variant={activeCategory === category.value ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => onCategoryChange?.(category.value)}
+                  className={`transition-all duration-300 ${
+                    activeCategory === category.value 
+                      ? "bg-gradient-primary hover:opacity-90 shadow-md" 
+                      : "hover:border-primary hover:text-primary"
+                  }`}
+                >
+                  {category.label}
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div className="flex flex-col space-y-4">
         {/* Search Input */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
@@ -86,7 +120,7 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">全部类型</SelectItem>
-              {categories.map(category => (
+              {internalCategories.map(category => (
                 <SelectItem key={category} value={category}>{category}</SelectItem>
               ))}
             </SelectContent>
@@ -129,6 +163,7 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
             )}
           </div>
         )}
+        </div>
       </div>
     </div>
   );
