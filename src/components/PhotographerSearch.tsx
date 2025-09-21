@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Search, MapPin, Camera, X } from 'lucide-react';
+import { Users, Camera, X, Filter } from 'lucide-react';
 
 interface PhotographerSearchProps {
   onSearch: (filters: {
@@ -22,7 +21,6 @@ const PhotographerSearch = ({
   activeCategory = 'all',
   onCategoryChange 
 }: PhotographerSearchProps) => {
-  const [searchTerm, setSearchTerm] = useState('');
   const [selectedGender, setSelectedGender] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -30,77 +28,80 @@ const PhotographerSearch = ({
     { value: 'female', label: '女摄影师' },
     { value: 'male', label: '男摄影师' }
   ];
-  const internalCategories = ['人像', '街拍', '建筑', '风光', '家庭', '儿童', '婚纱', '时尚', '商业', '艺术'];
 
-  const handleSearch = () => {
+  const handleFiltersChange = (gender: string, category: string) => {
     onSearch({
-      searchTerm,
-      gender: selectedGender === 'all' ? '' : selectedGender,
-      category: selectedCategory === 'all' ? '' : selectedCategory
+      searchTerm: '',
+      gender: gender === 'all' ? '' : gender,
+      category: category === 'all' ? '' : category
     });
+  };
+
+  const handleGenderChange = (value: string) => {
+    setSelectedGender(value);
+    handleFiltersChange(value, selectedCategory);
+  };
+
+  const handleCategoryChange = (value: string) => {
+    setSelectedCategory(value);
+    handleFiltersChange(selectedGender, value);
   };
 
   const clearFilters = () => {
-    setSearchTerm('');
     setSelectedGender('all');
     setSelectedCategory('all');
-    onSearch({
-      searchTerm: '',
-      gender: '',
-      category: ''
-    });
+    onCategoryChange?.('all');
+    handleFiltersChange('all', 'all');
   };
 
-  const hasFilters = searchTerm || (selectedGender && selectedGender !== 'all') || (selectedCategory && selectedCategory !== 'all');
+  const hasFilters = (selectedGender && selectedGender !== 'all') || 
+                    (selectedCategory && selectedCategory !== 'all') ||
+                    (activeCategory && activeCategory !== 'all');
 
   return (
-    <div className="space-y-6 mb-8">
-      {/* Category Tags - Main Filter */}
+    <div className="space-y-8 mb-12">
+      {/* 主分类 - 大标签设计 */}
       {categories.length > 0 && (
-        <div className="bg-card/30 backdrop-blur-sm border border-border rounded-lg p-4">
-          <div className="flex flex-wrap justify-center gap-2">
+        <div className="space-y-4">
+          <div className="flex items-center justify-center space-x-3 mb-6">
+            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent flex-1"></div>
+            <h3 className="text-sm font-medium text-muted-foreground px-4 bg-background">选择你喜欢的摄影风格</h3>
+            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent flex-1"></div>
+          </div>
+          
+          <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <Button
                 key={category.value}
-                variant={activeCategory === category.value ? "default" : "outline"}
-                size="sm"
+                variant={activeCategory === category.value ? "default" : "ghost"}
+                size="lg"
                 onClick={() => onCategoryChange?.(category.value)}
-                className={`transition-all duration-300 ${
-                  activeCategory === category.value 
-                    ? "bg-gradient-primary hover:opacity-90 shadow-md scale-105" 
-                    : "hover:border-primary hover:text-primary hover:scale-105"
-                }`}
+                className={`
+                  relative px-6 py-3 rounded-full transition-all duration-300 font-medium
+                  ${activeCategory === category.value 
+                    ? "bg-gradient-primary text-white shadow-xl shadow-primary/25 scale-105" 
+                    : "hover:bg-muted hover:text-foreground hover:scale-105 text-muted-foreground border border-muted"
+                  }
+                `}
               >
                 {category.label}
+                {activeCategory === category.value && (
+                  <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-20 animate-pulse"></div>
+                )}
               </Button>
             ))}
           </div>
         </div>
       )}
 
-      {/* Search and Filters - Compact Row */}
-      <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-4">
-        <div className="flex flex-col lg:flex-row gap-3 lg:items-center">
-          {/* Search Input */}
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-            <Input
-              placeholder="搜索摄影师姓名、拍摄风格..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              className="pl-10 h-10 text-sm"
-            />
-          </div>
-
-          {/* Filters and Actions */}
-          <div className="flex flex-col sm:flex-row gap-2 lg:flex-shrink-0">
-            <Select value={selectedGender} onValueChange={setSelectedGender}>
-              <SelectTrigger className="w-full sm:w-36">
-                <div className="flex items-center">
-                  <MapPin className="w-3 h-3 mr-1 text-muted-foreground" />
-                  <SelectValue placeholder="性别" />
-                </div>
+      {/* 次级筛选 - 紧凑设计 */}
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2">
+            <Users className="w-4 h-4 text-muted-foreground" />
+            <Select value={selectedGender} onValueChange={handleGenderChange}>
+              <SelectTrigger className="w-32 h-9 border-muted">
+                <SelectValue placeholder="性别" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">全部</SelectItem>
@@ -109,61 +110,69 @@ const PhotographerSearch = ({
                 ))}
               </SelectContent>
             </Select>
+          </div>
 
-            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full sm:w-36">
-                <div className="flex items-center">
-                  <Camera className="w-3 h-3 mr-1 text-muted-foreground" />
-                  <SelectValue placeholder="类型" />
-                </div>
+          <div className="flex items-center space-x-2">
+            <Camera className="w-4 h-4 text-muted-foreground" />
+            <Select value={selectedCategory} onValueChange={handleCategoryChange}>
+              <SelectTrigger className="w-32 h-9 border-muted">
+                <SelectValue placeholder="类型" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">全部类型</SelectItem>
-                {internalCategories.map(category => (
-                  <SelectItem key={category} value={category}>{category}</SelectItem>
-                ))}
+                <SelectItem value="人像">人像</SelectItem>
+                <SelectItem value="街拍">街拍</SelectItem>
+                <SelectItem value="建筑">建筑</SelectItem>
+                <SelectItem value="风光">风光</SelectItem>
+                <SelectItem value="家庭">家庭</SelectItem>
+                <SelectItem value="儿童">儿童</SelectItem>
+                <SelectItem value="婚纱">婚纱</SelectItem>
+                <SelectItem value="时尚">时尚</SelectItem>
+                <SelectItem value="商业">商业</SelectItem>
+                <SelectItem value="艺术">艺术</SelectItem>
               </SelectContent>
             </Select>
-
-            <div className="flex space-x-2">
-              <Button onClick={handleSearch} size="sm" className="bg-gradient-primary hover:opacity-90">
-                <Search className="w-3 h-3 mr-1" />
-                搜索
-              </Button>
-              {hasFilters && (
-                <Button variant="outline" size="sm" onClick={clearFilters}>
-                  <X className="w-3 h-3 mr-1" />
-                  清除
-                </Button>
-              )}
-            </div>
           </div>
         </div>
 
-        {/* Active Filters */}
         {hasFilters && (
-          <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-border">
-            {searchTerm && (
-              <Badge variant="secondary" className="flex items-center gap-1 text-xs">
-                搜索: {searchTerm}
-                <X className="w-3 h-3 cursor-pointer hover:text-destructive" onClick={() => setSearchTerm('')} />
-              </Badge>
-            )}
-            {selectedGender && selectedGender !== 'all' && (
-              <Badge variant="secondary" className="flex items-center gap-1 text-xs">
-                {genders.find(g => g.value === selectedGender)?.label}
-                <X className="w-3 h-3 cursor-pointer hover:text-destructive" onClick={() => setSelectedGender('all')} />
-              </Badge>
-            )}
-            {selectedCategory && selectedCategory !== 'all' && (
-              <Badge variant="secondary" className="flex items-center gap-1 text-xs">
-                {selectedCategory}
-                <X className="w-3 h-3 cursor-pointer hover:text-destructive" onClick={() => setSelectedCategory('all')} />
-              </Badge>
-            )}
-          </div>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={clearFilters}
+            className="text-muted-foreground hover:text-foreground border-muted"
+          >
+            <X className="w-3 h-3 mr-1" />
+            清除筛选
+          </Button>
         )}
       </div>
+
+      {/* 活跃筛选标签 */}
+      {hasFilters && (
+        <div className="flex flex-wrap justify-center gap-2">
+          {selectedGender && selectedGender !== 'all' && (
+            <Badge variant="secondary" className="flex items-center gap-1 px-3 py-1">
+              <Users className="w-3 h-3" />
+              {genders.find(g => g.value === selectedGender)?.label}
+              <X 
+                className="w-3 h-3 cursor-pointer hover:text-destructive ml-1" 
+                onClick={() => handleGenderChange('all')} 
+              />
+            </Badge>
+          )}
+          {selectedCategory && selectedCategory !== 'all' && (
+            <Badge variant="secondary" className="flex items-center gap-1 px-3 py-1">
+              <Camera className="w-3 h-3" />
+              {selectedCategory}
+              <X 
+                className="w-3 h-3 cursor-pointer hover:text-destructive ml-1" 
+                onClick={() => handleCategoryChange('all')} 
+              />
+            </Badge>
+          )}
+        </div>
+      )}
     </div>
   );
 };
