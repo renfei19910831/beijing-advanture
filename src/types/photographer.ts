@@ -4,6 +4,11 @@ export interface Photo {
   title: string;
   category: string;
   description?: string;
+  date?: string;
+  location?: string;
+  camera?: string;
+  lens?: string;
+  settings?: string;
 }
 
 export interface Photographer {

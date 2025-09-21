@@ -7,6 +7,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Star, MapPin, ArrowLeft, Calendar, MessageCircle, Camera } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import { PhotoModal } from '@/components/PhotoModal';
 import { Photographer } from '@/types/photographer';
 
 // Import images (same as in other components)
@@ -32,26 +33,26 @@ const mockPhotographers: Photographer[] = [
     gender: 'female',
     portfolio: [
       // 情侣写真
-      { id: '1-1', url: portfolioPortrait, title: '夏日午后', category: '情侣写真', description: '自然光人像摄影，捕捉情侣间的甜蜜瞬间' },
-      { id: '1-2', url: heroImage, title: '城市漫步', category: '情侣写真', description: '都市背景下的浪漫情侣写真' },
-      { id: '1-3', url: portfolioStreet, title: '黄昏时光', category: '情侣写真', description: '夕阳下的温馨情侣照' },
+      { id: '1', url: portfolioPortrait, title: '夏日午后', category: '情侣写真', description: '自然光人像摄影，捕捉情侣间的甜蜜瞬间', date: '2024-08-15', location: '北京·朝阳公园', camera: 'Canon EOS R5', lens: '85mm f/1.4', settings: 'f/1.8, 1/200s, ISO 400' },
+      { id: '2', url: heroImage, title: '城市漫步', category: '情侣写真', description: '都市背景下的浪漫情侣写真', date: '2024-08-12', location: '北京·三里屯', camera: 'Canon EOS R5', lens: '50mm f/1.2', settings: 'f/2.0, 1/125s, ISO 800' },
+      { id: '3', url: portfolioStreet, title: '黄昏时光', category: '情侣写真', description: '夕阳下的温馨情侣照', date: '2024-08-10', location: '北京·什刹海', camera: 'Canon EOS R5', lens: '35mm f/1.4', settings: 'f/2.2, 1/60s, ISO 200' },
       
       // 家庭摄影
-      { id: '1-4', url: portfolioArchitecture, title: '温暖的家', category: '全家福', description: '三代同堂的幸福时光' },
-      { id: '1-5', url: heroImage, title: '亲子时光', category: '家庭摄影', description: '父母与孩子的温馨互动' },
-      { id: '1-6', url: portfolioPortrait, title: '兄弟情深', category: '家庭摄影', description: '记录兄弟姐妹的珍贵情感' },
+      { id: '4', url: portfolioArchitecture, title: '温暖的家', category: '全家福', description: '三代同堂的幸福时光', date: '2024-08-08', location: '北京·奥林匹克公园', camera: 'Canon EOS R5', lens: '24-70mm f/2.8', settings: 'f/4.0, 1/100s, ISO 320' },
+      { id: '5', url: heroImage, title: '亲子时光', category: '家庭摄影', description: '父母与孩子的温馨互动', date: '2024-08-05', location: '北京·颐和园', camera: 'Canon EOS R5', lens: '85mm f/1.4', settings: 'f/2.8, 1/160s, ISO 250' },
+      { id: '6', url: portfolioPortrait, title: '兄弟情深', category: '家庭摄影', description: '记录兄弟姐妹的珍贵情感', date: '2024-08-03', location: '北京·中山公园', camera: 'Canon EOS R5', lens: '50mm f/1.2', settings: 'f/2.5, 1/200s, ISO 160' },
       
       // 个人写真
-      { id: '1-7', url: portfolioStreet, title: '职场精英', category: '个人写真', description: '专业商务形象照' },
-      { id: '1-8', url: portfolioArchitecture, title: '艺术肖像', category: '个人写真', description: '创意艺术人像摄影' },
+      { id: '7', url: portfolioStreet, title: '职场精英', category: '个人写真', description: '专业商务形象照', date: '2024-07-30', location: '北京·CBD', camera: 'Canon EOS R5', lens: '85mm f/1.4', settings: 'f/2.0, 1/125s, ISO 400' },
+      { id: '8', url: portfolioArchitecture, title: '艺术肖像', category: '个人写真', description: '创意艺术人像摄影', date: '2024-07-28', location: '北京·798艺术区', camera: 'Canon EOS R5', lens: '35mm f/1.4', settings: 'f/1.8, 1/80s, ISO 640' },
       
       // 周年纪念
-      { id: '1-9', url: heroImage, title: '十年之约', category: '周年纪念', description: '结婚十周年纪念写真' },
-      { id: '1-10', url: portfolioPortrait, title: '银婚纪念', category: '周年纪念', description: '25周年银婚纪念照' },
+      { id: '9', url: heroImage, title: '十年之约', category: '周年纪念', description: '结婚十周年纪念写真', date: '2024-07-25', location: '北京·故宫', camera: 'Canon EOS R5', lens: '24-70mm f/2.8', settings: 'f/3.2, 1/100s, ISO 200' },
+      { id: '10', url: portfolioPortrait, title: '银婚纪念', category: '周年纪念', description: '25周年银婚纪念照', date: '2024-07-20', location: '北京·天坛', camera: 'Canon EOS R5', lens: '50mm f/1.2', settings: 'f/2.8, 1/160s, ISO 320' },
       
       // 宠物摄影
-      { id: '1-11', url: portfolioStreet, title: '毛孩子', category: '宠物摄影', description: '可爱宠物与主人的温馨时刻' },
-      { id: '1-12', url: portfolioArchitecture, title: '萌宠日常', category: '宠物摄影', description: '记录宠物的日常生活' }
+      { id: '11', url: portfolioStreet, title: '毛孩子', category: '宠物摄影', description: '可爱宠物与主人的温馨时刻', date: '2024-07-18', location: '北京·朝阳公园', camera: 'Canon EOS R5', lens: '70-200mm f/2.8', settings: 'f/3.5, 1/250s, ISO 500' },
+      { id: '12', url: portfolioArchitecture, title: '萌宠日常', category: '宠物摄影', description: '记录宠物的日常生活', date: '2024-07-15', location: '北京·奥森公园', camera: 'Canon EOS R5', lens: '85mm f/1.4', settings: 'f/2.2, 1/200s, ISO 400' }
     ],
     featured: true
   },
@@ -67,8 +68,8 @@ const mockPhotographers: Photographer[] = [
     bio: '建筑系出身，善于用镜头诠释空间之美',
     gender: 'male',
     portfolio: [
-      { id: '2-1', url: portfolioArchitecture, title: '现代建筑', category: '建筑', description: '几何美学展现' },
-      { id: '2-2', url: portfolioStreet, title: '街道印象', category: '街拍', description: '城市节奏感' }
+      { id: '21', url: portfolioArchitecture, title: '现代建筑', category: '建筑', description: '几何美学展现', date: '2024-08-01', location: '上海·陆家嘴', camera: 'Sony A7R V', lens: '16-35mm f/2.8', settings: 'f/8.0, 1/60s, ISO 100' },
+      { id: '22', url: portfolioStreet, title: '街道印象', category: '街拍', description: '城市节奏感', date: '2024-07-28', location: '上海·南京路', camera: 'Sony A7R V', lens: '35mm f/1.4', settings: 'f/2.8, 1/125s, ISO 400' }
     ],
     featured: true
   },
@@ -84,8 +85,8 @@ const mockPhotographers: Photographer[] = [
     bio: '温暖的镜头语言，记录生活中的美好瞬间',
     gender: 'female',
     portfolio: [
-      { id: '3-1', url: heroImage, title: '温馨时光', category: '家庭', description: '家庭温馨瞬间' },
-      { id: '3-2', url: portfolioPortrait, title: '纯真笑容', category: '儿童', description: '孩子天真时刻' }
+      { id: '31', url: heroImage, title: '温馨时光', category: '家庭', description: '家庭温馨瞬间', date: '2024-08-01', location: '广州·珠江新城', camera: 'Nikon Z9', lens: '24-70mm f/2.8', settings: 'f/4.0, 1/100s, ISO 200' },
+      { id: '32', url: portfolioPortrait, title: '纯真笑容', category: '儿童', description: '孩子天真时刻', date: '2024-07-25', location: '广州·越秀公园', camera: 'Nikon Z9', lens: '85mm f/1.8', settings: 'f/2.5, 1/200s, ISO 320' }
     ],
     featured: false
   }
@@ -95,6 +96,8 @@ const PhotographerDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState('全部');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
   
   const photographer = mockPhotographers.find(p => p.id === id);
 
@@ -128,6 +131,12 @@ const PhotographerDetail = () => {
     }
     return stats;
   }, {} as Record<string, number>);
+
+  // 处理照片点击
+  const handlePhotoClick = (index: number) => {
+    setSelectedPhotoIndex(index);
+    setModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -246,7 +255,10 @@ const PhotographerDetail = () => {
                     className="group overflow-hidden hover:shadow-elegant transition-all duration-500 animate-fade-in border-0 bg-card hover:shadow-button-hover"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <div className="relative aspect-[3/4] overflow-hidden rounded-lg">
+                    <div 
+                      className="relative aspect-[3/4] overflow-hidden rounded-lg cursor-pointer"
+                      onClick={() => handlePhotoClick(index)}
+                    >
                       <img 
                         src={photo.url} 
                         alt={photo.title}
@@ -334,6 +346,14 @@ const PhotographerDetail = () => {
           </div>
         </section>
       </main>
+
+      {/* 照片放大模态框 */}
+      <PhotoModal
+        photos={filteredPortfolio}
+        currentIndex={selectedPhotoIndex}
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+      />
 
       <Footer />
     </div>
