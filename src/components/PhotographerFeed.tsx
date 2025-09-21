@@ -113,7 +113,23 @@ const mockPhotographers: Photographer[] = [
 const PhotographerFeed = () => {
   const [hoveredPhoto, setHoveredPhoto] = useState<string | null>(null);
   const [filteredPhotographers, setFilteredPhotographers] = useState(mockPhotographers);
+  const [activeCategory, setActiveCategory] = useState('all');
   const navigate = useNavigate();
+
+  const categories = [
+    { value: 'all', label: '全部' },
+    { value: '人像', label: '人像摄影' },
+    { value: '情侣', label: '情侣写真' },
+    { value: '家庭', label: '家庭摄影' },
+    { value: '婚纱', label: '婚纱摄影' },
+    { value: '儿童', label: '儿童摄影' },
+    { value: '街拍', label: '街拍摄影' },
+    { value: '建筑', label: '建筑摄影' },
+    { value: '风光', label: '风光摄影' },
+    { value: '商业', label: '商业摄影' },
+    { value: '时尚', label: '时尚摄影' },
+    { value: '艺术', label: '艺术摄影' }
+  ];
 
   const handleSearch = (filters: {
     searchTerm: string;
@@ -146,6 +162,15 @@ const PhotographerFeed = () => {
     setFilteredPhotographers(filtered);
   };
 
+  const handleCategoryClick = (category: string) => {
+    setActiveCategory(category);
+    handleSearch({
+      searchTerm: '',
+      gender: '',
+      category: category === 'all' ? '' : category
+    });
+  };
+
   const handleViewPhotographer = (photographerId: string) => {
     navigate(`/photographer/${photographerId}`);
   };
@@ -156,6 +181,25 @@ const PhotographerFeed = () => {
         <div className="text-center mb-8">
           <h2 className="text-3xl font-bold text-foreground mb-4">精选摄影师</h2>
           <p className="text-muted-foreground text-lg">发现你喜欢的拍摄风格，找到最适合的摄影师</p>
+        </div>
+
+        {/* Category Tags */}
+        <div className="flex flex-wrap justify-center gap-3 mb-8">
+          {categories.map((category) => (
+            <Button
+              key={category.value}
+              variant={activeCategory === category.value ? "default" : "outline"}
+              size="sm"
+              onClick={() => handleCategoryClick(category.value)}
+              className={`transition-all duration-300 ${
+                activeCategory === category.value 
+                  ? "bg-gradient-primary hover:opacity-90 shadow-lg" 
+                  : "hover:border-primary hover:text-primary"
+              }`}
+            >
+              {category.label}
+            </Button>
+          ))}
         </div>
 
         {/* Search and Filter Component */}
