@@ -76,15 +76,18 @@ const mockPhotographers: Photographer[] = [
 
 const Photographers = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('all');
+  const [selectedGender, setSelectedGender] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const navigate = useNavigate();
 
-  const locations = ['北京', '上海', '广州', '深圳', '杭州'];
+  const genders = [
+    { value: 'female', label: '女摄影师' },
+    { value: 'male', label: '男摄影师' }
+  ];
   const categories = ['人像', '街拍', '建筑', '风光', '家庭', '儿童', '婚纱'];
 
   // Separate exact matches and recommendations
-  const hasActiveFilters = searchTerm || selectedLocation !== 'all' || selectedCategory !== 'all';
+  const hasActiveFilters = searchTerm || selectedGender !== 'all' || selectedCategory !== 'all';
   
   const exactMatches = mockPhotographers.filter(photographer => {
     const matchesSearch = photographer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -93,7 +96,7 @@ const Photographers = () => {
                            specialty.toLowerCase().includes(searchTerm.toLowerCase())
                          );
     
-    const matchesLocation = !selectedLocation || selectedLocation === 'all' || photographer.location === selectedLocation;
+    const matchesGender = !selectedGender || selectedGender === 'all' || photographer.gender === selectedGender;
     
     const matchesCategory = !selectedCategory || selectedCategory === 'all' || 
                            photographer.portfolio.some(photo => 
@@ -103,7 +106,7 @@ const Photographers = () => {
                              specialty.includes(selectedCategory)
                            );
 
-    return matchesSearch && matchesLocation && matchesCategory;
+    return matchesSearch && matchesGender && matchesCategory;
   });
 
   // Get recommendations when there are few exact matches
@@ -121,9 +124,9 @@ const Photographers = () => {
         );
       }
       
-      // Recommend based on location if only location filter is active
-      if (selectedLocation !== 'all' && !searchTerm) {
-        return photographer.location === selectedLocation;
+      // Recommend based on gender if only gender filter is active
+      if (selectedGender !== 'all' && !searchTerm) {
+        return photographer.gender === selectedGender;
       }
       
       return false;
@@ -154,14 +157,14 @@ const Photographers = () => {
                     className="pl-10"
                   />
                 </div>
-                <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+                <Select value={selectedGender} onValueChange={setSelectedGender}>
                   <SelectTrigger className="w-full md:w-40">
-                    <SelectValue placeholder="选择城市" />
+                    <SelectValue placeholder="选择性别" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">全部城市</SelectItem>
-                    {locations.map(location => (
-                      <SelectItem key={location} value={location}>{location}</SelectItem>
+                    <SelectItem value="all">全部摄影师</SelectItem>
+                    {genders.map(gender => (
+                      <SelectItem key={gender.value} value={gender.value}>{gender.label}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -349,7 +352,7 @@ const Photographers = () => {
                 <p className="text-muted-foreground mb-4">尝试调整搜索条件或浏览所有摄影师</p>
                 <Button variant="outline" onClick={() => {
                   setSearchTerm('');
-                  setSelectedLocation('all');
+                  setSelectedGender('all');
                   setSelectedCategory('all');
                 }}>
                   清除筛选条件
