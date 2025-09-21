@@ -166,18 +166,91 @@ const PhotographerDetail = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold text-foreground mb-8">作品集</h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {photographer.portfolio.map((photo) => (
-                <Card key={photo.id} className="group overflow-hidden">
-                  <div className="relative aspect-[4/5] overflow-hidden">
+            {/* Artistic Masonry-like Layout */}
+            <div className="relative">
+              {photographer.portfolio.map((photo, index) => {
+                // Define different layouts for each position
+                const layouts = [
+                  { size: 'large', position: 'col-span-2 row-span-2', aspect: 'aspect-square' },
+                  { size: 'medium', position: 'col-span-1 row-span-1', aspect: 'aspect-[4/5]' },
+                  { size: 'wide', position: 'col-span-2 row-span-1', aspect: 'aspect-[2/1]' },
+                  { size: 'tall', position: 'col-span-1 row-span-2', aspect: 'aspect-[3/5]' }
+                ];
+                
+                const layout = layouts[index % layouts.length];
+                
+                return (
+                  <div 
+                    key={photo.id}
+                    className={`group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-elegant transition-all duration-500 hover:-translate-y-2 ${
+                      index === 0 ? 'mb-6' : ''
+                    } ${
+                      index % 2 === 0 ? 'animate-fade-in' : 'animate-fade-in'
+                    }`}
+                    style={{
+                      animationDelay: `${index * 100}ms`,
+                      marginBottom: index < photographer.portfolio.length - 1 ? '1.5rem' : '0',
+                      float: index % 2 === 0 ? 'left' : 'right',
+                      width: layout.size === 'large' ? '60%' : layout.size === 'wide' ? '70%' : '45%',
+                      clear: index % 3 === 0 ? 'both' : 'none',
+                      marginLeft: index % 2 === 0 ? '0' : '1rem',
+                      marginRight: index % 2 === 0 ? '1rem' : '0'
+                    }}
+                  >
+                    <div className={`relative ${layout.aspect} overflow-hidden`}>
+                      <img 
+                        src={photo.url} 
+                        alt={photo.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      />
+                      
+                      {/* Gradient Overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+                        <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                          <Badge 
+                            variant="secondary" 
+                            className="mb-3 bg-white/20 backdrop-blur-sm border-white/30 text-white"
+                          >
+                            {photo.category}
+                          </Badge>
+                          <h3 className="text-white font-bold text-xl mb-2">{photo.title}</h3>
+                          <p className="text-white/90 text-sm leading-relaxed">{photo.description}</p>
+                        </div>
+                      </div>
+                      
+                      {/* Corner Accent */}
+                      <div className="absolute top-4 right-4 w-3 h-3 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg shadow-primary/50" />
+                      
+                      {/* Artistic Border Effect */}
+                      <div className="absolute inset-0 border-2 border-white/0 group-hover:border-white/20 rounded-2xl transition-all duration-500" />
+                    </div>
+                  </div>
+                );
+              })}
+              
+              {/* Clear float */}
+              <div className="clear-both" />
+            </div>
+            
+            {/* Alternative Grid Layout for smaller screens */}
+            <div className="md:hidden space-y-4">
+              {photographer.portfolio.map((photo, index) => (
+                <Card 
+                  key={`mobile-${photo.id}`} 
+                  className="group overflow-hidden animate-fade-in"
+                  style={{ animationDelay: `${index * 150}ms` }}
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden">
                     <img 
                       src={photo.url} 
                       alt={photo.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="absolute bottom-4 left-4 right-4">
-                        <Badge variant="secondary" className="mb-2">{photo.category}</Badge>
+                        <Badge variant="secondary" className="mb-2 bg-white/20 backdrop-blur-sm border-white/30 text-white">
+                          {photo.category}
+                        </Badge>
                         <h3 className="text-white font-semibold mb-1">{photo.title}</h3>
                         <p className="text-white/80 text-sm">{photo.description}</p>
                       </div>
