@@ -1,7 +1,4 @@
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { X } from 'lucide-react';
 
 interface PhotographerSearchProps {
   onSearch: (filters: {
@@ -19,24 +16,6 @@ const PhotographerSearch = ({
   activeCategory = 'all',
   onCategoryChange 
 }: PhotographerSearchProps) => {
-
-  const handleFiltersChange = () => {
-    onSearch({
-      searchTerm: '',
-      category: activeCategory === 'all' ? '' : activeCategory
-    });
-  };
-
-  const clearFilters = () => {
-    onCategoryChange?.('all');
-    onSearch({
-      searchTerm: '',
-      category: ''
-    });
-  };
-
-  const hasFilters = activeCategory && activeCategory !== 'all';
-
   return (
     <div className="space-y-8 mb-12">
       {/* 主分类 - 大标签设计 */}
@@ -70,21 +49,6 @@ const PhotographerSearch = ({
               </Button>
             ))}
           </div>
-        </div>
-      )}
-
-      {/* 清除筛选按钮 */}
-      {hasFilters && (
-        <div className="flex items-center justify-center">
-          <Button 
-            variant="outline" 
-            size="sm" 
-            onClick={clearFilters}
-            className="text-muted-foreground hover:text-foreground border-muted"
-          >
-            <X className="w-3 h-3 mr-1" />
-            清除筛选
-          </Button>
         </div>
       )}
     </div>
