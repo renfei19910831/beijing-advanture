@@ -50,43 +50,46 @@ const Testimonials = () => {
 
         <Carousel
           opts={{
-            align: "start",
+            align: "center",
             loop: true,
           }}
           plugins={[
             Autoplay({
               delay: 3000,
+              stopOnInteraction: false,
             }),
           ]}
           className="w-full"
         >
-          <CarouselContent>
+          <CarouselContent className="-ml-2 md:-ml-4">
             {testimonials.map((testimonial) => (
-              <CarouselItem key={testimonial.id} className="md:basis-1/2 lg:basis-1/3">
-                <Card className="p-8 bg-glass-bg backdrop-blur-sm border-border/50 hover:shadow-luxury transition-all duration-700 h-full">
-                  <div className="flex flex-col items-center text-center space-y-4">
-                    {/* User Avatar */}
-                    <Avatar className="w-16 h-16">
+              <CarouselItem key={testimonial.id} className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
+                <Card className="p-6 bg-card/80 backdrop-blur-sm border hover:shadow-lg transition-all duration-300 h-full">
+                  <div className="flex flex-col items-center text-center space-y-6">
+                    {/* 用户头像 - 在上 */}
+                    <Avatar className="w-20 h-20 border-2 border-primary/20">
                       <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                      <AvatarFallback>{testimonial.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                      <AvatarFallback className="bg-primary/10 text-primary font-medium">
+                        {testimonial.name.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
                     </Avatar>
                     
-                    {/* Rating Stars */}
-                    <div className="flex items-center justify-center">
+                    {/* 用户反馈打分 - 中间 */}
+                    <div className="flex items-center justify-center space-x-1">
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-accent text-accent" />
+                        <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
                       ))}
                     </div>
                     
-                    {/* Comment */}
-                    <p className="text-muted-foreground italic leading-relaxed">
+                    {/* 用户反馈内容 - 在下 */}
+                    <blockquote className="text-muted-foreground italic leading-relaxed text-sm">
                       "{testimonial.comment}"
-                    </p>
+                    </blockquote>
                     
-                    {/* User Name */}
+                    {/* 用户名 - 最后 */}
                     <div className="text-center">
-                      <div className="font-medium text-foreground">{testimonial.name}</div>
-                      <div className="text-sm text-muted-foreground">{testimonial.service}</div>
+                      <div className="font-semibold text-foreground text-base">{testimonial.name}</div>
+                      <div className="text-xs text-muted-foreground mt-1">{testimonial.service}</div>
                     </div>
                   </div>
                 </Card>
