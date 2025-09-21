@@ -1,9 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Star, MapPin, ArrowLeft, Calendar, MessageCircle } from 'lucide-react';
+import { Star, MapPin, ArrowLeft, Calendar, MessageCircle, Camera } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Photographer } from '@/types/photographer';
@@ -30,10 +31,27 @@ const mockPhotographers: Photographer[] = [
     bio: '专注人像摄影5年，擅长捕捉自然情感。毕业于中央美术学院摄影系，曾为多位明星和模特拍摄过写真。善于运用自然光线，营造温暖而真实的画面氛围。',
     gender: 'female',
     portfolio: [
-      { id: '1-1', url: portfolioPortrait, title: '夏日午后', category: '人像', description: '自然光人像摄影' },
-      { id: '1-2', url: heroImage, title: '城市漫步', category: '街拍', description: '都市情侣写真' },
-      { id: '1-3', url: portfolioStreet, title: '街角时光', category: '街拍', description: '日常生活记录' },
-      { id: '1-4', url: portfolioArchitecture, title: '光影对话', category: '人像', description: '建筑背景人像' }
+      // 情侣写真
+      { id: '1-1', url: portfolioPortrait, title: '夏日午后', category: '情侣写真', description: '自然光人像摄影，捕捉情侣间的甜蜜瞬间' },
+      { id: '1-2', url: heroImage, title: '城市漫步', category: '情侣写真', description: '都市背景下的浪漫情侣写真' },
+      { id: '1-3', url: portfolioStreet, title: '黄昏时光', category: '情侣写真', description: '夕阳下的温馨情侣照' },
+      
+      // 家庭摄影
+      { id: '1-4', url: portfolioArchitecture, title: '温暖的家', category: '全家福', description: '三代同堂的幸福时光' },
+      { id: '1-5', url: heroImage, title: '亲子时光', category: '家庭摄影', description: '父母与孩子的温馨互动' },
+      { id: '1-6', url: portfolioPortrait, title: '兄弟情深', category: '家庭摄影', description: '记录兄弟姐妹的珍贵情感' },
+      
+      // 个人写真
+      { id: '1-7', url: portfolioStreet, title: '职场精英', category: '个人写真', description: '专业商务形象照' },
+      { id: '1-8', url: portfolioArchitecture, title: '艺术肖像', category: '个人写真', description: '创意艺术人像摄影' },
+      
+      // 周年纪念
+      { id: '1-9', url: heroImage, title: '十年之约', category: '周年纪念', description: '结婚十周年纪念写真' },
+      { id: '1-10', url: portfolioPortrait, title: '银婚纪念', category: '周年纪念', description: '25周年银婚纪念照' },
+      
+      // 宠物摄影
+      { id: '1-11', url: portfolioStreet, title: '毛孩子', category: '宠物摄影', description: '可爱宠物与主人的温馨时刻' },
+      { id: '1-12', url: portfolioArchitecture, title: '萌宠日常', category: '宠物摄影', description: '记录宠物的日常生活' }
     ],
     featured: true
   },
@@ -76,6 +94,7 @@ const mockPhotographers: Photographer[] = [
 const PhotographerDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [selectedCategory, setSelectedCategory] = useState('全部');
   
   const photographer = mockPhotographers.find(p => p.id === id);
 
@@ -91,6 +110,24 @@ const PhotographerDetail = () => {
       </div>
     );
   }
+
+  // 获取所有分类
+  const categories = ['全部', ...Array.from(new Set(photographer.portfolio.map(photo => photo.category)))];
+  
+  // 筛选作品
+  const filteredPortfolio = selectedCategory === '全部' 
+    ? photographer.portfolio 
+    : photographer.portfolio.filter(photo => photo.category === selectedCategory);
+
+  // 按分类统计作品数量
+  const categoryStats = categories.reduce((stats, category) => {
+    if (category === '全部') {
+      stats[category] = photographer.portfolio.length;
+    } else {
+      stats[category] = photographer.portfolio.filter(photo => photo.category === category).length;
+    }
+    return stats;
+  }, {} as Record<string, number>);
 
   return (
     <div className="min-h-screen bg-background">
@@ -164,101 +201,97 @@ const PhotographerDetail = () => {
         {/* Portfolio */}
         <section className="py-12">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold text-foreground mb-8">作品集</h2>
-            
-            {/* Artistic Masonry-like Layout */}
-            <div className="relative">
-              {photographer.portfolio.map((photo, index) => {
-                // Define different layouts for each position
-                const layouts = [
-                  { size: 'large', position: 'col-span-2 row-span-2', aspect: 'aspect-square' },
-                  { size: 'medium', position: 'col-span-1 row-span-1', aspect: 'aspect-[4/5]' },
-                  { size: 'wide', position: 'col-span-2 row-span-1', aspect: 'aspect-[2/1]' },
-                  { size: 'tall', position: 'col-span-1 row-span-2', aspect: 'aspect-[3/5]' }
-                ];
-                
-                const layout = layouts[index % layouts.length];
-                
-                return (
-                  <div 
-                    key={photo.id}
-                    className={`group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-elegant transition-all duration-500 hover:-translate-y-2 ${
-                      index === 0 ? 'mb-6' : ''
-                    } ${
-                      index % 2 === 0 ? 'animate-fade-in' : 'animate-fade-in'
-                    }`}
-                    style={{
-                      animationDelay: `${index * 100}ms`,
-                      marginBottom: index < photographer.portfolio.length - 1 ? '1.5rem' : '0',
-                      float: index % 2 === 0 ? 'left' : 'right',
-                      width: layout.size === 'large' ? '60%' : layout.size === 'wide' ? '70%' : '45%',
-                      clear: index % 3 === 0 ? 'both' : 'none',
-                      marginLeft: index % 2 === 0 ? '0' : '1rem',
-                      marginRight: index % 2 === 0 ? '1rem' : '0'
-                    }}
-                  >
-                    <div className={`relative ${layout.aspect} overflow-hidden`}>
-                      <img 
-                        src={photo.url} 
-                        alt={photo.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
-                        <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500">
-                          <Badge 
-                            variant="secondary" 
-                            className="mb-3 bg-white/20 backdrop-blur-sm border-white/30 text-white"
-                          >
-                            {photo.category}
-                          </Badge>
-                          <h3 className="text-white font-bold text-xl mb-2">{photo.title}</h3>
-                          <p className="text-white/90 text-sm leading-relaxed">{photo.description}</p>
-                        </div>
-                      </div>
-                      
-                      {/* Corner Accent */}
-                      <div className="absolute top-4 right-4 w-3 h-3 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-lg shadow-primary/50" />
-                      
-                      {/* Artistic Border Effect */}
-                      <div className="absolute inset-0 border-2 border-white/0 group-hover:border-white/20 rounded-2xl transition-all duration-500" />
-                    </div>
-                  </div>
-                );
-              })}
-              
-              {/* Clear float */}
-              <div className="clear-both" />
+            <div className="flex items-center justify-between mb-8">
+              <h2 className="text-2xl font-bold text-foreground">作品集</h2>
+              <span className="text-muted-foreground">共 {photographer.portfolio.length} 张作品</span>
             </div>
             
-            {/* Alternative Grid Layout for smaller screens */}
-            <div className="md:hidden space-y-4">
-              {photographer.portfolio.map((photo, index) => (
-                <Card 
-                  key={`mobile-${photo.id}`} 
-                  className="group overflow-hidden animate-fade-in"
-                  style={{ animationDelay: `${index * 150}ms` }}
+            {/* Category Filter Tabs */}
+            <div className="flex flex-wrap gap-2 mb-8 p-1 bg-muted/50 rounded-lg">
+              {categories.map((category) => (
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? "default" : "ghost"}
+                  size="sm"
+                  onClick={() => setSelectedCategory(category)}
+                  className={`
+                    transition-all duration-200 
+                    ${selectedCategory === category 
+                      ? 'bg-primary text-primary-foreground shadow-sm' 
+                      : 'hover:bg-background/80'
+                    }
+                  `}
                 >
-                  <div className="relative aspect-[4/3] overflow-hidden">
+                  {category}
+                  <Badge 
+                    variant="secondary" 
+                    className={`ml-2 text-xs ${
+                      selectedCategory === category 
+                        ? 'bg-primary-foreground/20 text-primary-foreground' 
+                        : 'bg-muted text-muted-foreground'
+                    }`}
+                  >
+                    {categoryStats[category]}
+                  </Badge>
+                </Button>
+              ))}
+            </div>
+
+            {/* Portfolio Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+              {filteredPortfolio.map((photo, index) => (
+                <Card 
+                  key={photo.id} 
+                  className="group overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in border-0"
+                  style={{ animationDelay: `${index * 50}ms` }}
+                >
+                  <div className="relative aspect-square overflow-hidden">
                     <img 
                       src={photo.url} 
                       alt={photo.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute bottom-4 left-4 right-4">
-                        <Badge variant="secondary" className="mb-2 bg-white/20 backdrop-blur-sm border-white/30 text-white">
-                          {photo.category}
-                        </Badge>
-                        <h3 className="text-white font-semibold mb-1">{photo.title}</h3>
-                        <p className="text-white/80 text-sm">{photo.description}</p>
+                    
+                    {/* Category Badge */}
+                    <div className="absolute top-2 left-2">
+                      <Badge 
+                        variant="secondary" 
+                        className="bg-black/60 backdrop-blur-sm text-white border-0 text-xs"
+                      >
+                        {photo.category}
+                      </Badge>
+                    </div>
+                    
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex items-end">
+                      <div className="p-3 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 className="font-semibold text-sm mb-1">{photo.title}</h3>
+                        <p className="text-xs text-white/90 line-clamp-2">{photo.description}</p>
                       </div>
                     </div>
+
+                    {/* Gradient overlay for better text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 </Card>
               ))}
             </div>
+
+            {/* Empty State */}
+            {filteredPortfolio.length === 0 && (
+              <div className="text-center py-12">
+                <div className="text-muted-foreground mb-4">
+                  <Camera className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                  <p>该分类下暂无作品</p>
+                </div>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setSelectedCategory('全部')}
+                >
+                  查看全部作品
+                </Button>
+              </div>
+            )}
           </div>
         </section>
 
