@@ -117,7 +117,6 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
       {/* 主要内容区域 */}
       <div 
         className="flex items-center justify-center min-h-screen p-4 md:p-8"
-        onClick={(e) => e.stopPropagation()}
       >
         <div className="relative max-w-7xl max-h-full w-full">
           {/* 照片 */}
@@ -135,6 +134,7 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                 imageLoaded ? 'opacity-100 animate-scale-in' : 'opacity-0'
               }`}
               onLoad={() => setImageLoaded(true)}
+              onClick={(e) => e.stopPropagation()}
               draggable={false}
             />
           </div>
