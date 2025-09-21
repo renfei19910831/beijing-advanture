@@ -44,7 +44,11 @@ All colors MUST be HSL.
     --shadow-gold: 0 8px 32px hsl(45 80% 65% / 0.25);
     --shadow-hover: 0 20px 80px hsl(240 20% 8% / 0.2);
     --gradient-gold: linear-gradient(135deg, hsl(45 90% 70%), hsl(35 85% 60%));
+    --gradient-primary: linear-gradient(135deg, hsl(45 80% 65%), hsl(35 75% 55%));
     --gradient-platinum: linear-gradient(180deg, hsl(30 8% 92%), hsl(30 12% 85%));
+    --gradient-soft: linear-gradient(135deg, hsl(30 15% 97%), hsl(30 12% 95%));
+    --shadow-button: 0 4px 20px hsl(45 80% 65% / 0.15);
+    --shadow-button-hover: 0 8px 30px hsl(45 80% 65% / 0.25);
     --transition-luxury: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     --transition-quick: all 0.2s ease-out;

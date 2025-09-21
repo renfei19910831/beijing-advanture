@@ -70,10 +70,14 @@ export default {
 			backgroundImage: {
 				'hero-gradient': 'var(--hero-gradient)',
 				'glass': 'var(--glass-bg)',
+				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-soft': 'var(--gradient-soft)',
 			},
 			boxShadow: {
 				'elegant': 'var(--shadow-elegant)',
 				'hover': 'var(--shadow-hover)',
+				'button': 'var(--shadow-button)',
+				'button-hover': 'var(--shadow-button-hover)',
 			},
 			transitionTimingFunction: {
 				'smooth': 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',

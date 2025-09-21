@@ -20,31 +20,31 @@ const PhotographerSearch = ({
     <div className="space-y-8 mb-12">
       {/* 主分类 - 大标签设计 */}
       {categories.length > 0 && (
-        <div className="space-y-4">
-          <div className="flex items-center justify-center space-x-3 mb-6">
+        <div className="space-y-6">
+          <div className="flex items-center justify-center space-x-3 mb-8">
             <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent flex-1"></div>
-            <h3 className="text-sm font-medium text-muted-foreground px-4 bg-background">选择你喜欢的摄影风格</h3>
+            <h3 className="text-base font-semibold text-foreground px-6 bg-background font-serif">选择你喜欢的摄影风格</h3>
             <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent flex-1"></div>
           </div>
           
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-4">
             {categories.map((category) => (
               <Button
                 key={category.value}
-                variant={activeCategory === category.value ? "default" : "ghost"}
+                variant="ghost"
                 size="lg"
                 onClick={() => onCategoryChange?.(category.value)}
                 className={`
-                  relative px-6 py-3 rounded-full transition-all duration-300 font-medium
+                  relative px-8 py-4 rounded-2xl font-semibold text-base transition-all duration-300 ease-smooth min-w-[120px]
                   ${activeCategory === category.value 
-                    ? "bg-gradient-primary text-white shadow-xl shadow-primary/25 scale-105" 
-                    : "hover:bg-muted hover:text-foreground hover:scale-105 text-muted-foreground border border-muted"
+                    ? "bg-gradient-primary text-primary-foreground shadow-button-hover scale-105 border-0" 
+                    : "bg-gradient-soft text-foreground hover:bg-secondary hover:text-foreground hover:scale-102 hover:shadow-button border border-border/50"
                   }
                 `}
               >
-                {category.label}
+                <span className="relative z-10">{category.label}</span>
                 {activeCategory === category.value && (
-                  <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-20 animate-pulse"></div>
+                  <div className="absolute inset-0 rounded-2xl bg-primary/10 animate-pulse"></div>
                 )}
               </Button>
             ))}
