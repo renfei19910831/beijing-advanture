@@ -373,7 +373,7 @@ const PhotographerDetail = () => {
               }}
               plugins={[
                 Autoplay({
-                  delay: 3000,
+                  delay: 6000,
                   stopOnInteraction: false,
                 }),
               ]}
