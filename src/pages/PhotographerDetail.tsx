@@ -237,44 +237,68 @@ const PhotographerDetail = () => {
               ))}
             </div>
 
-            {/* Portfolio Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-              {filteredPortfolio.map((photo, index) => (
-                <Card 
-                  key={photo.id} 
-                  className="group overflow-hidden hover:shadow-lg transition-all duration-300 animate-fade-in border-0"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  <div className="relative aspect-square overflow-hidden">
-                    <img 
-                      src={photo.url} 
-                      alt={photo.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    
-                    {/* Category Badge */}
-                    <div className="absolute top-2 left-2">
-                      <Badge 
-                        variant="secondary" 
-                        className="bg-black/60 backdrop-blur-sm text-white border-0 text-xs"
-                      >
-                        {photo.category}
-                      </Badge>
-                    </div>
-                    
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all duration-300 flex items-end">
-                      <div className="p-3 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                        <h3 className="font-semibold text-sm mb-1">{photo.title}</h3>
-                        <p className="text-xs text-white/90 line-clamp-2">{photo.description}</p>
-                      </div>
-                    </div>
+            {/* Portfolio Grid - Enhanced Masonry Layout */}
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4 auto-rows-[200px]">
+              {filteredPortfolio.map((photo, index) => {
+                // 创建更有趣的布局模式
+                const getGridClass = (index: number) => {
+                  const patterns = [
+                    // 大图模式 - 占据 2x2 空间
+                    'col-span-2 row-span-2',
+                    // 横长模式 - 占据 2x1 空间
+                    'col-span-2 row-span-1',
+                    // 竖长模式 - 占据 1x2 空间
+                    'col-span-1 row-span-2',
+                    // 正方形 - 占据 1x1 空间
+                    'col-span-1 row-span-1',
+                    'col-span-1 row-span-1',
+                    'col-span-1 row-span-1'
+                  ];
+                  
+                  // 每6张照片重复一次模式，让布局更有规律但不单调
+                  return patterns[index % patterns.length];
+                };
 
-                    {/* Gradient overlay for better text readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                </Card>
-              ))}
+                return (
+                  <Card 
+                    key={photo.id} 
+                    className={`group overflow-hidden hover:shadow-elegant transition-all duration-500 animate-fade-in border-0 bg-card hover:shadow-button-hover ${getGridClass(index)}`}
+                    style={{ animationDelay: `${index * 80}ms` }}
+                  >
+                    <div className="relative w-full h-full overflow-hidden rounded-lg">
+                      <img 
+                        src={photo.url} 
+                        alt={photo.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ease-smooth"
+                      />
+                      
+                      {/* Category Badge */}
+                      <div className="absolute top-3 left-3 z-10">
+                        <Badge 
+                          variant="secondary" 
+                          className="bg-black/70 backdrop-blur-md text-white border-0 text-xs px-3 py-1 rounded-full shadow-lg"
+                        >
+                          {photo.category}
+                        </Badge>
+                      </div>
+                      
+                      {/* Hover Overlay with Gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end z-10">
+                        <div className="p-4 text-white transform translate-y-6 group-hover:translate-y-0 transition-all duration-500 ease-smooth">
+                          <h3 className="font-bold text-lg mb-2 font-serif">{photo.title}</h3>
+                          <p className="text-sm text-white/90 line-clamp-2 leading-relaxed">{photo.description}</p>
+                        </div>
+                      </div>
+
+                      {/* 光晕效果 */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                      
+                      {/* 边框高光效果 */}
+                      <div className="absolute inset-0 rounded-lg border-2 border-primary/0 group-hover:border-primary/30 transition-all duration-500" />
+                    </div>
+                  </Card>
+                );
+              })}
             </div>
 
             {/* Empty State */}
