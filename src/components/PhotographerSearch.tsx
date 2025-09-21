@@ -54,116 +54,115 @@ const PhotographerSearch = ({
   const hasFilters = searchTerm || (selectedGender && selectedGender !== 'all') || (selectedCategory && selectedCategory !== 'all');
 
   return (
-    <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 mb-8">
-      <div className="flex flex-col space-y-6">
-        
-        {/* Category Tags */}
-        {categories.length > 0 && (
-          <div className="space-y-3">
-            <h3 className="text-sm font-medium text-muted-foreground">摄影类型</h3>
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <Button
-                  key={category.value}
-                  variant={activeCategory === category.value ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => onCategoryChange?.(category.value)}
-                  className={`transition-all duration-300 ${
-                    activeCategory === category.value 
-                      ? "bg-gradient-primary hover:opacity-90 shadow-md" 
-                      : "hover:border-primary hover:text-primary"
-                  }`}
-                >
-                  {category.label}
-                </Button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        <div className="flex flex-col space-y-4">
-        {/* Search Input */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
-          <Input
-            placeholder="搜索摄影师姓名、拍摄风格..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-            className="pl-12 h-12 text-base"
-          />
-        </div>
-
-        {/* Filters Row */}
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Select value={selectedGender} onValueChange={setSelectedGender}>
-            <SelectTrigger className="sm:w-48">
-              <div className="flex items-center">
-                <MapPin className="w-4 h-4 mr-2 text-muted-foreground" />
-                <SelectValue placeholder="选择性别" />
-              </div>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">全部摄影师</SelectItem>
-              {genders.map(gender => (
-                <SelectItem key={gender.value} value={gender.value}>{gender.label}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-            <SelectTrigger className="sm:w-48">
-              <div className="flex items-center">
-                <Camera className="w-4 h-4 mr-2 text-muted-foreground" />
-                <SelectValue placeholder="拍摄类型" />
-              </div>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">全部类型</SelectItem>
-              {internalCategories.map(category => (
-                <SelectItem key={category} value={category}>{category}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <div className="flex space-x-2 sm:ml-auto">
-            <Button onClick={handleSearch} className="bg-gradient-primary hover:opacity-90">
-              <Search className="w-4 h-4 mr-2" />
-              搜索
-            </Button>
-            {hasFilters && (
-              <Button variant="outline" onClick={clearFilters}>
-                <X className="w-4 h-4 mr-2" />
-                清除
+    <div className="space-y-6 mb-8">
+      {/* Category Tags - Main Filter */}
+      {categories.length > 0 && (
+        <div className="bg-card/30 backdrop-blur-sm border border-border rounded-lg p-4">
+          <div className="flex flex-wrap justify-center gap-2">
+            {categories.map((category) => (
+              <Button
+                key={category.value}
+                variant={activeCategory === category.value ? "default" : "outline"}
+                size="sm"
+                onClick={() => onCategoryChange?.(category.value)}
+                className={`transition-all duration-300 ${
+                  activeCategory === category.value 
+                    ? "bg-gradient-primary hover:opacity-90 shadow-md scale-105" 
+                    : "hover:border-primary hover:text-primary hover:scale-105"
+                }`}
+              >
+                {category.label}
               </Button>
-            )}
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Search and Filters - Compact Row */}
+      <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-4">
+        <div className="flex flex-col lg:flex-row gap-3 lg:items-center">
+          {/* Search Input */}
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+            <Input
+              placeholder="搜索摄影师姓名、拍摄风格..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+              className="pl-10 h-10 text-sm"
+            />
+          </div>
+
+          {/* Filters and Actions */}
+          <div className="flex flex-col sm:flex-row gap-2 lg:flex-shrink-0">
+            <Select value={selectedGender} onValueChange={setSelectedGender}>
+              <SelectTrigger className="w-full sm:w-36">
+                <div className="flex items-center">
+                  <MapPin className="w-3 h-3 mr-1 text-muted-foreground" />
+                  <SelectValue placeholder="性别" />
+                </div>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">全部</SelectItem>
+                {genders.map(gender => (
+                  <SelectItem key={gender.value} value={gender.value}>{gender.label}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <SelectTrigger className="w-full sm:w-36">
+                <div className="flex items-center">
+                  <Camera className="w-3 h-3 mr-1 text-muted-foreground" />
+                  <SelectValue placeholder="类型" />
+                </div>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">全部类型</SelectItem>
+                {internalCategories.map(category => (
+                  <SelectItem key={category} value={category}>{category}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <div className="flex space-x-2">
+              <Button onClick={handleSearch} size="sm" className="bg-gradient-primary hover:opacity-90">
+                <Search className="w-3 h-3 mr-1" />
+                搜索
+              </Button>
+              {hasFilters && (
+                <Button variant="outline" size="sm" onClick={clearFilters}>
+                  <X className="w-3 h-3 mr-1" />
+                  清除
+                </Button>
+              )}
+            </div>
           </div>
         </div>
 
         {/* Active Filters */}
         {hasFilters && (
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-border">
             {searchTerm && (
-              <Badge variant="secondary" className="flex items-center gap-1">
+              <Badge variant="secondary" className="flex items-center gap-1 text-xs">
                 搜索: {searchTerm}
-                <X className="w-3 h-3 cursor-pointer" onClick={() => setSearchTerm('')} />
+                <X className="w-3 h-3 cursor-pointer hover:text-destructive" onClick={() => setSearchTerm('')} />
               </Badge>
             )}
             {selectedGender && selectedGender !== 'all' && (
-              <Badge variant="secondary" className="flex items-center gap-1">
-                性别: {genders.find(g => g.value === selectedGender)?.label}
-                <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedGender('all')} />
+              <Badge variant="secondary" className="flex items-center gap-1 text-xs">
+                {genders.find(g => g.value === selectedGender)?.label}
+                <X className="w-3 h-3 cursor-pointer hover:text-destructive" onClick={() => setSelectedGender('all')} />
               </Badge>
             )}
             {selectedCategory && selectedCategory !== 'all' && (
-              <Badge variant="secondary" className="flex items-center gap-1">
-                类型: {selectedCategory}
-                <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedCategory('all')} />
+              <Badge variant="secondary" className="flex items-center gap-1 text-xs">
+                {selectedCategory}
+                <X className="w-3 h-3 cursor-pointer hover:text-destructive" onClick={() => setSelectedCategory('all')} />
               </Badge>
             )}
           </div>
         )}
-        </div>
       </div>
     </div>
   );
