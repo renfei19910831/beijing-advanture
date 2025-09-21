@@ -1,10 +1,10 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { Star, MapPin, ArrowLeft, Calendar, MessageCircle, Camera } from 'lucide-react';
+import { Star, MapPin, ArrowLeft, Calendar, MessageCircle, Camera, Heart } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { PhotoModal } from '@/components/PhotoModal';
@@ -98,6 +98,34 @@ const PhotographerDetail = () => {
   const [selectedCategory, setSelectedCategory] = useState('全部');
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
+  const [isFollowed, setIsFollowed] = useState(false);
+
+  // 从本地存储加载关注状态
+  useEffect(() => {
+    if (id) {
+      const followedPhotographers = JSON.parse(localStorage.getItem('followedPhotographers') || '[]');
+      setIsFollowed(followedPhotographers.includes(id));
+    }
+  }, [id]);
+
+  // 切换关注状态
+  const toggleFollow = () => {
+    if (!id) return;
+    
+    const followedPhotographers = JSON.parse(localStorage.getItem('followedPhotographers') || '[]');
+    
+    if (isFollowed) {
+      // 取消关注
+      const updatedFollowed = followedPhotographers.filter((photographerId: string) => photographerId !== id);
+      localStorage.setItem('followedPhotographers', JSON.stringify(updatedFollowed));
+      setIsFollowed(false);
+    } else {
+      // 添加关注
+      const updatedFollowed = [...followedPhotographers, id];
+      localStorage.setItem('followedPhotographers', JSON.stringify(updatedFollowed));
+      setIsFollowed(true);
+    }
+  };
   
   const photographer = mockPhotographers.find(p => p.id === id);
 
@@ -200,6 +228,25 @@ const PhotographerDetail = () => {
                   <Button variant="outline" size="lg">
                     <MessageCircle className="w-4 h-4 mr-2" />
                     咨询详情
+                  </Button>
+                  <Button
+                    variant={isFollowed ? "default" : "outline"}
+                    size="lg"
+                    onClick={toggleFollow}
+                    className={`
+                      transition-all duration-200
+                      ${isFollowed 
+                        ? 'bg-red-500 hover:bg-red-600 text-white border-red-500' 
+                        : 'hover:bg-red-50 hover:border-red-200 hover:text-red-600'
+                      }
+                    `}
+                  >
+                    <Heart 
+                      className={`w-4 h-4 mr-2 ${
+                        isFollowed ? 'fill-white' : ''
+                      }`} 
+                    />
+                    {isFollowed ? '已关注' : '关注'}
                   </Button>
                 </div>
               </div>
