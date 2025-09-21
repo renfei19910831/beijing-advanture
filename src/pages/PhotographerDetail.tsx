@@ -237,25 +237,16 @@ const PhotographerDetail = () => {
               ))}
             </div>
 
-            {/* Portfolio Grid - Simplified Elegant Layout */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {/* Portfolio Grid - 小红书风格竖版布局 */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
               {filteredPortfolio.map((photo, index) => {
-                // 简化布局：主要使用正方形，偶尔有大图
-                const getGridClass = (index: number) => {
-                  // 每8张图片中有一张大图，其余都是正方形
-                  if (index % 8 === 0 && index !== 0) {
-                    return 'col-span-2 row-span-2'; // 大图
-                  }
-                  return 'col-span-1 row-span-1'; // 正方形
-                };
-
                 return (
                   <Card 
                     key={photo.id} 
-                    className={`group overflow-hidden hover:shadow-elegant transition-all duration-500 animate-fade-in border-0 bg-card hover:shadow-button-hover ${getGridClass(index)}`}
-                    style={{ animationDelay: `${index * 60}ms` }}
+                    className="group overflow-hidden hover:shadow-elegant transition-all duration-500 animate-fade-in border-0 bg-card hover:shadow-button-hover"
+                    style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <div className="relative aspect-square overflow-hidden rounded-lg">
+                    <div className="relative aspect-[3/4] overflow-hidden rounded-lg">
                       <img 
                         src={photo.url} 
                         alt={photo.title}
