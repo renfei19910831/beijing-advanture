@@ -5,6 +5,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Star, MapPin, ArrowLeft, Calendar, MessageCircle, Camera, Heart } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { PhotoModal } from '@/components/PhotoModal';
@@ -364,32 +366,98 @@ const PhotographerDetail = () => {
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold text-foreground mb-8">客户评价</h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {/* Sample reviews */}
-              {[1, 2, 3].map((review) => (
-                <Card key={review}>
-                  <CardContent className="p-6">
-                    <div className="flex items-center space-x-1 mb-3">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-primary text-primary" />
-                      ))}
-                    </div>
-                    <p className="text-muted-foreground mb-4">
-                      "拍摄效果非常好，摄影师很专业，能够很好地捕捉自然的表情和动作。整个拍摄过程很愉快！"
-                    </p>
-                    <div className="flex items-center space-x-2">
-                      <Avatar className="w-8 h-8">
-                        <AvatarFallback>客</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <p className="font-semibold text-sm">匿名客户</p>
-                        <p className="text-xs text-muted-foreground">2024年8月</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <Carousel
+              opts={{
+                align: "center",
+                loop: true,
+              }}
+              plugins={[
+                Autoplay({
+                  delay: 3000,
+                  stopOnInteraction: false,
+                }),
+              ]}
+              className="w-full max-w-5xl mx-auto"
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {/* Sample reviews with real data */}
+                {[
+                  {
+                    id: 1,
+                    name: "张小雨",
+                    avatar: testimonialSarah,
+                    rating: 5,
+                    comment: "拍摄效果非常好，摄影师很专业，能够很好地捕捉自然的表情和动作。整个拍摄过程很愉快！",
+                    date: "2024年8月",
+                    service: "情侣写真"
+                  },
+                  {
+                    id: 2,
+                    name: "李雅婷",
+                    avatar: testimonialLisa,
+                    rating: 5,
+                    comment: "超级满意！张老师的拍摄技术一流，后期制作也很用心。照片质量远超预期，强烈推荐！",
+                    date: "2024年7月",
+                    service: "个人写真"
+                  },
+                  {
+                    id: 3,
+                    name: "王明华",
+                    avatar: testimonialMichael,
+                    rating: 4,
+                    comment: "第一次拍全家福，摄影师很有耐心，尤其是和小朋友的互动很棒。成片效果温馨自然。",
+                    date: "2024年7月",
+                    service: "全家福"
+                  },
+                  {
+                    id: 4,
+                    name: "陈思思",
+                    avatar: testimonialSarah,
+                    rating: 5,
+                    comment: "婚纱照拍得太美了，每一张都是艺术品。摄影师的创意和构图都很棒，值得信赖！",
+                    date: "2024年6月",
+                    service: "婚纱摄影"
+                  }
+                ].map((review) => (
+                  <CarouselItem key={review.id} className="pl-2 md:pl-4 basis-full md:basis-1/2 lg:basis-1/3">
+                    <Card className="h-full bg-card/80 backdrop-blur-sm border hover:shadow-lg transition-all duration-300">
+                      <CardContent className="p-6">
+                        <div className="flex flex-col items-center text-center space-y-4">
+                          {/* 用户头像 - 在上 */}
+                          <Avatar className="w-16 h-16 border-2 border-primary/20">
+                            <AvatarImage src={review.avatar} alt={review.name} />
+                            <AvatarFallback className="bg-primary/10 text-primary font-medium">
+                              {review.name[0]}
+                            </AvatarFallback>
+                          </Avatar>
+                          
+                          {/* 用户反馈打分 - 中间 */}
+                          <div className="flex items-center justify-center space-x-1">
+                            {[...Array(review.rating)].map((_, i) => (
+                              <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                            ))}
+                            {[...Array(5 - review.rating)].map((_, i) => (
+                              <Star key={`empty-${i}`} className="w-5 h-5 text-gray-300" />
+                            ))}
+                          </div>
+                          
+                          {/* 用户反馈内容 - 在下 */}
+                          <blockquote className="text-muted-foreground italic leading-relaxed text-sm px-2">
+                            "{review.comment}"
+                          </blockquote>
+                          
+                          {/* 用户名 - 最后 */}
+                          <div className="text-center">
+                            <div className="font-semibold text-foreground text-base">{review.name}</div>
+                            <div className="text-xs text-muted-foreground mt-1">{review.service} · {review.date}</div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
         </section>
       </main>
