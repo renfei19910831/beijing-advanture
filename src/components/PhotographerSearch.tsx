@@ -22,40 +22,32 @@ const PhotographerSearch = ({
   onCategoryChange 
 }: PhotographerSearchProps) => {
   const [selectedGender, setSelectedGender] = useState('all');
-  const [selectedCategory, setSelectedCategory] = useState('all');
 
   const genders = [
     { value: 'female', label: '女摄影师' },
     { value: 'male', label: '男摄影师' }
   ];
 
-  const handleFiltersChange = (gender: string, category: string) => {
+  const handleFiltersChange = (gender: string) => {
     onSearch({
       searchTerm: '',
       gender: gender === 'all' ? '' : gender,
-      category: category === 'all' ? '' : category
+      category: activeCategory === 'all' ? '' : activeCategory
     });
   };
 
   const handleGenderChange = (value: string) => {
     setSelectedGender(value);
-    handleFiltersChange(value, selectedCategory);
-  };
-
-  const handleCategoryChange = (value: string) => {
-    setSelectedCategory(value);
-    handleFiltersChange(selectedGender, value);
+    handleFiltersChange(value);
   };
 
   const clearFilters = () => {
     setSelectedGender('all');
-    setSelectedCategory('all');
     onCategoryChange?.('all');
-    handleFiltersChange('all', 'all');
+    handleFiltersChange('all');
   };
 
   const hasFilters = (selectedGender && selectedGender !== 'all') || 
-                    (selectedCategory && selectedCategory !== 'all') ||
                     (activeCategory && activeCategory !== 'all');
 
   return (
@@ -94,45 +86,21 @@ const PhotographerSearch = ({
         </div>
       )}
 
-      {/* 次级筛选 - 紧凑设计 */}
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2">
-            <Users className="w-4 h-4 text-muted-foreground" />
-            <Select value={selectedGender} onValueChange={handleGenderChange}>
-              <SelectTrigger className="w-32 h-9 border-muted">
-                <SelectValue placeholder="性别" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">全部</SelectItem>
-                {genders.map(gender => (
-                  <SelectItem key={gender.value} value={gender.value}>{gender.label}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="flex items-center space-x-2">
-            <Camera className="w-4 h-4 text-muted-foreground" />
-            <Select value={selectedCategory} onValueChange={handleCategoryChange}>
-              <SelectTrigger className="w-32 h-9 border-muted">
-                <SelectValue placeholder="类型" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">全部类型</SelectItem>
-                <SelectItem value="人像">人像</SelectItem>
-                <SelectItem value="街拍">街拍</SelectItem>
-                <SelectItem value="建筑">建筑</SelectItem>
-                <SelectItem value="风光">风光</SelectItem>
-                <SelectItem value="家庭">家庭</SelectItem>
-                <SelectItem value="儿童">儿童</SelectItem>
-                <SelectItem value="婚纱">婚纱</SelectItem>
-                <SelectItem value="时尚">时尚</SelectItem>
-                <SelectItem value="商业">商业</SelectItem>
-                <SelectItem value="艺术">艺术</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+      {/* 次级筛选 - 性别选择 */}
+      <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center space-x-2">
+          <Users className="w-4 h-4 text-muted-foreground" />
+          <Select value={selectedGender} onValueChange={handleGenderChange}>
+            <SelectTrigger className="w-32 h-9 border-muted">
+              <SelectValue placeholder="性别" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">全部</SelectItem>
+              {genders.map(gender => (
+                <SelectItem key={gender.value} value={gender.value}>{gender.label}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {hasFilters && (
@@ -152,22 +120,12 @@ const PhotographerSearch = ({
       {hasFilters && (
         <div className="flex flex-wrap justify-center gap-2">
           {selectedGender && selectedGender !== 'all' && (
-            <Badge variant="secondary" className="flex items-center gap-1 px-3 py-1">
+            <Badge variant="outline" className="flex items-center gap-1 px-3 py-1 bg-primary/10 text-primary border-primary/20">
               <Users className="w-3 h-3" />
               {genders.find(g => g.value === selectedGender)?.label}
               <X 
                 className="w-3 h-3 cursor-pointer hover:text-destructive ml-1" 
                 onClick={() => handleGenderChange('all')} 
-              />
-            </Badge>
-          )}
-          {selectedCategory && selectedCategory !== 'all' && (
-            <Badge variant="secondary" className="flex items-center gap-1 px-3 py-1">
-              <Camera className="w-3 h-3" />
-              {selectedCategory}
-              <X 
-                className="w-3 h-3 cursor-pointer hover:text-destructive ml-1" 
-                onClick={() => handleCategoryChange('all')} 
               />
             </Badge>
           )}

@@ -119,16 +119,8 @@ const PhotographerFeed = () => {
   const categories = [
     { value: 'all', label: '全部' },
     { value: '人像', label: '人像摄影' },
-    { value: '情侣', label: '情侣写真' },
-    { value: '家庭', label: '家庭摄影' },
-    { value: '婚纱', label: '婚纱摄影' },
-    { value: '儿童', label: '儿童摄影' },
     { value: '街拍', label: '街拍摄影' },
-    { value: '建筑', label: '建筑摄影' },
-    { value: '风光', label: '风光摄影' },
-    { value: '商业', label: '商业摄影' },
-    { value: '时尚', label: '时尚摄影' },
-    { value: '艺术', label: '艺术摄影' }
+    { value: '风光', label: '风光摄影' }
   ];
 
   const handleSearch = (filters: {
