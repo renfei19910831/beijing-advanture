@@ -101,6 +101,7 @@ const PhotographerDetail = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
   const [isFollowed, setIsFollowed] = useState(false);
+  const [showStickyHeader, setShowStickyHeader] = useState(false);
 
   // 从本地存储加载关注状态
   useEffect(() => {
@@ -109,6 +110,18 @@ const PhotographerDetail = () => {
       setIsFollowed(followedPhotographers.includes(id));
     }
   }, [id]);
+
+  // 监听滚动，控制吸顶显示
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      // 当滚动超过400px时显示吸顶栏
+      setShowStickyHeader(scrollTop > 400);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // 切换关注状态
   const toggleFollow = () => {
@@ -171,6 +184,64 @@ const PhotographerDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
+      
+      {/* 吸顶栏 */}
+      <div className={`fixed top-16 left-0 right-0 z-40 bg-background/95 backdrop-blur-md border-b border-border/20 transition-all duration-300 ${
+        showStickyHeader ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
+      }`}>
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Avatar className="w-12 h-12">
+                <AvatarImage src={photographer.avatar} alt={photographer.name} />
+                <AvatarFallback className="text-lg">{photographer.name[0]}</AvatarFallback>
+              </Avatar>
+              
+              <div className="flex flex-col">
+                <h3 className="font-bold text-lg text-foreground">{photographer.name}</h3>
+                <div className="flex items-center space-x-3">
+                  <div className="flex items-center space-x-1">
+                    <Star className="w-4 h-4 fill-primary text-primary" />
+                    <span className="font-semibold">{photographer.rating}</span>
+                    <span className="text-muted-foreground text-sm">({photographer.reviewCount})</span>
+                  </div>
+                  <div className="text-lg font-bold text-primary">{photographer.priceRange}</div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-3">
+              <Button size="sm" className="bg-gradient-primary hover:opacity-90">
+                <Calendar className="w-4 h-4 mr-1" />
+                预约
+              </Button>
+              <Button variant="outline" size="sm">
+                <MessageCircle className="w-4 h-4 mr-1" />
+                咨询
+              </Button>
+              <Button
+                variant={isFollowed ? "default" : "outline"}
+                size="sm"
+                onClick={toggleFollow}
+                className={`
+                  transition-all duration-200
+                  ${isFollowed 
+                    ? 'bg-red-500 hover:bg-red-600 text-white border-red-500' 
+                    : 'hover:bg-red-50 hover:border-red-200 hover:text-red-600'
+                  }
+                `}
+              >
+                <Heart 
+                  className={`w-4 h-4 mr-1 ${
+                    isFollowed ? 'fill-white' : ''
+                  }`} 
+                />
+                {isFollowed ? '已关注' : '关注'}
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
       
       <main className="pt-20">
         {/* Back Button */}
