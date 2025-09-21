@@ -21,10 +21,8 @@ const PhotographerSearch = ({
       {/* 主分类 - 大标签设计 */}
       {categories.length > 0 && (
         <div className="space-y-6">
-          <div className="flex items-center justify-center space-x-3 mb-8">
-            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent flex-1"></div>
-            <h3 className="text-base font-semibold text-foreground px-6 bg-background font-serif">选择你喜欢的摄影风格</h3>
-            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent flex-1"></div>
+          <div className="mb-8">
+            <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent w-full"></div>
           </div>
           
           <div className="flex flex-wrap justify-center gap-4">
