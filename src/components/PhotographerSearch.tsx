@@ -8,39 +8,42 @@ import { Search, MapPin, Camera, X } from 'lucide-react';
 interface PhotographerSearchProps {
   onSearch: (filters: {
     searchTerm: string;
-    location: string;
+    gender: string;
     category: string;
   }) => void;
 }
 
 const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedLocation, setSelectedLocation] = useState('all');
+  const [selectedGender, setSelectedGender] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const locations = ['北京', '上海', '广州', '深圳', '杭州', '成都', '南京'];
+  const genders = [
+    { value: 'female', label: '女摄影师' },
+    { value: 'male', label: '男摄影师' }
+  ];
   const categories = ['人像', '街拍', '建筑', '风光', '家庭', '儿童', '婚纱', '时尚', '商业', '艺术'];
 
   const handleSearch = () => {
     onSearch({
       searchTerm,
-      location: selectedLocation === 'all' ? '' : selectedLocation,
+      gender: selectedGender === 'all' ? '' : selectedGender,
       category: selectedCategory === 'all' ? '' : selectedCategory
     });
   };
 
   const clearFilters = () => {
     setSearchTerm('');
-    setSelectedLocation('all');
+    setSelectedGender('all');
     setSelectedCategory('all');
     onSearch({
       searchTerm: '',
-      location: '',
+      gender: '',
       category: ''
     });
   };
 
-  const hasFilters = searchTerm || (selectedLocation && selectedLocation !== 'all') || (selectedCategory && selectedCategory !== 'all');
+  const hasFilters = searchTerm || (selectedGender && selectedGender !== 'all') || (selectedCategory && selectedCategory !== 'all');
 
   return (
     <div className="bg-card/50 backdrop-blur-sm border border-border rounded-lg p-6 mb-8">
@@ -59,17 +62,17 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
 
         {/* Filters Row */}
         <div className="flex flex-col sm:flex-row gap-3">
-          <Select value={selectedLocation} onValueChange={setSelectedLocation}>
+          <Select value={selectedGender} onValueChange={setSelectedGender}>
             <SelectTrigger className="sm:w-48">
               <div className="flex items-center">
                 <MapPin className="w-4 h-4 mr-2 text-muted-foreground" />
-                <SelectValue placeholder="选择城市" />
+                <SelectValue placeholder="选择性别" />
               </div>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">全部城市</SelectItem>
-              {locations.map(location => (
-                <SelectItem key={location} value={location}>{location}</SelectItem>
+              <SelectItem value="all">全部摄影师</SelectItem>
+              {genders.map(gender => (
+                <SelectItem key={gender.value} value={gender.value}>{gender.label}</SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -112,10 +115,10 @@ const PhotographerSearch = ({ onSearch }: PhotographerSearchProps) => {
                 <X className="w-3 h-3 cursor-pointer" onClick={() => setSearchTerm('')} />
               </Badge>
             )}
-            {selectedLocation && selectedLocation !== 'all' && (
+            {selectedGender && selectedGender !== 'all' && (
               <Badge variant="secondary" className="flex items-center gap-1">
-                城市: {selectedLocation}
-                <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedLocation('all')} />
+                性别: {genders.find(g => g.value === selectedGender)?.label}
+                <X className="w-3 h-3 cursor-pointer" onClick={() => setSelectedGender('all')} />
               </Badge>
             )}
             {selectedCategory && selectedCategory !== 'all' && (

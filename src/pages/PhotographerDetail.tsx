@@ -28,6 +28,7 @@ const mockPhotographers: Photographer[] = [
     location: '北京',  
     priceRange: '¥800-2000',
     bio: '专注人像摄影5年，擅长捕捉自然情感。毕业于中央美术学院摄影系，曾为多位明星和模特拍摄过写真。善于运用自然光线，营造温暖而真实的画面氛围。',
+    gender: 'female',
     portfolio: [
       { id: '1-1', url: portfolioPortrait, title: '夏日午后', category: '人像', description: '自然光人像摄影' },
       { id: '1-2', url: heroImage, title: '城市漫步', category: '街拍', description: '都市情侣写真' },
@@ -46,6 +47,7 @@ const mockPhotographers: Photographer[] = [
     location: '上海',
     priceRange: '¥1200-3000',
     bio: '建筑系出身，善于用镜头诠释空间之美',
+    gender: 'male',
     portfolio: [
       { id: '2-1', url: portfolioArchitecture, title: '现代建筑', category: '建筑', description: '几何美学展现' },
       { id: '2-2', url: portfolioStreet, title: '街道印象', category: '街拍', description: '城市节奏感' }
@@ -62,6 +64,7 @@ const mockPhotographers: Photographer[] = [
     location: '广州',
     priceRange: '¥600-1500',
     bio: '温暖的镜头语言，记录生活中的美好瞬间',
+    gender: 'female',
     portfolio: [
       { id: '3-1', url: heroImage, title: '温馨时光', category: '家庭', description: '家庭温馨瞬间' },
       { id: '3-2', url: portfolioPortrait, title: '纯真笑容', category: '儿童', description: '孩子天真时刻' }

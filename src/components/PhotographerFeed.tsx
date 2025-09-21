@@ -28,6 +28,7 @@ const mockPhotographers: Photographer[] = [
     location: '北京',  
     priceRange: '¥800-2000',
     bio: '专注人像摄影5年，擅长捕捉自然情感',
+    gender: 'female',
     portfolio: [
       { id: '1-1', url: portfolioPortrait, title: '夏日午后', category: '人像', description: '自然光人像摄影' },
       { id: '1-2', url: heroImage, title: '城市漫步', category: '街拍', description: '都市情侣写真' },
@@ -46,6 +47,7 @@ const mockPhotographers: Photographer[] = [
     location: '上海',
     priceRange: '¥1200-3000',
     bio: '建筑系出身，善于用镜头诠释空间之美',
+    gender: 'male',
     portfolio: [
       { id: '2-1', url: portfolioArchitecture, title: '现代建筑', category: '建筑', description: '几何美学展现' },
       { id: '2-2', url: portfolioStreet, title: '街道印象', category: '街拍', description: '城市节奏感' },
@@ -64,6 +66,7 @@ const mockPhotographers: Photographer[] = [
     location: '广州',
     priceRange: '¥600-1500',
     bio: '温暖的镜头语言，记录生活中的美好瞬间',
+    gender: 'female',
     portfolio: [
       { id: '3-1', url: heroImage, title: '温馨时光', category: '家庭', description: '家庭温馨瞬间' },
       { id: '3-2', url: portfolioPortrait, title: '纯真笑容', category: '儿童', description: '孩子天真时刻' },
@@ -81,6 +84,7 @@ const mockPhotographers: Photographer[] = [
     location: '北京',
     priceRange: '¥500-1200',
     bio: '热爱街头文化，用镜头记录城市的真实面貌',
+    gender: 'male',
     portfolio: [
       { id: '4-1', url: portfolioStreet, title: '街头故事', category: '街拍', description: '真实的街头瞬间' },
       { id: '4-2', url: portfolioArchitecture, title: '都市节拍', category: '纪实', description: '城市生活记录' }
@@ -97,6 +101,7 @@ const mockPhotographers: Photographer[] = [
     location: '上海',
     priceRange: '¥1000-2500',
     bio: '时尚摄影师，擅长创意人像和时尚大片',
+    gender: 'female',
     portfolio: [
       { id: '5-1', url: portfolioPortrait, title: '时尚力量', category: '时尚', description: '现代时尚摄影' },
       { id: '5-2', url: heroImage, title: '艺术表达', category: '艺术', description: '创意艺术摄影' }
@@ -112,10 +117,10 @@ const PhotographerFeed = () => {
 
   const handleSearch = (filters: {
     searchTerm: string;
-    location: string;
+    gender: string;
     category: string;
   }) => {
-    const { searchTerm, location, category } = filters;
+    const { searchTerm, gender, category } = filters;
     
     const filtered = mockPhotographers.filter(photographer => {
       const matchesSearch = !searchTerm || 
@@ -125,7 +130,7 @@ const PhotographerFeed = () => {
           specialty.toLowerCase().includes(searchTerm.toLowerCase())
         );
       
-      const matchesLocation = !location || location === 'all' || photographer.location === location;
+      const matchesGender = !gender || gender === 'all' || photographer.gender === gender;
       
       const matchesCategory = !category || category === 'all' || 
         photographer.portfolio.some(photo => 
@@ -135,7 +140,7 @@ const PhotographerFeed = () => {
           specialty.includes(category)
         );
 
-      return matchesSearch && matchesLocation && matchesCategory;
+      return matchesSearch && matchesGender && matchesCategory;
     });
 
     setFilteredPhotographers(filtered);
@@ -149,7 +154,7 @@ const PhotographerFeed = () => {
     <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-foreground mb-4">精选摄影师作品</h2>
+          <h2 className="text-3xl font-bold text-foreground mb-4">精选摄影师</h2>
           <p className="text-muted-foreground text-lg">发现你喜欢的拍摄风格，找到最适合的摄影师</p>
         </div>
 

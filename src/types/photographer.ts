@@ -18,6 +18,7 @@ export interface Photographer {
   bio: string;
   portfolio: Photo[];
   featured: boolean;
+  gender: 'male' | 'female';
 }
 
 export interface AvailabilitySlot {
