@@ -168,12 +168,12 @@ const FeaturedPhotographersSection = () => {
         </div>
 
         {/* 精选摄影师展示 - 瀑布流布局 */}
-        <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-0 mb-12">
+        <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-8 space-y-0 mb-12">
           {featuredPhotographers.flatMap((photographer) => 
             photographer.portfolio.map((photo, index) => (
               <Card 
                 key={`${photographer.id}-${photo.id}`}
-                className="group cursor-pointer overflow-hidden hover:shadow-elegant transition-all duration-300 mb-6 break-inside-avoid animate-fade-in hover-scale"
+                className="group cursor-pointer overflow-hidden hover:shadow-elegant transition-all duration-300 mb-8 break-inside-avoid animate-fade-in hover-scale"
                 style={{
                   animationDelay: `${index * 0.1}s`
                 }}
@@ -186,7 +186,8 @@ const FeaturedPhotographersSection = () => {
                     alt={photo.title}
                     className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
                     style={{
-                      height: `${200 + (index % 3) * 80 + Math.random() * 100}px`
+                      height: `${280 + (index % 4) * 60 + Math.floor(Math.random() * 80)}px`,
+                      minHeight: '280px'
                     }}
                   />
                   
