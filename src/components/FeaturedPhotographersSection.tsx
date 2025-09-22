@@ -173,7 +173,7 @@ const FeaturedPhotographersSection = () => {
             photographer.portfolio.map((photo, index) => (
               <Card 
                 key={`${photographer.id}-${photo.id}`}
-                className="group cursor-pointer overflow-hidden hover:shadow-elegant transition-all duration-300 mb-12 break-inside-avoid animate-fade-in"
+                className="group cursor-pointer overflow-hidden transition-all duration-300 mb-12 break-inside-avoid animate-fade-in"
                 style={{
                   animationDelay: `${index * 0.1}s`
                 }}
