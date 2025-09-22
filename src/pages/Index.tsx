@@ -1,6 +1,6 @@
 import Navigation from '@/components/Navigation';
 import Hero from '@/components/Hero';
-import PhotographerFeed from '@/components/PhotographerFeed';
+import FeaturedPhotographersSection from '@/components/FeaturedPhotographersSection';
 import Testimonials from '@/components/Testimonials';
 import BlogPreview from '@/components/BlogPreview';
 import Footer from '@/components/Footer';
@@ -10,7 +10,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       <Hero />
-      <PhotographerFeed />
+      <FeaturedPhotographersSection />
       <Testimonials />
       <BlogPreview />
       <Footer />
