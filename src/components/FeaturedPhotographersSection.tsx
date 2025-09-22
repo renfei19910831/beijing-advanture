@@ -173,7 +173,7 @@ const FeaturedPhotographersSection = () => {
             photographer.portfolio.map((photo, index) => (
               <Card 
                 key={`${photographer.id}-${photo.id}`}
-                className="group cursor-pointer overflow-hidden hover:shadow-elegant transition-all duration-300 mb-8 break-inside-avoid animate-fade-in hover-scale"
+                className="group cursor-pointer overflow-hidden hover:shadow-elegant transition-all duration-300 mb-12 break-inside-avoid animate-fade-in hover-scale"
                 style={{
                   animationDelay: `${index * 0.1}s`
                 }}
@@ -184,7 +184,7 @@ const FeaturedPhotographersSection = () => {
                   <img 
                     src={photo.url} 
                     alt={photo.title}
-                    className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     style={{
                       height: `${280 + (index % 4) * 60 + Math.floor(Math.random() * 80)}px`,
                       minHeight: '280px'
