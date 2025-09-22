@@ -184,7 +184,7 @@ const FeaturedPhotographersSection = () => {
                   <img 
                     src={photo.url} 
                     alt={photo.title}
-                    className="w-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    className="w-full object-cover"
                     style={{
                       height: `${280 + (index % 4) * 60 + Math.floor(Math.random() * 80)}px`,
                       minHeight: '280px'
