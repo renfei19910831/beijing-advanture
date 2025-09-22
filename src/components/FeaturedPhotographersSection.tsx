@@ -15,7 +15,7 @@ import testimonialSarah from '@/assets/testimonial-sarah.jpg';
 import testimonialMichael from '@/assets/testimonial-michael.jpg';
 import testimonialLisa from '@/assets/testimonial-lisa.jpg';
 
-// 精选摄影师数据（只显示featured为true的）
+// 精选摄影师数据（展示更多作品）
 const featuredPhotographers: Photographer[] = [
   {
     id: '1',
@@ -29,7 +29,8 @@ const featuredPhotographers: Photographer[] = [
     bio: '专注人像摄影5年，擅长捕捉自然情感',
     gender: 'female',
     portfolio: [
-      { id: '1-1', url: portfolioPortrait, title: '夏日午后', category: '人像', description: '自然光人像摄影' }
+      { id: '1-1', url: portfolioPortrait, title: '夏日午后', category: '人像', description: '自然光人像摄影' },
+      { id: '1-2', url: portfolioArchitecture, title: '城市建筑', category: '建筑', description: '现代建筑线条' }
     ],
     featured: true
   },
@@ -45,7 +46,8 @@ const featuredPhotographers: Photographer[] = [
     bio: '建筑系出身，善于用镜头诠释空间之美',
     gender: 'male',
     portfolio: [
-      { id: '2-1', url: portfolioArchitecture, title: '现代建筑', category: '建筑', description: '几何美学展现' }
+      { id: '2-1', url: portfolioArchitecture, title: '现代建筑', category: '建筑', description: '几何美学展现' },
+      { id: '2-2', url: portfolioStreet, title: '街景瞬间', category: '街拍', description: '城市生活记录' }
     ],
     featured: true
   },
@@ -61,7 +63,59 @@ const featuredPhotographers: Photographer[] = [
     bio: '时尚摄影师，擅长创意人像和时尚大片',
     gender: 'female',
     portfolio: [
-      { id: '5-1', url: portfolioStreet, title: '时尚力量', category: '时尚', description: '现代时尚摄影' }
+      { id: '5-1', url: portfolioStreet, title: '时尚力量', category: '时尚', description: '现代时尚摄影' },
+      { id: '5-2', url: portfolioPortrait, title: '优雅肖像', category: '人像', description: '精致人像摄影' }
+    ],
+    featured: true
+  },
+  {
+    id: '6',
+    name: '王浩天',
+    avatar: testimonialMichael,
+    rating: 4.7,
+    reviewCount: 98,
+    specialties: ['风光摄影', '旅拍', '自然摄影'],
+    location: '成都',
+    priceRange: '¥900-2200',
+    bio: '热爱自然风光，擅长捕捉光影瞬间',
+    gender: 'male',
+    portfolio: [
+      { id: '6-1', url: portfolioArchitecture, title: '山川壮美', category: '风光', description: '自然风光摄影' },
+      { id: '6-2', url: portfolioStreet, title: '旅途记忆', category: '旅拍', description: '旅行摄影纪实' }
+    ],
+    featured: true
+  },
+  {
+    id: '7',
+    name: '陈小雅',
+    avatar: testimonialSarah,
+    rating: 4.9,
+    reviewCount: 203,
+    specialties: ['婚纱摄影', '情侣写真', '家庭摄影'],
+    location: '广州',
+    priceRange: '¥1100-2800',
+    bio: '专业婚纱摄影师，记录最美好的时刻',
+    gender: 'female',
+    portfolio: [
+      { id: '7-1', url: portfolioPortrait, title: '浪漫时刻', category: '婚纱', description: '唯美婚纱摄影' },
+      { id: '7-2', url: portfolioArchitecture, title: '幸福时光', category: '情侣', description: '甜蜜情侣写真' }
+    ],
+    featured: true
+  },
+  {
+    id: '8',
+    name: '赵志强',
+    avatar: testimonialMichael,
+    rating: 4.6,
+    reviewCount: 76,
+    specialties: ['商业摄影', '产品摄影', '企业宣传'],
+    location: '深圳',
+    priceRange: '¥1500-3500',
+    bio: '商业摄影专家，助力品牌形象提升',
+    gender: 'male',
+    portfolio: [
+      { id: '8-1', url: portfolioStreet, title: '商业大片', category: '商业', description: '专业商业摄影' },
+      { id: '8-2', url: portfolioArchitecture, title: '产品展示', category: '产品', description: '精美产品摄影' }
     ],
     featured: true
   }
@@ -89,8 +143,8 @@ const FeaturedPhotographersSection = () => {
     <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-foreground mb-4">发现和选择你喜欢的摄影师</h2>
-          <p className="text-muted-foreground text-lg">专业摄影师为您提供优质拍摄服务，从选择到交付全程无忧</p>
+          <h2 className="text-3xl font-bold text-foreground mb-4">探索优秀摄影师作品</h2>
+          <p className="text-muted-foreground text-lg">浏览精选摄影师的优质作品，找到最适合您需求的摄影风格</p>
         </div>
 
         {/* 7步专业拍摄流程 */}
@@ -113,10 +167,10 @@ const FeaturedPhotographersSection = () => {
           </div>
         </div>
 
-        {/* 精选摄影师展示 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {featuredPhotographers.map((photographer) => 
-            photographer.portfolio.slice(0, 1).map((photo) => (
+        {/* 精选摄影师展示 - 显示更多作品 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+          {featuredPhotographers.flatMap((photographer) => 
+            photographer.portfolio.map((photo) => (
               <Card 
                 key={`${photographer.id}-${photo.id}`}
                 className="group cursor-pointer overflow-hidden hover:shadow-elegant transition-all duration-300"
