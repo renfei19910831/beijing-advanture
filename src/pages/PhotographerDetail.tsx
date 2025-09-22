@@ -10,7 +10,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { PhotoModal } from '@/components/PhotoModal';
-import { AvailabilityCalendar } from '@/components/AvailabilityCalendar';
+import { PhotographerAvailability } from '@/components/PhotographerAvailability';
 import { Photographer } from '@/types/photographer';
 
 // Import images (same as in other components)
@@ -112,6 +112,22 @@ const PhotographerDetail = () => {
         photographerId: id,
         photographerName: photographer?.name,
         service: '预约拍摄'
+      }
+    });
+  };
+
+  // Handle availability slot booking
+  const handleBookSlot = (slot: any) => {
+    navigate('/contact', { 
+      state: { 
+        photographerId: id,
+        photographerName: photographer?.name,
+        service: slot.service_type,
+        selectedSlot: {
+          date: slot.date,
+          time: `${slot.start_time.substring(0, 5)}-${slot.end_time.substring(0, 5)}`,
+          price: slot.price
+        }
       }
     });
   };
@@ -341,12 +357,13 @@ const PhotographerDetail = () => {
           </div>
         </section>
 
-        {/* Availability Calendar */}
-        <section className="py-12 bg-muted/20">
+        {/* Availability Section */}
+        <section className="py-8 bg-muted/20">
           <div className="container mx-auto px-4">
-            <AvailabilityCalendar 
-              photographerId={id!} 
+            <PhotographerAvailability 
+              photographerId={photographer.id}
               photographerName={photographer.name}
+              onBookSlot={handleBookSlot}
             />
           </div>
         </section>
