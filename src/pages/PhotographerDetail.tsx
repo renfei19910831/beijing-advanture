@@ -10,6 +10,7 @@ import Autoplay from 'embla-carousel-autoplay';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { PhotoModal } from '@/components/PhotoModal';
+import { AvailabilityCalendar } from '@/components/AvailabilityCalendar';
 import { Photographer } from '@/types/photographer';
 
 // Import images (same as in other components)
@@ -337,6 +338,16 @@ const PhotographerDetail = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Availability Calendar */}
+        <section className="py-12 bg-muted/20">
+          <div className="container mx-auto px-4">
+            <AvailabilityCalendar 
+              photographerId={id!} 
+              photographerName={photographer.name}
+            />
           </div>
         </section>
 

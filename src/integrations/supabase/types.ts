@@ -14,6 +14,92 @@ export type Database = {
   }
   public: {
     Tables: {
+      bookings: {
+        Row: {
+          availability_id: string
+          contact_info: Json
+          created_at: string
+          id: string
+          photographer_id: string
+          special_requirements: string | null
+          status: string
+          total_price: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          availability_id: string
+          contact_info: Json
+          created_at?: string
+          id?: string
+          photographer_id: string
+          special_requirements?: string | null
+          status?: string
+          total_price: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          availability_id?: string
+          contact_info?: Json
+          created_at?: string
+          id?: string
+          photographer_id?: string
+          special_requirements?: string | null
+          status?: string
+          total_price?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_availability_id_fkey"
+            columns: ["availability_id"]
+            isOneToOne: false
+            referencedRelation: "photographer_availability"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      photographer_availability: {
+        Row: {
+          created_at: string
+          date: string
+          end_time: string
+          id: string
+          is_booked: boolean
+          photographer_id: string
+          price: number
+          service_type: string
+          start_time: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          date: string
+          end_time: string
+          id?: string
+          is_booked?: boolean
+          photographer_id: string
+          price: number
+          service_type?: string
+          start_time: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          date?: string
+          end_time?: string
+          id?: string
+          is_booked?: boolean
+          photographer_id?: string
+          price?: number
+          service_type?: string
+          start_time?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       photographer_follows: {
         Row: {
           followed_at: string | null
