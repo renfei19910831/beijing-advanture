@@ -294,9 +294,10 @@ const PhotographerDetail = () => {
 
                 <div className="flex items-center space-x-4">
                   <div className="text-2xl font-bold text-primary">{photographer.priceRange}</div>
-                  <Button size="lg" className="bg-gradient-primary hover:opacity-90">
-                    <Calendar className="w-4 h-4 mr-2" />
-                    立即预约
+                  <Button size="lg" className="bg-gradient-primary hover:opacity-90 relative overflow-hidden group">
+                    <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></span>
+                    <Calendar className="w-4 h-4 mr-2 relative z-10" />
+                    <span className="relative z-10">立即预约</span>
                   </Button>
                   <Button variant="outline" size="lg">
                     <MessageCircle className="w-4 h-4 mr-2" />
