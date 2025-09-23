@@ -583,6 +583,135 @@ const PhotographerDetail = () => {
           </div>
         </section>
 
+        {/* Why Choose Us Section */}
+        <section className="py-12 bg-muted/20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold text-foreground mb-4">为什么选择我们？</h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  专业的摄影服务，让每一个珍贵时刻都值得被完美记录
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* 专业摄影师 */}
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in">
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Camera className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-4">资深专业摄影师</h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      所有摄影师均经过严格筛选，拥有丰富的拍摄经验和专业技能。
+                      每位摄影师都有自己独特的拍摄风格，能够根据您的需求提供个性化服务。
+                    </p>
+                  </CardContent>
+                </Card>
+
+                {/* 快速交付 */}
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in" style={{ animationDelay: '100ms' }}>
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Star className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-4">48小时快速交付</h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      拍摄完成后48小时内即可收到精修后的高清照片。
+                      我们的后期团队采用专业级调色和修图技术，确保每张照片都达到最佳效果。
+                    </p>
+                  </CardContent>
+                </Card>
+
+                {/* 本地化服务 */}
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in" style={{ animationDelay: '200ms' }}>
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <MapPin className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-4">本地专业团队</h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      我们的摄影师都是当地专业人士，熟悉最佳拍摄地点和光线条件。
+                      无需额外的差旅费用，为您提供更具性价比的服务体验。
+                    </p>
+                  </CardContent>
+                </Card>
+
+                {/* 满意保证 */}
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in" style={{ animationDelay: '300ms' }}>
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Heart className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-4">满意度保证</h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      如果您对拍摄结果不满意，我们提供重拍或退款服务。
+                      客户满意是我们的首要目标，我们会全力确保您获得满意的拍摄体验。
+                    </p>
+                  </CardContent>
+                </Card>
+
+                {/* 灵活服务 */}
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in" style={{ animationDelay: '400ms' }}>
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <Calendar className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-4">灵活预约服务</h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      支持在线预约，时间灵活安排。提供免费改期和取消服务，
+                      让您无后顾之忧。支持多种拍摄套餐，满足不同需求和预算。
+                    </p>
+                  </CardContent>
+                </Card>
+
+                {/* 全程支持 */}
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in" style={{ animationDelay: '500ms' }}>
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <MessageCircle className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-4">专业客服支持</h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      从预约到拍摄完成，全程提供专业客服支持。
+                      7×24小时在线客服，随时解答您的疑问，确保服务体验无忧。
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* CTA Section */}
+              <div className="text-center mt-12">
+                <div className="bg-gradient-primary rounded-lg p-8 text-white">
+                  <h3 className="text-2xl font-bold mb-4">准备好开始您的拍摄之旅了吗？</h3>
+                  <p className="text-lg mb-6 opacity-90">
+                    立即预约，让专业摄影师为您记录珍贵时刻
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Button 
+                      size="lg" 
+                      variant="secondary"
+                      className="bg-white text-primary hover:bg-white/90"
+                      onClick={handleBooking}
+                    >
+                      <Calendar className="w-5 h-5 mr-2" />
+                      立即预约拍摄
+                    </Button>
+                    <Button 
+                      size="lg" 
+                      variant="outline"
+                      className="border-white text-white hover:bg-white/10"
+                    >
+                      <MessageCircle className="w-5 h-5 mr-2" />
+                      咨询拍摄详情
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Reviews Section */}
         <section className="py-12 bg-muted/30">
           <div className="container mx-auto px-4">
