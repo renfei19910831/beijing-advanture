@@ -150,51 +150,6 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
 
           {/* 照片信息 */}
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-6 md:p-8 text-white animate-fade-in">
-            {/* 摄影师信息栏 */}
-            <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 mb-4 border border-white/20">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <Avatar className="h-12 w-12 ring-2 ring-white/30">
-                    <AvatarImage src={photographer.avatar} alt={photographer.name} />
-                    <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
-                      {photographer.name.charAt(0)}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h3 className="font-semibold text-lg text-white">{photographer.name}</h3>
-                    <p className="text-white/80 text-sm">专业摄影师</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Button
-                    variant="secondary"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onBooking();
-                    }}
-                    className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-2 shadow-lg"
-                  >
-                    <Calendar className="h-4 w-4 mr-2" />
-                    立即预约
-                  </Button>
-                  <Button
-                    variant={isFavorited ? "default" : "secondary"}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onToggleFavorite();
-                    }}
-                    className={`h-10 w-10 rounded-full shadow-lg transition-all duration-200 ${
-                      isFavorited 
-                        ? 'bg-red-500 hover:bg-red-600 text-white' 
-                        : 'bg-white/20 hover:bg-white/30 text-white'
-                    }`}
-                  >
-                    <Heart className={`h-5 w-5 ${isFavorited ? 'fill-current' : ''}`} />
-                  </Button>
-                </div>
-              </div>
-            </div>
-
             <div className="max-w-4xl">
               <h2 className="text-2xl md:text-3xl font-bold mb-2 font-serif">
                 {currentPhoto.title}
@@ -203,7 +158,7 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                 {currentPhoto.description}
               </p>
               
-              <div className="flex flex-wrap gap-4 text-sm text-white/80">
+              <div className="flex flex-wrap gap-4 text-sm text-white/80 mb-6">
                 {currentPhoto.location && (
                   <span className="flex items-center gap-1">
                     <span className="w-2 h-2 bg-primary rounded-full"></span>
@@ -214,6 +169,51 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
                 {currentPhoto.camera && <span>{currentPhoto.camera}</span>}
                 {currentPhoto.lens && <span>{currentPhoto.lens}</span>}
                 {currentPhoto.settings && <span>{currentPhoto.settings}</span>}
+              </div>
+
+              {/* 摄影师信息栏 */}
+              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-12 w-12 ring-2 ring-white/30">
+                      <AvatarImage src={photographer.avatar} alt={photographer.name} />
+                      <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                        {photographer.name.charAt(0)}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h3 className="font-semibold text-lg text-white">{photographer.name}</h3>
+                      <p className="text-white/80 text-sm">专业摄影师</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <Button
+                      variant="secondary"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onBooking();
+                      }}
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-2 shadow-lg"
+                    >
+                      <Calendar className="h-4 w-4 mr-2" />
+                      立即预约
+                    </Button>
+                    <Button
+                      variant={isFavorited ? "default" : "secondary"}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleFavorite();
+                      }}
+                      className={`h-10 w-10 rounded-full shadow-lg transition-all duration-200 ${
+                        isFavorited 
+                          ? 'bg-red-500 hover:bg-red-600 text-white' 
+                          : 'bg-white/20 hover:bg-white/30 text-white'
+                      }`}
+                    >
+                      <Heart className={`h-5 w-5 ${isFavorited ? 'fill-current' : ''}`} />
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
