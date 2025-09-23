@@ -168,103 +168,108 @@ const FeaturedPhotographersSection = () => {
         </div>
 
         {/* 精选摄影师展示 - 瀑布流布局 */}
-        <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-8 space-y-0 mb-12">
-          {featuredPhotographers.flatMap((photographer) => 
-            photographer.portfolio.map((photo, index) => (
-              <Card 
-                key={`${photographer.id}-${photo.id}`}
-                className="group cursor-pointer overflow-hidden transition-all duration-300 mb-12 break-inside-avoid animate-fade-in"
-                style={{
-                  animationDelay: `${index * 0.1}s`
-                }}
-                onMouseEnter={() => setHoveredPhoto(photo.id)}
-                onMouseLeave={() => setHoveredPhoto(null)}
-              >
-                <div className="relative overflow-hidden">
-                  <img 
-                    src={photo.url} 
-                    alt={photo.title}
-                    className="w-full object-cover"
-                    style={{
-                      height: `${280 + (index % 4) * 60 + Math.floor(Math.random() * 80)}px`,
-                      minHeight: '280px'
-                    }}
-                  />
-                  
-                  {/* 悬停时显示的操作按钮 */}
-                  {hoveredPhoto === photo.id && (
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-center justify-center space-x-3 transition-all duration-300 animate-fade-in">
-                      <Button size="sm" variant="secondary" className="backdrop-blur-md bg-white/20 border-white/30 text-white hover:bg-white/30">
-                        <Eye className="w-4 h-4 mr-1" />
-                        查看
-                      </Button>
-                      <Button size="sm" variant="secondary" className="backdrop-blur-md bg-white/20 border-white/30 text-white hover:bg-white/30">
-                        <Heart className="w-4 h-4" />
-                      </Button>
+        <div className="relative">
+          <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-8 space-y-0 mb-12">
+            {featuredPhotographers.flatMap((photographer) => 
+              photographer.portfolio.map((photo, index) => (
+                <Card 
+                  key={`${photographer.id}-${photo.id}`}
+                  className="group cursor-pointer overflow-hidden transition-all duration-300 mb-12 break-inside-avoid animate-fade-in"
+                  style={{
+                    animationDelay: `${index * 0.1}s`
+                  }}
+                  onMouseEnter={() => setHoveredPhoto(photo.id)}
+                  onMouseLeave={() => setHoveredPhoto(null)}
+                >
+                  <div className="relative overflow-hidden">
+                    <img 
+                      src={photo.url} 
+                      alt={photo.title}
+                      className="w-full object-cover"
+                      style={{
+                        height: `${280 + (index % 4) * 60 + Math.floor(Math.random() * 80)}px`,
+                        minHeight: '280px'
+                      }}
+                    />
+                    
+                    {/* 悬停时显示的操作按钮 */}
+                    {hoveredPhoto === photo.id && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent flex items-center justify-center space-x-3 transition-all duration-300 animate-fade-in">
+                        <Button size="sm" variant="secondary" className="backdrop-blur-md bg-white/20 border-white/30 text-white hover:bg-white/30">
+                          <Eye className="w-4 h-4 mr-1" />
+                          查看
+                        </Button>
+                        <Button size="sm" variant="secondary" className="backdrop-blur-md bg-white/20 border-white/30 text-white hover:bg-white/30">
+                          <Heart className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    )}
+
+                    {/* 作品信息 */}
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4">
+                      <Badge variant="secondary" className="mb-2 bg-white/20 text-white border-white/30">{photo.category}</Badge>
+                      <h3 className="text-white font-semibold mb-1 text-sm">{photo.title}</h3>
+                      <p className="text-white/80 text-xs line-clamp-2">{photo.description}</p>
                     </div>
-                  )}
-
-                  {/* 作品信息 */}
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4">
-                    <Badge variant="secondary" className="mb-2 bg-white/20 text-white border-white/30">{photo.category}</Badge>
-                    <h3 className="text-white font-semibold mb-1 text-sm">{photo.title}</h3>
-                    <p className="text-white/80 text-xs line-clamp-2">{photo.description}</p>
                   </div>
-                </div>
 
-                <CardContent className="p-3">
-                  {/* 摄影师信息 */}
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center space-x-2">
-                      <Avatar className="w-8 h-8">
-                        <AvatarImage src={photographer.avatar} alt={photographer.name} />
-                        <AvatarFallback>{photographer.name[0]}</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <h4 className="font-semibold text-foreground text-sm">{photographer.name}</h4>
-                        <div className="flex items-center space-x-1 text-xs text-muted-foreground">
-                          <MapPin className="w-3 h-3" />
-                          <span>{photographer.location}</span>
+                  <CardContent className="p-3">
+                    {/* 摄影师信息 */}
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center space-x-2">
+                        <Avatar className="w-8 h-8">
+                          <AvatarImage src={photographer.avatar} alt={photographer.name} />
+                          <AvatarFallback>{photographer.name[0]}</AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <h4 className="font-semibold text-foreground text-sm">{photographer.name}</h4>
+                          <div className="flex items-center space-x-1 text-xs text-muted-foreground">
+                            <MapPin className="w-3 h-3" />
+                            <span>{photographer.location}</span>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="text-right">
+                        <div className="flex items-center space-x-1">
+                          <Star className="w-3 h-3 fill-primary text-primary" />
+                          <span className="font-semibold text-foreground text-xs">{photographer.rating}</span>
                         </div>
                       </div>
                     </div>
-                    
-                    <div className="text-right">
-                      <div className="flex items-center space-x-1">
-                        <Star className="w-3 h-3 fill-primary text-primary" />
-                        <span className="font-semibold text-foreground text-xs">{photographer.rating}</span>
-                      </div>
+
+                    {/* 专业标签 */}
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {photographer.specialties.slice(0, 2).map((specialty) => (
+                        <Badge key={specialty} variant="outline" className="text-xs py-0 px-1">
+                          {specialty}
+                        </Badge>
+                      ))}
                     </div>
-                  </div>
 
-                  {/* 专业标签 */}
-                  <div className="flex flex-wrap gap-1 mb-2">
-                    {photographer.specialties.slice(0, 2).map((specialty) => (
-                      <Badge key={specialty} variant="outline" className="text-xs py-0 px-1">
-                        {specialty}
-                      </Badge>
-                    ))}
-                  </div>
+                    {/* 价格和查看按钮 */}
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs font-semibold text-primary">{photographer.priceRange}</p>
+                      <Button 
+                        size="sm" 
+                        onClick={() => handleViewPhotographer(photographer.id)}
+                        className="bg-gradient-primary hover:opacity-90 text-xs py-1 px-2 h-6"
+                      >
+                        预约
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))
+            )}
+          </div>
 
-                  {/* 价格和查看按钮 */}
-                  <div className="flex items-center justify-between">
-                    <p className="text-xs font-semibold text-primary">{photographer.priceRange}</p>
-                    <Button 
-                      size="sm" 
-                      onClick={() => handleViewPhotographer(photographer.id)}
-                      className="bg-gradient-primary hover:opacity-90 text-xs py-1 px-2 h-6"
-                    >
-                      预约
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))
-          )}
+          {/* 渐变遮罩效果 */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
         </div>
 
         {/* 查看更多摄影师 */}
-        <div className="text-center">
+        <div className="text-center relative z-10">
           <Button 
             variant="outline" 
             size="lg"
