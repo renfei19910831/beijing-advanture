@@ -174,6 +174,28 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
               onClick={(e) => e.stopPropagation()}
               draggable={false}
             />
+            
+            {/* 水印 */}
+            {imageLoaded && (
+              <>
+                {/* 右下角水印 */}
+                <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded text-white text-sm font-medium">
+                  © {photographer.name}
+                </div>
+                
+                {/* 中心透明水印 */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div className="text-white/20 text-6xl md:text-8xl font-bold transform -rotate-12 select-none">
+                    {photographer.name}
+                  </div>
+                </div>
+                
+                {/* 左上角小水印 */}
+                <div className="absolute top-4 left-4 text-white/60 text-xs font-medium bg-black/30 backdrop-blur-sm px-2 py-1 rounded">
+                  摄影师: {photographer.name}
+                </div>
+              </>
+            )}
           </div>
 
           {/* 照片信息 */}
