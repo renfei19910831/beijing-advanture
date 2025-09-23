@@ -15,6 +15,7 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Photographers from "./pages/Photographers";
 import PhotographerDetail from "./pages/PhotographerDetail";
+import Favorites from "./pages/Favorites";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +44,7 @@ const App: React.FC = () => {
               <Route path="/contact" element={<Contact />} />
               <Route path="/photographers" element={<Photographers />} />
               <Route path="/photographer/:id" element={<PhotographerDetail />} />
+              <Route path="/favorites" element={<Favorites />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>

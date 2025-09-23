@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Heart } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -66,11 +66,25 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            <Link
+              to="/favorites"
+              className="p-2 text-foreground hover:text-primary transition-colors duration-300 relative"
+              title="我的收藏"
+            >
+              <Heart size={20} />
+            </Link>
             <LanguageSwitcher />
           </div>
 
           {/* Mobile Menu Button & Language Switcher */}
           <div className="md:hidden flex items-center space-x-2">
+            <Link
+              to="/favorites"
+              className="p-2 text-foreground hover:text-primary transition-colors"
+              title="我的收藏"
+            >
+              <Heart size={20} />
+            </Link>
             <LanguageSwitcher />
             <button
               className="p-2 text-foreground hover:text-primary transition-colors drop-shadow-sm"
