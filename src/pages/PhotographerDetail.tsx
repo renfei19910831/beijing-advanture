@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Star, MapPin, ArrowLeft, Calendar, MessageCircle, Camera, Heart } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
@@ -470,6 +471,115 @@ const PhotographerDetail = () => {
                 </Button>
               </div>
             )}
+          </div>
+        </section>
+
+        {/* Useful Information FAQ Section */}
+        <section className="py-12 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-2xl font-bold text-foreground mb-8">实用信息</h2>
+              
+              <div className="bg-muted/30 rounded-lg p-6">
+                <Accordion type="single" collapsible className="space-y-4">
+                  <AccordionItem value="reschedule" className="border border-border/20 rounded-lg px-6 bg-background">
+                    <AccordionTrigger className="text-left font-medium">
+                    <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                          <Calendar className="w-4 h-4 text-blue-600" />
+                        </div>
+                        <span>改期政策</span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pt-4">
+                      <p>如果您需要改期，请在原定拍摄日期前至少96小时（4天）提交改期申请，可享受免费改期服务。</p>
+                      <p className="mt-2">超过时间限制的改期申请可能需要支付额外费用。建议您尽早确认拍摄时间安排。</p>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="cancellation" className="border border-border/20 rounded-lg px-6 bg-background">
+                    <AccordionTrigger className="text-left font-medium">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center">
+                          <MessageCircle className="w-4 h-4 text-red-600" />
+                        </div>
+                        <span>取消政策</span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pt-4">
+                      <p>如果您需要取消预约，请在原定拍摄日期前至少96小时（4天）提交取消申请，可享受免费取消服务。</p>
+                      <p className="mt-2">超过时间限制的取消申请，将根据具体情况收取一定的取消费用。</p>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="delivery" className="border border-border/20 rounded-lg px-6 bg-background">
+                    <AccordionTrigger className="text-left font-medium">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center">
+                          <Camera className="w-4 h-4 text-green-600" />
+                        </div>
+                        <span>48小时内交付照片</span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pt-4">
+                      <p>所有拍摄完成后，修图师会在48小时内完成照片的后期处理和精修工作。</p>
+                      <p className="mt-2">您可以通过我们的网站或移动应用下载高清版本的照片。紧急情况下，我们也提供加急服务。</p>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="transportation" className="border border-border/20 rounded-lg px-6 bg-background">
+                    <AccordionTrigger className="text-left font-medium">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center">
+                          <MapPin className="w-4 h-4 text-purple-600" />
+                        </div>
+                        <span>摄影师交通和门票费用</span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pt-4">
+                      <p>我们的摄影师都是当地专业摄影师，市区内拍摄无需额外交通费用。</p>
+                      <p className="mt-2">如果您选择的拍摄地点距离市中心超过1小时车程，或需要购买门票的特殊场所，可能会产生额外费用。具体费用会在预约时与您确认。</p>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="weather" className="border border-border/20 rounded-lg px-6 bg-background">
+                    <AccordionTrigger className="text-left font-medium">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center">
+                          <Star className="w-4 h-4 text-orange-600" />
+                        </div>
+                        <span>恶劣天气处理</span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pt-4">
+                      <p>如遇雨雪等恶劣天气影响拍摄，我们会提前24小时与您沟通调整方案。</p>
+                      <p className="mt-2">可以选择改期、更换室内拍摄地点，或使用专业设备在适宜条件下完成拍摄。天气原因的调整不收取额外费用。</p>
+                    </AccordionContent>
+                  </AccordionItem>
+
+                  <AccordionItem value="equipment" className="border border-border/20 rounded-lg px-6 bg-background">
+                    <AccordionTrigger className="text-left font-medium">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center">
+                          <Camera className="w-4 h-4 text-indigo-600" />
+                        </div>
+                        <span>拍摄设备和后期处理</span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground leading-relaxed pt-4">
+                      <p>所有摄影师都配备专业级相机设备，包括全画幅相机、多种焦段镜头、专业闪光灯等。</p>
+                      <p className="mt-2">后期处理包括基础调色、人像美化、场景优化等。如需特殊效果或大幅修改，会根据工作量收取适当费用。</p>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
+
+                <div className="mt-8 text-center">
+                  <Button variant="outline" size="lg">
+                    查看更多常见问题
+                  </Button>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
