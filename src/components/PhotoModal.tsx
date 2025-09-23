@@ -27,6 +27,8 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(currentIndex);
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [showPhotographerInfo, setShowPhotographerInfo] = useState(false);
+  const [hideTimeout, setHideTimeout] = useState<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setCurrentImageIndex(currentIndex);
@@ -50,7 +52,27 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
       }
     };
 
+    const handleMouseMove = () => {
+      if (!isOpen) return;
+      
+      // 显示摄影师信息
+      setShowPhotographerInfo(true);
+      
+      // 清除之前的定时器
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
+      
+      // 设置新的定时器，2秒后隐藏
+      const timeout = setTimeout(() => {
+        setShowPhotographerInfo(false);
+      }, 2000);
+      
+      setHideTimeout(timeout);
+    };
+
     document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousemove', handleMouseMove);
     
     // 防止背景滚动
     if (isOpen) {
@@ -61,9 +83,15 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousemove', handleMouseMove);
       document.body.style.overflow = 'unset';
+      
+      // 清理定时器
+      if (hideTimeout) {
+        clearTimeout(hideTimeout);
+      }
     };
-  }, [isOpen, currentImageIndex]);
+  }, [isOpen, currentImageIndex, hideTimeout]);
 
   const goToNext = () => {
     setImageLoaded(false);
@@ -172,7 +200,11 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
               </div>
 
               {/* 摄影师信息栏 */}
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20">
+              <div className={`bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 transition-all duration-500 ${
+                showPhotographerInfo 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-4 pointer-events-none'
+              }`}>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Avatar className="h-12 w-12 ring-2 ring-white/30">
