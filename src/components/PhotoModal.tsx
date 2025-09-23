@@ -200,35 +200,33 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
               </div>
 
               {/* 摄影师信息栏 */}
-              <div className={`bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 transition-all duration-500 ${
+              <div className={`bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/20 transition-all duration-500 mx-auto max-w-md ${
                 showPhotographerInfo 
                   ? 'opacity-100 translate-y-0' 
                   : 'opacity-0 translate-y-4 pointer-events-none'
               }`}>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <Avatar className="h-12 w-12 ring-2 ring-white/30">
-                      <AvatarImage src={photographer.avatar} alt={photographer.name} />
-                      <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
-                        {photographer.name.charAt(0)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h3 className="font-semibold text-lg text-white">{photographer.name}</h3>
-                      <p className="text-white/80 text-sm">专业摄影师</p>
-                    </div>
+                <div className="flex items-center justify-center gap-4">
+                  <Avatar className="h-12 w-12 ring-2 ring-white/30">
+                    <AvatarImage src={photographer.avatar} alt={photographer.name} />
+                    <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                      {photographer.name.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="text-center">
+                    <h3 className="font-semibold text-lg text-white">{photographer.name}</h3>
+                    <p className="text-white/80 text-sm">专业摄影师</p>
                   </div>
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     <Button
                       variant="secondary"
                       onClick={(e) => {
                         e.stopPropagation();
                         onBooking();
                       }}
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-2 shadow-lg"
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-4 py-2 shadow-lg text-sm"
                     >
-                      <Calendar className="h-4 w-4 mr-2" />
-                      立即预约
+                      <Calendar className="h-4 w-4 mr-1" />
+                      预约
                     </Button>
                     <Button
                       variant={isFavorited ? "default" : "secondary"}
