@@ -596,8 +596,9 @@ const PhotographerDetail = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {/* 专业摄影师 */}
-                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in">
-                  <CardContent className="p-8 text-center">
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in relative overflow-hidden">
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-sweep"></div>
+                  <CardContent className="p-8 text-center relative z-10">
                     <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <Camera className="w-8 h-8 text-white" />
                     </div>
@@ -610,8 +611,9 @@ const PhotographerDetail = () => {
                 </Card>
 
                 {/* 快速交付 */}
-                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in" style={{ animationDelay: '100ms' }}>
-                  <CardContent className="p-8 text-center">
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in relative overflow-hidden" style={{ animationDelay: '100ms' }}>
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-sweep"></div>
+                  <CardContent className="p-8 text-center relative z-10">
                     <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <Star className="w-8 h-8 text-white" />
                     </div>
@@ -624,8 +626,9 @@ const PhotographerDetail = () => {
                 </Card>
 
                 {/* 本地化服务 */}
-                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in" style={{ animationDelay: '200ms' }}>
-                  <CardContent className="p-8 text-center">
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in relative overflow-hidden" style={{ animationDelay: '200ms' }}>
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-sweep"></div>
+                  <CardContent className="p-8 text-center relative z-10">
                     <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <MapPin className="w-8 h-8 text-white" />
                     </div>
@@ -638,8 +641,9 @@ const PhotographerDetail = () => {
                 </Card>
 
                 {/* 满意保证 */}
-                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in" style={{ animationDelay: '300ms' }}>
-                  <CardContent className="p-8 text-center">
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in relative overflow-hidden" style={{ animationDelay: '300ms' }}>
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-sweep"></div>
+                  <CardContent className="p-8 text-center relative z-10">
                     <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <Heart className="w-8 h-8 text-white" />
                     </div>
@@ -652,8 +656,9 @@ const PhotographerDetail = () => {
                 </Card>
 
                 {/* 灵活服务 */}
-                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in" style={{ animationDelay: '400ms' }}>
-                  <CardContent className="p-8 text-center">
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in relative overflow-hidden" style={{ animationDelay: '400ms' }}>
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-sweep"></div>
+                  <CardContent className="p-8 text-center relative z-10">
                     <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <Calendar className="w-8 h-8 text-white" />
                     </div>
@@ -666,8 +671,9 @@ const PhotographerDetail = () => {
                 </Card>
 
                 {/* 全程支持 */}
-                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in" style={{ animationDelay: '500ms' }}>
-                  <CardContent className="p-8 text-center">
+                <Card className="group hover:shadow-elegant transition-all duration-300 border-0 bg-background animate-fade-in relative overflow-hidden" style={{ animationDelay: '500ms' }}>
+                  <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-sweep"></div>
+                  <CardContent className="p-8 text-center relative z-10">
                     <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <MessageCircle className="w-8 h-8 text-white" />
                     </div>
