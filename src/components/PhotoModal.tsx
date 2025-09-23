@@ -149,7 +149,52 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
           </div>
 
           {/* 照片信息 */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent p-6 md:p-8 text-white animate-fade-in">
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-6 md:p-8 text-white animate-fade-in">
+            {/* 摄影师信息栏 */}
+            <div className="bg-white/10 backdrop-blur-md rounded-xl p-4 mb-4 border border-white/20">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Avatar className="h-12 w-12 ring-2 ring-white/30">
+                    <AvatarImage src={photographer.avatar} alt={photographer.name} />
+                    <AvatarFallback className="bg-primary text-primary-foreground font-semibold">
+                      {photographer.name.charAt(0)}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h3 className="font-semibold text-lg text-white">{photographer.name}</h3>
+                    <p className="text-white/80 text-sm">专业摄影师</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Button
+                    variant="secondary"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onBooking();
+                    }}
+                    className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-6 py-2 shadow-lg"
+                  >
+                    <Calendar className="h-4 w-4 mr-2" />
+                    立即预约
+                  </Button>
+                  <Button
+                    variant={isFavorited ? "default" : "secondary"}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onToggleFavorite();
+                    }}
+                    className={`h-10 w-10 rounded-full shadow-lg transition-all duration-200 ${
+                      isFavorited 
+                        ? 'bg-red-500 hover:bg-red-600 text-white' 
+                        : 'bg-white/20 hover:bg-white/30 text-white'
+                    }`}
+                  >
+                    <Heart className={`h-5 w-5 ${isFavorited ? 'fill-current' : ''}`} />
+                  </Button>
+                </div>
+              </div>
+            </div>
+
             <div className="max-w-4xl">
               <h2 className="text-2xl md:text-3xl font-bold mb-2 font-serif">
                 {currentPhoto.title}
@@ -180,39 +225,7 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
             </div>
           )}
 
-          {/* 摄影师信息和操作按钮 */}
-          <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-3">
-            <Avatar className="h-8 w-8">
-              <AvatarImage src={photographer.avatar} alt={photographer.name} />
-              <AvatarFallback>{photographer.name.charAt(0)}</AvatarFallback>
-            </Avatar>
-            <span className="text-white text-sm font-medium">{photographer.name}</span>
-            <div className="flex items-center gap-2">
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onBooking();
-                }}
-                className="h-7 px-3 text-xs"
-              >
-                <Calendar className="h-3 w-3 mr-1" />
-                预约
-              </Button>
-              <Button
-                size="sm"
-                variant={isFavorited ? "default" : "secondary"}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onToggleFavorite();
-                }}
-                className="h-7 px-2"
-              >
-                <Heart className={`h-3 w-3 ${isFavorited ? 'fill-current' : ''}`} />
-              </Button>
-            </div>
-          </div>
+          {/* 摄影师信息和操作按钮 - 移除这部分，已合并到底部 */}
         </div>
       </div>
     </div>
