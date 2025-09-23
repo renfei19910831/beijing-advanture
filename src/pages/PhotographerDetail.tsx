@@ -856,6 +856,10 @@ const PhotographerDetail = () => {
         currentIndex={selectedPhotoIndex}
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
+        photographer={photographer}
+        onBooking={handleBooking}
+        onToggleFavorite={toggleFollow}
+        isFavorited={isFollowed}
       />
 
       <Footer />

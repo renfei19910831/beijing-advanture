@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Calendar, Heart } from 'lucide-react';
 import { Button } from './ui/button';
-import { Photo } from '../types/photographer';
+import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar';
+import { Photo, Photographer } from '../types/photographer';
 
 interface PhotoModalProps {
   photos: Photo[];
   currentIndex: number;
   isOpen: boolean;
   onClose: () => void;
+  photographer: Photographer;
+  onBooking: () => void;
+  onToggleFavorite: () => void;
+  isFavorited: boolean;
 }
 
 export const PhotoModal: React.FC<PhotoModalProps> = ({
   photos,
   currentIndex,
   isOpen,
-  onClose
+  onClose,
+  photographer,
+  onBooking,
+  onToggleFavorite,
+  isFavorited
 }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(currentIndex);
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -170,6 +179,40 @@ export const PhotoModal: React.FC<PhotoModalProps> = ({
               {currentImageIndex + 1} / {photos.length}
             </div>
           )}
+
+          {/* 摄影师信息和操作按钮 */}
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-3">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={photographer.avatar} alt={photographer.name} />
+              <AvatarFallback>{photographer.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <span className="text-white text-sm font-medium">{photographer.name}</span>
+            <div className="flex items-center gap-2">
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onBooking();
+                }}
+                className="h-7 px-3 text-xs"
+              >
+                <Calendar className="h-3 w-3 mr-1" />
+                预约
+              </Button>
+              <Button
+                size="sm"
+                variant={isFavorited ? "default" : "secondary"}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onToggleFavorite();
+                }}
+                className="h-7 px-2"
+              >
+                <Heart className={`h-3 w-3 ${isFavorited ? 'fill-current' : ''}`} />
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
