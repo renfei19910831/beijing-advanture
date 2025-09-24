@@ -101,7 +101,7 @@ const PandaChatBot = () => {
             <img 
               src={pandaMascot} 
               alt="熊猫助手" 
-              className="w-full h-full object-cover animate-bounce group-hover:animate-pulse"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
             />
             
             {/* 消息提示点 */}
