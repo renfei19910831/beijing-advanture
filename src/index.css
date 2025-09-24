@@ -8,44 +8,48 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Airbnb Design System */
-    --background: 0 0% 98%; /* Clean white */
-    --foreground: 0 0% 28%; /* Airbnb Charcoal */
+    /* 中性基础色调 */
+    --background: 0 0% 100%; /* Pure white */
+    --foreground: 215 25% 27%; /* Cool dark gray */
 
     --card: 0 0% 100%;
-    --card-foreground: 0 0% 28%;
+    --card-foreground: 215 25% 27%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 28%;
+    --popover-foreground: 215 25% 27%;
 
+    /* Airbnb 主题色 - 用于重点元素 */
     --primary: 358 100% 68%; /* Airbnb Rausch */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 96%; /* Light gray */
-    --secondary-foreground: 0 0% 28%;
+    /* 中性次要色调 */
+    --secondary: 215 14% 97%; /* Cool light gray */
+    --secondary-foreground: 215 25% 27%;
 
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 46%;
+    --muted: 215 14% 97%;
+    --muted-foreground: 215 15% 50%;
 
+    /* Airbnb 强调色 - 用于特殊强调 */
     --accent: 174 100% 33%; /* Airbnb Teal */
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 90%;
-    --input: 0 0% 94%;
+    /* 中性边框和输入框 */
+    --border: 215 14% 93%;
+    --input: 215 14% 96%;
     --ring: 358 100% 68%;
 
-    /* Airbnb design tokens */
-    --hero-gradient: linear-gradient(135deg, hsl(0 0% 28% / 0.8), hsl(358 100% 68% / 0.1));
-    --glass-bg: hsl(0 0% 100% / 0.9);
-    --shadow-elegant: 0 16px 64px hsl(0 0% 0% / 0.1);
-    --shadow-airbnb: 0 6px 16px hsl(0 0% 0% / 0.12);
-    --shadow-hover: 0 10px 28px hsl(0 0% 0% / 0.15);
+    /* 设计tokens - 保持Airbnb元素用于重点区域 */
+    --hero-gradient: linear-gradient(135deg, hsl(215 25% 27% / 0.7), hsl(358 100% 68% / 0.05));
+    --glass-bg: hsl(0 0% 100% / 0.95);
+    --shadow-elegant: 0 16px 64px hsl(215 25% 27% / 0.08);
+    --shadow-airbnb: 0 6px 16px hsl(215 25% 27% / 0.10);
+    --shadow-hover: 0 10px 28px hsl(215 25% 27% / 0.12);
     --gradient-primary: linear-gradient(135deg, hsl(358 100% 68%), hsl(358 85% 60%));
     --gradient-teal: linear-gradient(135deg, hsl(174 100% 33%), hsl(174 80% 28%));
-    --gradient-soft: linear-gradient(135deg, hsl(0 0% 98%), hsl(0 0% 96%));
+    --gradient-soft: linear-gradient(135deg, hsl(215 14% 99%), hsl(215 14% 97%));
     --shadow-button: 0 2px 8px hsl(358 100% 68% / 0.2);
     --shadow-button-hover: 0 4px 12px hsl(358 100% 68% / 0.3);
     --transition-airbnb: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -54,41 +58,34 @@ All colors MUST be HSL.
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
+    --sidebar-background: 215 14% 99%;
+    --sidebar-foreground: 215 25% 27%;
+    --sidebar-primary: 215 25% 15%;
     --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 215 14% 96%;
+    --sidebar-accent-foreground: 215 25% 15%;
+    --sidebar-border: 215 14% 91%;
+    --sidebar-ring: 358 100% 68%;
   }
 
   .dark {
-    --background: 0 0% 7%;
-    --foreground: 0 0% 95%;
+    --background: 215 25% 8%;
+    --foreground: 215 10% 95%;
 
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 95%;
+    --card: 215 25% 11%;
+    --card-foreground: 215 10% 95%;
 
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 215 25% 11%;
+    --popover-foreground: 215 10% 95%;
 
     --primary: 358 100% 68%; /* Airbnb Rausch */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 90%;
+    --secondary: 215 25% 15%;
+    --secondary-foreground: 215 10% 90%;
 
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
+    --muted: 215 25% 15%;
+    --muted-foreground: 215 10% 65%;
 
     --accent: 174 100% 40%; /* Darker Teal for dark mode */
     --accent-foreground: 0 0% 100%;
@@ -96,17 +93,17 @@ All colors MUST be HSL.
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 95%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 15%;
+    --border: 215 25% 20%;
+    --input: 215 25% 15%;
     --ring: 358 100% 68%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 215 25% 10%;
+    --sidebar-foreground: 215 10% 95%;
+    --sidebar-primary: 358 100% 68%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 215 25% 16%;
+    --sidebar-accent-foreground: 215 10% 95%;
+    --sidebar-border: 215 25% 16%;
+    --sidebar-ring: 358 100% 68%;
   }
 }
 
