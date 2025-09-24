@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Send, X, Minimize2 } from 'lucide-react';
+import pandaMascot from '@/assets/panda-mascot.png';
 
 interface Message {
   id: string;
@@ -15,6 +16,7 @@ interface Message {
 const PandaChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isMinimized, setIsMinimized] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -69,6 +71,14 @@ const PandaChatBot = () => {
     }
   };
 
+  // 3秒后显示熊猫按钮
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     if (scrollAreaRef.current) {
       const scrollElement = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]');
@@ -81,41 +91,28 @@ const PandaChatBot = () => {
   return (
     <>
       {/* 悬浮熊猫按钮 */}
-      <div className="fixed bottom-8 right-8 z-50">
-        <Button
-          onClick={() => setIsOpen(!isOpen)}
-          className="w-16 h-16 rounded-full bg-gradient-to-br from-white to-gray-100 hover:from-gray-50 hover:to-gray-200 shadow-elegant hover:shadow-hover border-2 border-gray-200 transition-all duration-300 p-0 group"
-        >
-          {/* 熊猫头像 */}
-          <div className="relative">
-            {/* 熊猫脸 */}
-            <div className="w-10 h-10 bg-white rounded-full relative border-2 border-gray-800">
-              {/* 眼睛 */}
-              <div className="absolute top-2 left-1.5 w-2 h-2 bg-black rounded-full"></div>
-              <div className="absolute top-2 right-1.5 w-2 h-2 bg-black rounded-full"></div>
-              {/* 鼻子 */}
-              <div className="absolute top-3 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-black rounded-full"></div>
-              {/* 嘴巴 */}
-              <div className="absolute top-4 left-1/2 transform -translate-x-1/2 w-2 h-1 border-b border-black rounded-b-full"></div>
-            </div>
-            {/* 熊猫耳朵 */}
-            <div className="absolute -top-1 -left-1 w-3 h-3 bg-black rounded-full"></div>
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-black rounded-full"></div>
+      {isVisible && (
+        <div className="fixed bottom-8 right-8 z-50 animate-slide-up">
+          <Button
+            onClick={() => setIsOpen(!isOpen)}
+            className="w-20 h-20 rounded-full bg-white hover:bg-gray-50 shadow-elegant hover:shadow-hover border-2 border-gray-200 transition-all duration-300 p-0 group overflow-hidden"
+          >
+            {/* 熊猫图像 */}
+            <img 
+              src={pandaMascot} 
+              alt="熊猫助手" 
+              className="w-full h-full object-cover animate-bounce group-hover:animate-pulse"
+            />
             
-            {/* 招手动画的手 */}
-            <div className="absolute -right-2 top-1 animate-bounce">
-              <div className="w-2 h-2 bg-black rounded-full group-hover:animate-pulse"></div>
-            </div>
-          </div>
-          
-          {/* 消息提示点 */}
-          {!isOpen && messages.length > 1 && (
-            <div className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-xs rounded-full flex items-center justify-center animate-pulse">
-              !
-            </div>
-          )}
-        </Button>
-      </div>
+            {/* 消息提示点 */}
+            {!isOpen && messages.length > 1 && (
+              <div className="absolute -top-1 -right-1 w-4 h-4 bg-primary text-white text-xs rounded-full flex items-center justify-center animate-pulse">
+                !
+              </div>
+            )}
+          </Button>
+        </div>
+      )}
 
       {/* IM对话窗口 */}
       {isOpen && (
