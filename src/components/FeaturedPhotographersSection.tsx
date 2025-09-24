@@ -216,41 +216,37 @@ const FeaturedPhotographersSection = () => {
           </div>
         </div>
 
-        {/* 7步专业拍摄流程 - 时间轴风格 */}
+        {/* 7步专业拍摄流程 - 优化版水平布局 */}
         <div className="mb-16">
-          <div className="max-w-4xl mx-auto">
-            <h3 className="text-2xl font-semibold text-center text-foreground mb-2">专业拍摄流程</h3>
-            <p className="text-muted-foreground text-center mb-12">从浏览到交付，7步完成专业摄影服务</p>
-            
-            <div className="relative">
-              {/* 连接线 */}
-              <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-primary/20 via-primary/60 to-primary/20 hidden md:block"></div>
-              
-              <div className="space-y-8">
-                {steps.map((step, index) => (
-                  <div key={index} className="relative flex items-start group">
-                    {/* 步骤圆点 */}
-                    <div className="relative z-10 flex-shrink-0">
-                      <div className="w-12 h-12 bg-background border-4 border-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-button">
-                        <step.icon className="w-5 h-5 text-primary" />
-                      </div>
-                      {/* 步骤数字 */}
-                      <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-primary text-white rounded-full flex items-center justify-center text-xs font-bold">
-                        {index + 1}
-                      </div>
-                    </div>
-                    
-                    {/* 步骤内容 */}
-                    <div className="ml-6 pb-8 flex-1 group-hover:translate-x-2 transition-all duration-300">
-                      <div className="bg-card rounded-xl p-4 shadow-airbnb group-hover:shadow-hover border border-border/20">
-                        <h4 className="font-semibold text-foreground mb-1">{step.title}</h4>
-                        <p className="text-muted-foreground text-sm">{step.description}</p>
+          <div className="text-center mb-8">
+            <h3 className="text-xl font-semibold text-foreground mb-2">专业拍摄流程</h3>
+            <p className="text-muted-foreground text-sm">从浏览到交付，7步完成专业摄影服务</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-3 max-w-6xl mx-auto">
+            {steps.map((step, index) => (
+              <div key={index} className="group relative">
+                <Card className="p-3 text-center hover:shadow-hover transition-all duration-300 bg-gradient-soft border-border/30 hover-scale">
+                  <div className="mb-2">
+                    <div className="relative mx-auto w-10 h-10 bg-gradient-primary rounded-xl flex items-center justify-center mb-2 group-hover:rotate-6 transition-transform duration-300">
+                      <step.icon className="w-5 h-5 text-white" />
+                      <div className="absolute -top-1 -right-1 w-5 h-5 bg-background border-2 border-primary rounded-full flex items-center justify-center">
+                        <span className="text-xs font-bold text-primary">{index + 1}</span>
                       </div>
                     </div>
                   </div>
-                ))}
+                  <h3 className="font-medium text-xs text-foreground mb-1 line-clamp-1">{step.title}</h3>
+                  <p className="text-xs text-muted-foreground line-clamp-2 leading-tight">{step.description}</p>
+                </Card>
+                
+                {/* 连接箭头 - 只在桌面端显示 */}
+                {index < steps.length - 1 && (
+                  <div className="hidden lg:block absolute top-1/2 -right-1.5 transform -translate-y-1/2 z-10">
+                    <div className="w-3 h-3 rotate-45 bg-primary/20 border-r border-b border-primary/30"></div>
+                  </div>
+                )}
               </div>
-            </div>
+            ))}
           </div>
         </div>
 
