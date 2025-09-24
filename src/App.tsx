@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import PandaChatBot from "@/components/PandaChatBot";
 import Index from "./pages/Index";
 import Gallery from "./pages/Gallery";
 import PhotoDetail from "./pages/PhotoDetail";
@@ -48,6 +49,7 @@ const App: React.FC = () => {
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <PandaChatBot />
           </BrowserRouter>
         </TooltipProvider>
       </LanguageProvider>
