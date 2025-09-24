@@ -3,6 +3,7 @@ import Hero from '@/components/Hero';
 import FeaturedPhotographersSection from '@/components/FeaturedPhotographersSection';
 import BlogPreview from '@/components/BlogPreview';
 import Footer from '@/components/Footer';
+import PandaChatBot from '@/components/PandaChatBot';
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
         <BlogPreview />
       </div>
       <Footer />
+      <PandaChatBot />
     </div>
   );
 };
