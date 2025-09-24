@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { Star, MapPin, Eye, Heart, Camera, User, Calendar, ImageIcon, Edit, CheckCircle, Download, Search } from 'lucide-react';
+import { Star, MapPin, Eye, Heart, Camera, User, Calendar, ImageIcon, Edit, CheckCircle, Download, Search, X } from 'lucide-react';
 import { Photographer } from '@/types/photographer';
 
 // 导入图片资源
@@ -167,20 +167,35 @@ const FeaturedPhotographersSection = () => {
           <p className="text-muted-foreground text-lg mb-8">浏览精选摄影师的优质作品，找到最适合您需求的摄影风格</p>
           
           {/* 搜索栏 */}
-          <div className="max-w-md mx-auto mb-8">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input
-                placeholder="搜索摄影师、地点或拍摄风格..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-background/50 backdrop-blur-sm border-border/50 focus:border-primary"
-              />
+          <div className="max-w-xl mx-auto mb-8">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-primary rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-all duration-300"></div>
+              <div className="relative bg-background rounded-2xl border border-border/30 shadow-airbnb hover:shadow-hover transition-all duration-300 overflow-hidden">
+                <div className="flex items-center px-6 py-4">
+                  <Search className="text-muted-foreground w-5 h-5 mr-4 group-focus-within:text-primary transition-colors duration-300" />
+                  <Input
+                    placeholder="搜索摄影师、地点或拍摄风格..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="border-0 bg-transparent text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:outline-0 text-base"
+                  />
+                  {searchTerm && (
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => setSearchTerm('')}
+                      className="ml-2 h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
+                    >
+                      <X className="w-4 h-4" />
+                    </Button>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
 
           {/* 快筛分类 */}
-          <div className="flex flex-wrap justify-center gap-3 mb-8">
+          <div className="flex flex-wrap justify-center gap-2 mb-8">
             {categories.map((category) => (
               <Button
                 key={category}
@@ -188,17 +203,14 @@ const FeaturedPhotographersSection = () => {
                 size="sm"
                 onClick={() => setSelectedCategory(category)}
                 className={`
-                  relative px-4 py-2 rounded-xl font-medium text-sm transition-all duration-300 ease-smooth
+                  relative px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 ease-smooth hover-scale
                   ${selectedCategory === category 
-                    ? "bg-gradient-primary text-primary-foreground shadow-button-hover scale-105" 
-                    : "bg-background/60 text-foreground hover:bg-secondary hover:scale-102 border border-border/30"
+                    ? "bg-gradient-primary text-primary-foreground shadow-button-hover border-0" 
+                    : "bg-muted/50 text-foreground hover:bg-muted hover:shadow-airbnb border border-border/20"
                   }
                 `}
               >
                 {category}
-                {selectedCategory === category && (
-                  <div className="absolute inset-0 rounded-xl bg-primary/10 animate-pulse"></div>
-                )}
               </Button>
             ))}
           </div>
