@@ -1,250 +1,152 @@
+import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { Card } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Mail, Phone, MapPin, Clock, Send, Instagram, Twitter } from 'lucide-react';
+import { QrCode, Camera, Sparkles, Zap, MessageCircle } from 'lucide-react';
 
 const Contact = () => {
-  const contactInfo = [
-    {
-      icon: Mail,
-      title: 'Email',
-      content: 'hello@ateliercapture.com',
-      subtitle: 'Response within 24 hours'
-    },
-    {
-      icon: Phone,
-      title: 'Phone',
-      content: '+1 (555) 123-4567',
-      subtitle: 'Available Mon-Fri 9AM-6PM'
-    },
-    {
-      icon: MapPin,
-      title: 'Studio Location',
-      content: 'Downtown Creative District',
-      subtitle: 'By appointment only'
-    },
-    {
-      icon: Clock,
-      title: 'Working Hours',
-      content: 'Mon-Fri: 9AM-7PM',
-      subtitle: 'Weekend: By appointment'
-    }
-  ];
+  const [isScanning, setIsScanning] = useState(false);
+  const [showGlow, setShowGlow] = useState(false);
+
+  useEffect(() => {
+    const glowInterval = setInterval(() => {
+      setShowGlow(prev => !prev);
+    }, 3000);
+
+    return () => clearInterval(glowInterval);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 relative overflow-hidden">
       <Navigation />
       
-      {/* Header */}
-      <section className="pt-32 pb-16 bg-background">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h1 className="font-serif text-5xl md:text-6xl font-bold text-foreground mb-6">
-              Get In Touch
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-32 h-32 bg-accent/10 rounded-full animate-bounce delay-1000"></div>
+        <div className="absolute top-1/2 right-1/3 w-48 h-48 bg-secondary/5 rounded-full animate-pulse delay-500"></div>
+      </div>
+
+      {/* Hero Section */}
+      <section className="pt-32 pb-20 relative">
+        <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
+          <div className="mb-12">
+            <div className="inline-flex items-center gap-2 bg-primary/10 px-4 py-2 rounded-full mb-6">
+              <Camera className="w-5 h-5 text-primary" />
+              <span className="text-sm font-medium text-primary">专业摄影咨询</span>
+            </div>
+            
+            <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight">
+              扫码添加
+              <span className="block text-primary">摄影师微信</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              Ready to create something beautiful together? I'd love to hear about your 
-              project and discuss how we can bring your vision to life.
+            
+            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              一对一专业拍照咨询服务，让每一刻都成为永恒艺术
             </p>
           </div>
         </div>
       </section>
 
-      {/* Contact Content */}
+      {/* QR Code Section */}
       <section className="pb-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div className="max-w-2xl mx-auto px-6 lg:px-8">
+          <Card className={`relative p-12 bg-card/80 backdrop-blur-sm border-border shadow-2xl transition-all duration-700 ${showGlow ? 'shadow-primary/20' : ''}`}>
             
-            {/* Contact Form */}
-            <div>
-              <Card className="p-8 bg-card border-border shadow-elegant">
-                <h2 className="font-serif text-3xl font-bold text-foreground mb-8">
-                  Start a Conversation
+            {/* Scanning Animation Overlay */}
+            {isScanning && (
+              <div className="absolute inset-0 bg-primary/5 rounded-lg animate-pulse"></div>
+            )}
+            
+            {/* Decorative corners */}
+            <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-primary/40"></div>
+            <div className="absolute top-4 right-4 w-8 h-8 border-t-2 border-r-2 border-primary/40"></div>
+            <div className="absolute bottom-4 left-4 w-8 h-8 border-b-2 border-l-2 border-primary/40"></div>
+            <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-primary/40"></div>
+
+            <div className="text-center relative">
+              {/* QR Code Container */}
+              <div 
+                className={`relative mx-auto mb-8 p-6 bg-white rounded-2xl shadow-lg transition-all duration-500 transform hover:scale-105 cursor-pointer ${showGlow ? 'ring-4 ring-primary/20 shadow-primary/30' : ''}`}
+                onMouseEnter={() => setIsScanning(true)}
+                onMouseLeave={() => setIsScanning(false)}
+                style={{ width: 'fit-content' }}
+              >
+                {/* Scanning Line Animation */}
+                {isScanning && (
+                  <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-primary to-transparent animate-ping"></div>
+                )}
+                
+                {/* QR Code Placeholder - Replace with actual QR code */}
+                <div className="w-64 h-64 bg-foreground rounded-lg flex items-center justify-center relative overflow-hidden">
+                  <QrCode className="w-48 h-48 text-background" />
+                  
+                  {/* Dynamic overlay pattern */}
+                  <div className={`absolute inset-0 bg-gradient-to-br from-transparent to-primary/10 transition-opacity duration-300 ${isScanning ? 'opacity-100' : 'opacity-0'}`}></div>
+                </div>
+
+                {/* Floating particles effect */}
+                <div className="absolute -inset-4 pointer-events-none">
+                  <Sparkles className={`absolute top-2 right-2 w-4 h-4 text-primary/60 transition-all duration-300 ${showGlow ? 'animate-spin' : ''}`} />
+                  <Zap className={`absolute bottom-2 left-2 w-4 h-4 text-accent/60 transition-all duration-300 ${showGlow ? 'animate-bounce' : ''}`} />
+                </div>
+              </div>
+
+              {/* Instructions */}
+              <div className="space-y-4">
+                <h2 className="font-serif text-2xl md:text-3xl font-bold text-foreground mb-4">
+                  微信扫码咨询
                 </h2>
                 
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="firstName" className="text-sm font-medium text-foreground mb-2 block">
-                        First Name
-                      </Label>
-                      <Input
-                        id="firstName"
-                        placeholder="Your first name"
-                        className="h-12"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="lastName" className="text-sm font-medium text-foreground mb-2 block">
-                        Last Name
-                      </Label>
-                      <Input
-                        id="lastName"
-                        placeholder="Your last name"
-                        className="h-12"
-                      />
-                    </div>
+                <div className="flex items-center justify-center gap-3 text-muted-foreground mb-6">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    <span>在线咨询</span>
                   </div>
-
-                  <div>
-                    <Label htmlFor="email" className="text-sm font-medium text-foreground mb-2 block">
-                      Email Address
-                    </Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="your@email.com"
-                      className="h-12"
-                    />
+                  <div className="w-1 h-4 bg-border"></div>
+                  <div className="flex items-center gap-2">
+                    <MessageCircle className="w-4 h-4" />
+                    <span>即时回复</span>
                   </div>
+                </div>
 
-                  <div>
-                    <Label htmlFor="projectType" className="text-sm font-medium text-foreground mb-2 block">
-                      Project Type
-                    </Label>
-                    <Select>
-                      <SelectTrigger className="h-12">
-                        <SelectValue placeholder="Select project type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="portrait">Portrait Session</SelectItem>
-                        <SelectItem value="event">Event Photography</SelectItem>
-                        <SelectItem value="commercial">Commercial Work</SelectItem>
-                        <SelectItem value="wedding">Wedding Photography</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="budget" className="text-sm font-medium text-foreground mb-2 block">
-                      Budget Range
-                    </Label>
-                    <Select>
-                      <SelectTrigger className="h-12">
-                        <SelectValue placeholder="Select budget range" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="500-1000">$500 - $1,000</SelectItem>
-                        <SelectItem value="1000-2500">$1,000 - $2,500</SelectItem>
-                        <SelectItem value="2500-5000">$2,500 - $5,000</SelectItem>
-                        <SelectItem value="5000+">$5,000+</SelectItem>
-                        <SelectItem value="discuss">Let's discuss</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="message" className="text-sm font-medium text-foreground mb-2 block">
-                      Project Details
-                    </Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Tell me about your project, vision, timeline, and any specific requirements..."
-                      className="min-h-[120px] resize-none"
-                    />
-                  </div>
-
-                  <Button 
-                    type="submit" 
-                    size="lg" 
-                    className="w-full h-12 text-lg font-medium"
-                  >
-                    <Send size={20} className="mr-2" />
-                    Send Message
-                  </Button>
-                </form>
-              </Card>
+                <div className="space-y-3 text-sm text-muted-foreground">
+                  <p className="flex items-center justify-center gap-2">
+                    <span className="inline-flex items-center justify-center w-6 h-6 bg-primary/10 text-primary rounded-full text-xs font-bold">1</span>
+                    打开微信扫一扫功能
+                  </p>
+                  <p className="flex items-center justify-center gap-2">
+                    <span className="inline-flex items-center justify-center w-6 h-6 bg-primary/10 text-primary rounded-full text-xs font-bold">2</span>
+                    扫描上方二维码
+                  </p>
+                  <p className="flex items-center justify-center gap-2">
+                    <span className="inline-flex items-center justify-center w-6 h-6 bg-primary/10 text-primary rounded-full text-xs font-bold">3</span>
+                    开始专业拍照咨询
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="font-serif text-3xl font-bold text-foreground mb-8">
-                  Let's Connect
-                </h2>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-                  Whether you're planning a special event, need professional headshots, 
-                  or want to collaborate on a creative project, I'm here to help bring 
-                  your vision to life.
-                </p>
-              </div>
-
-              {/* Contact Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {contactInfo.map((info, index) => (
-                  <Card key={index} className="p-6 bg-card border-border shadow-elegant hover:shadow-hover transition-all duration-300">
-                    <div className="flex items-start space-x-4">
-                      <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full flex-shrink-0">
-                        <info.icon size={20} className="text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-foreground mb-1">
-                          {info.title}
-                        </h3>
-                        <p className="text-foreground mb-1">
-                          {info.content}
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          {info.subtitle}
-                        </p>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-
-              {/* Social Links */}
-              <Card className="p-6 bg-card border-border shadow-elegant">
-                <h3 className="font-semibold text-foreground mb-4">Follow My Work</h3>
-                <div className="flex space-x-4">
-                  <a 
-                    href="#" 
-                    className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
-                  >
-                    <Instagram size={20} />
-                  </a>
-                  <a 
-                    href="#" 
-                    className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
-                  >
-                    <Twitter size={20} />
-                  </a>
-                  <a 
-                    href="#" 
-                    className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-full text-primary hover:bg-primary hover:text-primary-foreground transition-colors duration-300"
-                  >
-                    <Mail size={20} />
-                  </a>
-                </div>
-                <p className="text-sm text-muted-foreground mt-4">
-                  See my latest work and behind-the-scenes content on social media.
-                </p>
-              </Card>
-
-              {/* FAQ */}
-              <Card className="p-6 bg-card border-border shadow-elegant">
-                <h3 className="font-semibold text-foreground mb-4">Quick FAQ</h3>
-                <div className="space-y-3 text-sm">
-                  <div>
-                    <p className="font-medium text-foreground">What's your typical response time?</p>
-                    <p className="text-muted-foreground">I respond to all inquiries within 24 hours.</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">Do you travel for shoots?</p>
-                    <p className="text-muted-foreground">Yes, I'm available for local and destination projects.</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-foreground">What's included in a session?</p>
-                    <p className="text-muted-foreground">Each package includes consultation, shoot, and edited photos.</p>
-                  </div>
-                </div>
-              </Card>
+            {/* Pulse animation ring */}
+            <div className={`absolute inset-0 rounded-lg border-2 border-primary/20 transition-all duration-1000 ${showGlow ? 'scale-110 opacity-0' : 'scale-100 opacity-100'}`}></div>
+          </Card>
+          
+          {/* Service highlights */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-12">
+            <div className="text-center p-6 bg-card/50 backdrop-blur-sm rounded-lg border border-border/50">
+              <Camera className="w-8 h-8 text-primary mx-auto mb-3" />
+              <h3 className="font-semibold text-foreground mb-2">专业拍摄</h3>
+              <p className="text-sm text-muted-foreground">人像、商业、活动摄影</p>
+            </div>
+            <div className="text-center p-6 bg-card/50 backdrop-blur-sm rounded-lg border border-border/50">
+              <MessageCircle className="w-8 h-8 text-primary mx-auto mb-3" />
+              <h3 className="font-semibold text-foreground mb-2">在线咨询</h3>
+              <p className="text-sm text-muted-foreground">24小时内快速响应</p>
+            </div>
+            <div className="text-center p-6 bg-card/50 backdrop-blur-sm rounded-lg border border-border/50">
+              <Sparkles className="w-8 h-8 text-primary mx-auto mb-3" />
+              <h3 className="font-semibold text-foreground mb-2">创意服务</h3>
+              <p className="text-sm text-muted-foreground">个性化拍摄方案</p>
             </div>
           </div>
         </div>
