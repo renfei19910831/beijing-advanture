@@ -8,50 +8,49 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Luxury Photography Portfolio Design System */
-    --background: 30 15% 97%; /* Warm pearl white */
-    --foreground: 240 20% 8%; /* Rich charcoal */
+    /* Airbnb Design System */
+    --background: 0 0% 98%; /* Clean white */
+    --foreground: 0 0% 28%; /* Airbnb Charcoal */
 
-    --card: 30 15% 97%;
-    --card-foreground: 240 20% 8%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 28%;
 
-    --popover: 30 15% 97%;
-    --popover-foreground: 240 20% 8%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 28%;
 
-    --primary: 45 80% 65%; /* Champagne gold */
-    --primary-foreground: 240 20% 8%;
+    --primary: 358 100% 68%; /* Airbnb Rausch */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 30 8% 88%; /* Platinum grey */
-    --secondary-foreground: 240 15% 20%;
+    --secondary: 0 0% 96%; /* Light gray */
+    --secondary-foreground: 0 0% 28%;
 
-    --muted: 30 8% 92%;
-    --muted-foreground: 240 10% 45%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 46%;
 
-    --accent: 15 90% 55%; /* Rose gold */
-    --accent-foreground: 30 15% 97%;
+    --accent: 174 100% 33%; /* Airbnb Teal */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 30 15% 97%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 30 12% 85%;
-    --input: 30 12% 88%;
-    --ring: 45 80% 65%;
+    --border: 0 0% 90%;
+    --input: 0 0% 94%;
+    --ring: 358 100% 68%;
 
-    /* Luxury design tokens */
-    --hero-gradient: linear-gradient(135deg, hsl(240 20% 8% / 0.6), hsl(45 80% 65% / 0.15));
-    --glass-bg: hsl(30 15% 97% / 0.85);
-    --shadow-luxury: 0 16px 64px hsl(240 20% 8% / 0.15);
-    --shadow-gold: 0 8px 32px hsl(45 80% 65% / 0.25);
-    --shadow-hover: 0 20px 80px hsl(240 20% 8% / 0.2);
-    --gradient-gold: linear-gradient(135deg, hsl(45 90% 70%), hsl(35 85% 60%));
-    --gradient-primary: linear-gradient(135deg, hsl(45 80% 65%), hsl(35 75% 55%));
-    --gradient-platinum: linear-gradient(180deg, hsl(30 8% 92%), hsl(30 12% 85%));
-    --gradient-soft: linear-gradient(135deg, hsl(30 15% 97%), hsl(30 12% 95%));
-    --shadow-button: 0 4px 20px hsl(45 80% 65% / 0.15);
-    --shadow-button-hover: 0 8px 30px hsl(45 80% 65% / 0.25);
-    --transition-luxury: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-    --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    --transition-quick: all 0.2s ease-out;
+    /* Airbnb design tokens */
+    --hero-gradient: linear-gradient(135deg, hsl(0 0% 28% / 0.8), hsl(358 100% 68% / 0.1));
+    --glass-bg: hsl(0 0% 100% / 0.9);
+    --shadow-elegant: 0 16px 64px hsl(0 0% 0% / 0.1);
+    --shadow-airbnb: 0 6px 16px hsl(0 0% 0% / 0.12);
+    --shadow-hover: 0 10px 28px hsl(0 0% 0% / 0.15);
+    --gradient-primary: linear-gradient(135deg, hsl(358 100% 68%), hsl(358 85% 60%));
+    --gradient-teal: linear-gradient(135deg, hsl(174 100% 33%), hsl(174 80% 28%));
+    --gradient-soft: linear-gradient(135deg, hsl(0 0% 98%), hsl(0 0% 96%));
+    --shadow-button: 0 2px 8px hsl(358 100% 68% / 0.2);
+    --shadow-button-hover: 0 4px 12px hsl(358 100% 68% / 0.3);
+    --transition-airbnb: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-smooth: all 0.2s ease-out;
+    --transition-quick: all 0.15s ease-out;
 
     --radius: 0.75rem;
 
@@ -73,33 +72,33 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 358 100% 68%; /* Airbnb Rausch */
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 90%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 174 100% 40%; /* Darker Teal for dark mode */
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 0 0% 20%;
+    --input: 0 0% 15%;
+    --ring: 358 100% 68%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;

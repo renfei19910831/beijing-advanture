@@ -71,10 +71,12 @@ export default {
 				'hero-gradient': 'var(--hero-gradient)',
 				'glass': 'var(--glass-bg)',
 				'gradient-primary': 'var(--gradient-primary)',
+				'gradient-teal': 'var(--gradient-teal)',
 				'gradient-soft': 'var(--gradient-soft)',
 			},
 			boxShadow: {
 				'elegant': 'var(--shadow-elegant)',
+				'airbnb': 'var(--shadow-airbnb)',
 				'hover': 'var(--shadow-hover)',
 				'button': 'var(--shadow-button)',
 				'button-hover': 'var(--shadow-button-hover)',

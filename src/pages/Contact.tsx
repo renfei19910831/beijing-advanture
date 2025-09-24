@@ -59,7 +59,7 @@ const Contact = () => {
       <section className="pb-20">
         <div className="max-w-2xl mx-auto px-6 lg:px-8">
           {/* Main QR Card */}
-          <Card className="relative p-8 md:p-12 bg-card/95 backdrop-blur-sm border-border shadow-xl">
+          <Card className="relative p-8 md:p-12 bg-card/95 backdrop-blur-sm border-border shadow-airbnb">
             
             {/* Viewfinder corners */}
             <div className="absolute top-6 left-6 w-6 h-6 border-t-2 border-l-2 border-primary/60"></div>
@@ -70,7 +70,7 @@ const Contact = () => {
             <div className="text-center relative">
               {/* QR Code Container */}
               <div 
-                className={`relative mx-auto mb-8 p-8 bg-white rounded-3xl shadow-lg transition-all duration-300 transform cursor-pointer ${isHovering ? 'scale-105 shadow-xl' : 'scale-100'}`}
+                className={`relative mx-auto mb-8 p-8 bg-white rounded-3xl shadow-airbnb transition-all duration-300 transform cursor-pointer ${isHovering ? 'scale-105 shadow-hover' : 'scale-100'}`}
                 onMouseEnter={() => setIsHovering(true)}
                 onMouseLeave={() => setIsHovering(false)}
                 style={{ width: 'fit-content' }}
