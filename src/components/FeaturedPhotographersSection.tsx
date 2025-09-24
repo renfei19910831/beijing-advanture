@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Star, MapPin, Eye, Heart, Camera, User, Calendar, ImageIcon, Edit, CheckCircle, Download } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Star, MapPin, Eye, Heart, Camera, User, Calendar, ImageIcon, Edit, CheckCircle, Download, Search } from 'lucide-react';
 import { Photographer } from '@/types/photographer';
 
 // 导入图片资源
@@ -123,6 +124,8 @@ const featuredPhotographers: Photographer[] = [
 
 const FeaturedPhotographersSection = () => {
   const [hoveredPhoto, setHoveredPhoto] = useState<string | null>(null);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('全部');
   const navigate = useNavigate();
 
   const steps = [
@@ -135,6 +138,23 @@ const FeaturedPhotographersSection = () => {
     { icon: Download, title: '交付照片', description: '获得高清作品' }
   ];
 
+  const categories = ['全部', '人像摄影', '建筑摄影', '风光摄影', '婚纱摄影', '时尚摄影', '商业摄影', '街拍摄影'];
+
+  // 过滤摄影师数据
+  const filteredPhotographers = useMemo(() => {
+    return featuredPhotographers.filter(photographer => {
+      const matchesSearch = searchTerm === '' || 
+        photographer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        photographer.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        photographer.specialties.some(specialty => specialty.toLowerCase().includes(searchTerm.toLowerCase()));
+      
+      const matchesCategory = selectedCategory === '全部' ||
+        photographer.specialties.some(specialty => specialty.includes(selectedCategory.replace('摄影', '')));
+      
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchTerm, selectedCategory]);
+
   const handleViewPhotographer = (photographerId: string) => {
     navigate(`/photographer/${photographerId}`);
   };
@@ -144,7 +164,44 @@ const FeaturedPhotographersSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-foreground mb-4">探索优秀摄影师作品</h2>
-          <p className="text-muted-foreground text-lg">浏览精选摄影师的优质作品，找到最适合您需求的摄影风格</p>
+          <p className="text-muted-foreground text-lg mb-8">浏览精选摄影师的优质作品，找到最适合您需求的摄影风格</p>
+          
+          {/* 搜索栏 */}
+          <div className="max-w-md mx-auto mb-8">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+              <Input
+                placeholder="搜索摄影师、地点或拍摄风格..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10 bg-background/50 backdrop-blur-sm border-border/50 focus:border-primary"
+              />
+            </div>
+          </div>
+
+          {/* 快筛分类 */}
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
+            {categories.map((category) => (
+              <Button
+                key={category}
+                variant="ghost"
+                size="sm"
+                onClick={() => setSelectedCategory(category)}
+                className={`
+                  relative px-4 py-2 rounded-xl font-medium text-sm transition-all duration-300 ease-smooth
+                  ${selectedCategory === category 
+                    ? "bg-gradient-primary text-primary-foreground shadow-button-hover scale-105" 
+                    : "bg-background/60 text-foreground hover:bg-secondary hover:scale-102 border border-border/30"
+                  }
+                `}
+              >
+                {category}
+                {selectedCategory === category && (
+                  <div className="absolute inset-0 rounded-xl bg-primary/10 animate-pulse"></div>
+                )}
+              </Button>
+            ))}
+          </div>
         </div>
 
         {/* 7步专业拍摄流程 */}
@@ -169,8 +226,9 @@ const FeaturedPhotographersSection = () => {
 
         {/* 精选摄影师展示 - 瀑布流布局 */}
         <div className="relative">
-          <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-8 space-y-0 mb-12">
-            {featuredPhotographers.flatMap((photographer) => 
+          {filteredPhotographers.length > 0 ? (
+            <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-8 space-y-0 mb-12">
+              {filteredPhotographers.flatMap((photographer) =>
               photographer.portfolio.map((photo, index) => (
                 <Card 
                   key={`${photographer.id}-${photo.id}`}
@@ -260,12 +318,32 @@ const FeaturedPhotographersSection = () => {
                     </div>
                   </CardContent>
                 </Card>
-              ))
-            )}
-          </div>
+                ))
+              )}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <Camera className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-foreground mb-2">未找到相关摄影师</h3>
+              <p className="text-muted-foreground mb-4">
+                没有找到匹配"{searchTerm}"的摄影师，试试调整搜索条件或选择其他分类
+              </p>
+              <Button 
+                variant="outline"
+                onClick={() => {
+                  setSearchTerm('');
+                  setSelectedCategory('全部');
+                }}
+              >
+                清除筛选条件
+              </Button>
+            </div>
+          )}
 
           {/* 渐变遮罩效果 */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
+          {filteredPhotographers.length > 0 && (
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none" />
+          )}
         </div>
 
         {/* 查看更多摄影师 */}
