@@ -14,7 +14,7 @@ const translations = {
   en: {
     // Navigation
     'nav.home': 'Home',
-    'nav.gallery': 'Gallery',
+    'nav.photographers': 'Discover Photographers',
     'nav.blog': 'Blog',
     'nav.about': 'About',
     'nav.contact': 'Contact',
@@ -71,7 +71,7 @@ const translations = {
   zh: {
     // Navigation
     'nav.home': '首页',
-    'nav.gallery': '作品集',
+    'nav.photographers': '发现优秀摄影师',
     'nav.blog': '博客',
     'nav.about': '关于我',
     'nav.contact': '联系我',
