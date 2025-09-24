@@ -216,23 +216,41 @@ const FeaturedPhotographersSection = () => {
           </div>
         </div>
 
-        {/* 7步专业拍摄流程 */}
+        {/* 7步专业拍摄流程 - 时间轴风格 */}
         <div className="mb-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-7 gap-4 max-w-6xl mx-auto">
-            {steps.map((step, index) => (
-              <Card key={index} className="p-4 text-center hover:shadow-elegant transition-all duration-300 bg-card/50 backdrop-blur-sm border-border/50">
-                <div className="mb-3">
-                  <div className="w-12 h-12 mx-auto bg-gradient-primary rounded-full flex items-center justify-center mb-2">
-                    <step.icon className="w-6 h-6 text-white" />
+          <div className="max-w-4xl mx-auto">
+            <h3 className="text-2xl font-semibold text-center text-foreground mb-2">专业拍摄流程</h3>
+            <p className="text-muted-foreground text-center mb-12">从浏览到交付，7步完成专业摄影服务</p>
+            
+            <div className="relative">
+              {/* 连接线 */}
+              <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-primary/20 via-primary/60 to-primary/20 hidden md:block"></div>
+              
+              <div className="space-y-8">
+                {steps.map((step, index) => (
+                  <div key={index} className="relative flex items-start group">
+                    {/* 步骤圆点 */}
+                    <div className="relative z-10 flex-shrink-0">
+                      <div className="w-12 h-12 bg-background border-4 border-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-300 shadow-button">
+                        <step.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      {/* 步骤数字 */}
+                      <div className="absolute -top-1 -right-1 w-6 h-6 bg-gradient-primary text-white rounded-full flex items-center justify-center text-xs font-bold">
+                        {index + 1}
+                      </div>
+                    </div>
+                    
+                    {/* 步骤内容 */}
+                    <div className="ml-6 pb-8 flex-1 group-hover:translate-x-2 transition-all duration-300">
+                      <div className="bg-card rounded-xl p-4 shadow-airbnb group-hover:shadow-hover border border-border/20">
+                        <h4 className="font-semibold text-foreground mb-1">{step.title}</h4>
+                        <p className="text-muted-foreground text-sm">{step.description}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="w-6 h-6 mx-auto bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-semibold">
-                    {index + 1}
-                  </div>
-                </div>
-                <h3 className="font-semibold text-sm text-foreground mb-1">{step.title}</h3>
-                <p className="text-xs text-muted-foreground">{step.description}</p>
-              </Card>
-            ))}
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
