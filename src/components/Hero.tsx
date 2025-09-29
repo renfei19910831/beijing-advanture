@@ -52,20 +52,13 @@ const Hero = () => {
             Welcome to a world where light, shadow, and emotion converge.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <div className="flex justify-center items-center">
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-medium shadow-hover transition-all duration-300"
               onClick={scrollToGallery}
             >
-              Explore My Work
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-white/30 text-white bg-transparent hover:bg-white/10 hover:text-white px-8 py-4 text-lg font-medium transition-all duration-300"
-            >
-              Learn My Story
+              发现摄影师
             </Button>
           </div>
         </div>
