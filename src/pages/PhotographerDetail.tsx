@@ -693,23 +693,15 @@ const PhotographerDetail = () => {
                   <p className="text-lg mb-6 opacity-90">
                     立即预约，让专业摄影师为您记录珍贵时刻
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <div className="flex justify-center">
                     <Button 
                       size="lg" 
                       variant="secondary"
                       className="bg-white text-primary hover:bg-white/90"
                       onClick={handleBooking}
                     >
-                      <Calendar className="w-5 h-5 mr-2" />
-                      立即预约拍摄
-                    </Button>
-                    <Button 
-                      size="lg" 
-                      variant="outline"
-                      className="border-white text-white hover:bg-white/10"
-                    >
                       <MessageCircle className="w-5 h-5 mr-2" />
-                      咨询拍摄详情
+                      立即咨询预约拍摄
                     </Button>
                   </div>
                 </div>
