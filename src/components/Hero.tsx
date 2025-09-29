@@ -3,7 +3,12 @@ import { Button } from '@/components/ui/button';
 import { ArrowDown, Camera } from 'lucide-react';
 import heroImage from '@/assets/hero-landscape.jpg';
 
-const Hero = () => {
+interface HeroProps {
+  backgroundSrc?: string;
+  isVideo?: boolean;
+}
+
+const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -17,13 +22,24 @@ const Hero = () => {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden pt-[120px] md:pt-[120px] pb-[15vh]">
-      {/* Hero Image */}
+      {/* Hero Background Media */}
       <div className="absolute inset-0">
-        <img
-          src={heroImage}
-          alt="Stunning landscape photography"
-          className="w-full h-full object-cover"
-        />
+        {isVideo ? (
+          <video
+            src={backgroundSrc}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <img
+            src={backgroundSrc}
+            alt="Stunning landscape photography"
+            className="w-full h-full object-cover"
+          />
+        )}
         <div className="absolute inset-0 bg-hero-gradient" />
       </div>
 
