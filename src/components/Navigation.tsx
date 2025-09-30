@@ -44,8 +44,8 @@ const Navigation = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-[1000] backdrop-blur-md border-b transition-all duration-500",
         isScrolled 
-          ? "bg-gradient-to-b from-background via-background to-background/95 border-border shadow-sm" 
-          : "bg-gradient-to-b from-white/90 via-background/80 to-background/60 border-border/50"
+          ? "bg-white/98 border-border shadow-sm" 
+          : "bg-white/95 border-border/50"
       )}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
