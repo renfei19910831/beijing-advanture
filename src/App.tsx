@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import Gallery from "./pages/Gallery";
 import PhotoDetail from "./pages/PhotoDetail";
@@ -17,6 +18,7 @@ import Photographers from "./pages/Photographers";
 import PhotographerDetail from "./pages/PhotographerDetail";
 import Favorites from "./pages/Favorites";
 import JoinUs from "./pages/JoinUs";
+import Auth from "./pages/Auth";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,8 +32,9 @@ const queryClient = new QueryClient({
 const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <TooltipProvider>
+      <AuthProvider>
+        <LanguageProvider>
+          <TooltipProvider>
           <Toaster />
           <Sonner />
           <BrowserRouter>
@@ -47,12 +50,14 @@ const App: React.FC = () => {
               <Route path="/photographer/:id" element={<PhotographerDetail />} />
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/join-us" element={<JoinUs />} />
+              <Route path="/auth" element={<Auth />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
-        </TooltipProvider>
-      </LanguageProvider>
+          </TooltipProvider>
+        </LanguageProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 };
