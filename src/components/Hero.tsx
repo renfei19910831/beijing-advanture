@@ -132,7 +132,7 @@ const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
               className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white px-8 py-6 text-lg font-medium shadow-2xl transition-all duration-300"
               onClick={scrollToGallery}
             >
-              发现摄影师
+              发现更多优秀摄影师
             </Button>
           </div>
 
@@ -244,15 +244,6 @@ const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-50">
-        <button
-          onClick={scrollToGallery}
-          className="text-white/60 hover:text-white transition-colors duration-300 animate-bounce"
-        >
-          <ArrowDown size={24} />
-        </button>
-      </div>
     </section>
   );
 };
