@@ -183,26 +183,28 @@ const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
                           alt={card.title}
                           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         
-                        {/* Photographer Avatar - Always visible */}
-                        <div className="absolute top-6 left-6 flex items-center gap-3 z-10">
-                          <Avatar className="w-12 h-12 border-2 border-white/50 shadow-lg">
-                            <AvatarImage src={card.photographerAvatar} alt={card.photographerName} />
-                            <AvatarFallback>{card.photographerName[0]}</AvatarFallback>
-                          </Avatar>
-                          <div className="text-white">
-                            <p className="font-semibold text-sm drop-shadow-lg">{card.photographerName}</p>
-                            <p className="text-xs text-white/80 drop-shadow-lg">摄影师</p>
-                          </div>
-                        </div>
-                        
+                        {/* Glass morphism info panel at bottom */}
                         {isActive && (
-                          <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-all duration-500">
-                            <h3 className="text-2xl font-bold mb-2">{card.title}</h3>
-                            <p className="text-white/80 flex items-center gap-2">
-                              <span className="text-sm">{card.location}</span>
-                            </p>
+                          <div className="absolute bottom-0 left-0 right-0 backdrop-blur-md bg-white/10 border-t border-white/20 p-6 text-white transform transition-all duration-500">
+                            {/* Photographer info */}
+                            <div className="flex items-center gap-3 mb-4">
+                              <Avatar className="w-12 h-12 border-2 border-white/50 shadow-lg">
+                                <AvatarImage src={card.photographerAvatar} alt={card.photographerName} />
+                                <AvatarFallback className="bg-white/20 text-white">{card.photographerName[0]}</AvatarFallback>
+                              </Avatar>
+                              <div>
+                                <p className="font-semibold text-base">{card.photographerName}</p>
+                                <p className="text-xs text-white/80">专业摄影师</p>
+                              </div>
+                            </div>
+                            
+                            {/* Title and location */}
+                            <div>
+                              <h3 className="text-2xl font-bold mb-1">{card.title}</h3>
+                              <p className="text-white/90 text-sm">{card.location}</p>
+                            </div>
                           </div>
                         )}
                       </div>
