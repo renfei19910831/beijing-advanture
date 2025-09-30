@@ -1,4 +1,5 @@
-import { Camera, Instagram, Twitter, Mail, Heart } from 'lucide-react';
+import { Camera, Heart } from 'lucide-react';
+import xiaohongshuQR from '@/assets/xiaohongshu-qr.jpg';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -6,7 +7,7 @@ const Footer = () => {
   return (
     <footer className="bg-foreground text-background py-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center mb-4">
@@ -17,17 +18,6 @@ const Footer = () => {
               Transforming fleeting moments into timeless visual stories through 
               passionate photography and thoughtful composition.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-background/70 hover:text-background transition-colors">
-                <Instagram size={20} />
-              </a>
-              <a href="#" className="text-background/70 hover:text-background transition-colors">
-                <Twitter size={20} />
-              </a>
-              <a href="#" className="text-background/70 hover:text-background transition-colors">
-                <Mail size={20} />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -41,15 +31,12 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
-          <div>
-            <h4 className="font-semibold text-lg mb-4">Services</h4>
-            <ul className="space-y-2">
-              <li><span className="text-background/70">Portrait Sessions</span></li>
-              <li><span className="text-background/70">Event Photography</span></li>
-              <li><span className="text-background/70">Commercial Work</span></li>
-              <li><span className="text-background/70">Fine Art Prints</span></li>
-            </ul>
+          {/* Xiaohongshu QR Code */}
+          <div className="flex flex-col items-center md:items-start">
+            <div className="bg-white p-4 rounded-lg shadow-lg mb-3">
+              <img src={xiaohongshuQR} alt="小红书官方账号" className="w-32 h-32" />
+            </div>
+            <p className="text-background/70 text-sm">关注我们</p>
           </div>
         </div>
 
