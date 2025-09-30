@@ -187,23 +187,23 @@ const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
                         
                         {/* Glass morphism info panel at bottom */}
                         {isActive && (
-                          <div className="absolute bottom-0 left-0 right-0 backdrop-blur-md bg-white/10 border-t border-white/20 p-6 text-white transform transition-all duration-500">
-                            {/* Photographer info */}
-                            <div className="flex items-center gap-3 mb-4">
-                              <Avatar className="w-12 h-12 border-2 border-white/50 shadow-lg">
+                          <div className="absolute bottom-0 left-0 right-0 backdrop-blur-md bg-white/10 border-t border-white/20 p-5 text-white transform transition-all duration-500">
+                            <div className="flex items-center gap-4">
+                              {/* Photographer Avatar */}
+                              <Avatar className="w-14 h-14 border-2 border-white/50 shadow-lg flex-shrink-0">
                                 <AvatarImage src={card.photographerAvatar} alt={card.photographerName} />
                                 <AvatarFallback className="bg-white/20 text-white">{card.photographerName[0]}</AvatarFallback>
                               </Avatar>
-                              <div>
-                                <p className="font-semibold text-base">{card.photographerName}</p>
-                                <p className="text-xs text-white/80">专业摄影师</p>
+                              
+                              {/* Title and info */}
+                              <div className="flex-1 min-w-0">
+                                <h3 className="text-xl font-bold mb-0.5 truncate">{card.title}</h3>
+                                <div className="flex items-center gap-3 text-sm">
+                                  <span className="text-white/90">{card.photographerName}</span>
+                                  <span className="text-white/60">·</span>
+                                  <span className="text-white/80">{card.location}</span>
+                                </div>
                               </div>
-                            </div>
-                            
-                            {/* Title and location */}
-                            <div>
-                              <h3 className="text-2xl font-bold mb-1">{card.title}</h3>
-                              <p className="text-white/90 text-sm">{card.location}</p>
                             </div>
                           </div>
                         )}
