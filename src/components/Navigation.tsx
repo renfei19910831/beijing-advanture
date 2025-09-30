@@ -18,7 +18,6 @@ import { User, LogOut } from 'lucide-react';
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isDarkBackground, setIsDarkBackground] = useState(false);
   const location = useLocation();
   const { t } = useLanguage();
   const { user, signOut } = useAuth();
@@ -26,29 +25,8 @@ const Navigation = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
-      // 检测导航栏下方的背景颜色
-      const navHeight = 80; // 导航栏高度
-      const elementBelowNav = document.elementFromPoint(window.innerWidth / 2, navHeight + 10);
-      
-      if (elementBelowNav) {
-        const bgColor = window.getComputedStyle(elementBelowNav).backgroundColor;
-        const rgb = bgColor.match(/\d+/g);
-        
-        if (rgb && rgb.length >= 3) {
-          // 计算亮度 (使用相对亮度公式)
-          const r = parseInt(rgb[0]);
-          const g = parseInt(rgb[1]);
-          const b = parseInt(rgb[2]);
-          const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-          
-          // 如果亮度低于 128，认为是深色背景
-          setIsDarkBackground(brightness < 128);
-        }
-      }
     };
 
-    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -75,17 +53,8 @@ const Navigation = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className={cn(
-              "font-serif text-2xl font-semibold transition-colors duration-300",
-              isDarkBackground 
-                ? "text-white hover:text-white/80" 
-                : "text-foreground hover:text-primary"
-            )}
-            style={{ 
-              textShadow: isDarkBackground 
-                ? '0 2px 4px rgba(0, 0, 0, 0.3)' 
-                : '0 1px 2px rgba(255, 255, 255, 0.8)' 
-            }}
+            className="font-serif text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-300 drop-shadow-[0_2px_3px_rgba(255,255,255,0.8)]"
+            style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}
           >
             Atelier Capture
           </Link>
@@ -99,24 +68,13 @@ const Navigation = () => {
                 className={cn(
                   'text-sm font-medium tracking-wide transition-all duration-300 relative',
                   'after:content-[""] after:absolute after:w-full after:h-[3px] after:bottom-[-4px] after:left-0',
-                  'after:scale-x-0 after:transition-transform after:duration-300',
-                  'hover:after:scale-x-100',
-                  isDarkBackground 
-                    ? 'after:bg-white hover:text-white/80' 
-                    : 'after:bg-primary hover:text-primary',
+                  'after:bg-primary after:scale-x-0 after:transition-transform after:duration-300',
+                  'hover:after:scale-x-100 hover:text-primary',
                   location.pathname === item.path
-                    ? isDarkBackground 
-                      ? 'text-white after:scale-x-100' 
-                      : 'text-primary after:scale-x-100'
-                    : isDarkBackground 
-                      ? 'text-white/90' 
-                      : 'text-foreground'
+                    ? 'text-primary after:scale-x-100'
+                    : 'text-foreground'
                 )}
-                style={{ 
-                  textShadow: isDarkBackground 
-                    ? '0 2px 4px rgba(0, 0, 0, 0.3)' 
-                    : '0 1px 2px rgba(255, 255, 255, 0.8)' 
-                }}
+                style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}
               >
                 {item.name}
               </Link>
@@ -126,24 +84,13 @@ const Navigation = () => {
               className={cn(
                 'text-sm font-medium tracking-wide transition-all duration-300 relative',
                 'after:content-[""] after:absolute after:w-full after:h-[3px] after:bottom-[-4px] after:left-0',
-                'after:scale-x-0 after:transition-transform after:duration-300',
-                'hover:after:scale-x-100',
-                isDarkBackground 
-                  ? 'after:bg-white hover:text-white/80' 
-                  : 'after:bg-primary hover:text-primary',
+                'after:bg-primary after:scale-x-0 after:transition-transform after:duration-300',
+                'hover:after:scale-x-100 hover:text-primary',
                 location.pathname === '/favorites'
-                  ? isDarkBackground 
-                    ? 'text-white after:scale-x-100' 
-                    : 'text-primary after:scale-x-100'
-                  : isDarkBackground 
-                    ? 'text-white/90' 
-                    : 'text-foreground'
+                  ? 'text-primary after:scale-x-100'
+                  : 'text-foreground'
               )}
-              style={{ 
-                textShadow: isDarkBackground 
-                  ? '0 2px 4px rgba(0, 0, 0, 0.3)' 
-                  : '0 1px 2px rgba(255, 255, 255, 0.8)' 
-              }}
+              style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}
             >
               我的收藏
             </Link>
