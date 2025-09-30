@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
-import { Menu, X, Heart } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -79,10 +79,17 @@ const Navigation = () => {
             ))}
             <Link
               to="/favorites"
-              className="p-2 text-foreground hover:text-primary transition-colors duration-300 relative"
-              title="我的收藏"
+              className={cn(
+                'text-sm font-medium tracking-wide transition-all duration-300 relative drop-shadow-sm',
+                'after:content-[""] after:absolute after:w-full after:h-[3px] after:bottom-[-4px] after:left-0',
+                'after:bg-primary after:scale-x-0 after:transition-transform after:duration-300',
+                'hover:after:scale-x-100 hover:text-primary',
+                location.pathname === '/favorites'
+                  ? 'text-primary after:scale-x-100'
+                  : 'text-foreground'
+              )}
             >
-              <Heart size={20} />
+              我的收藏
             </Link>
             
             {/* Auth Section */}
@@ -127,10 +134,9 @@ const Navigation = () => {
           <div className="md:hidden flex items-center space-x-2">
             <Link
               to="/favorites"
-              className="p-2 text-foreground hover:text-primary transition-colors"
-              title="我的收藏"
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors"
             >
-              <Heart size={20} />
+              我的收藏
             </Link>
             
             {user ? (
