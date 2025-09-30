@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ArrowDown, Camera, ChevronLeft, ChevronRight } from 'lucide-react';
 import heroImage from '@/assets/hero-landscape.jpg';
 import architectureImg from '@/assets/portfolio-architecture.jpg';
@@ -17,28 +19,41 @@ const featuredCards = [
     title: '建筑摄影',
     location: '北京 CBD',
     image: architectureImg,
+    photographerId: 'zhang-wei',
+    photographerName: '张伟',
+    photographerAvatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
   },
   {
     id: 2,
     title: '人像摄影',
     location: '故宫',
     image: portraitImg,
+    photographerId: 'li-ming',
+    photographerName: '李明',
+    photographerAvatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150',
   },
   {
     id: 3,
     title: '街头摄影',
     location: '南锣鼓巷',
     image: streetImg,
+    photographerId: 'wang-fang',
+    photographerName: '王芳',
+    photographerAvatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
   },
   {
     id: 4,
     title: '风景摄影',
     location: '长城',
     image: heroImage,
+    photographerId: 'liu-yang',
+    photographerName: '刘洋',
+    photographerAvatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150',
   },
 ];
 
 const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const [activeCard, setActiveCard] = useState(0);
 
@@ -64,6 +79,10 @@ const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
 
   const prevCard = () => {
     setActiveCard((prev) => (prev - 1 + featuredCards.length) % featuredCards.length);
+  };
+
+  const handleCardClick = (photographerId: string) => {
+    navigate(`/photographers/${photographerId}`);
   };
 
   return (
@@ -155,13 +174,28 @@ const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
                         opacity: offset > 2 ? 0 : 1 - offset * 0.2,
                       }}
                     >
-                      <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-card">
+                      <div 
+                        className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-card cursor-pointer group"
+                        onClick={() => handleCardClick(card.photographerId)}
+                      >
                         <img
                           src={card.image}
                           alt={card.title}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                        
+                        {/* Photographer Avatar - Always visible */}
+                        <div className="absolute top-6 left-6 flex items-center gap-3 z-10">
+                          <Avatar className="w-12 h-12 border-2 border-white/50 shadow-lg">
+                            <AvatarImage src={card.photographerAvatar} alt={card.photographerName} />
+                            <AvatarFallback>{card.photographerName[0]}</AvatarFallback>
+                          </Avatar>
+                          <div className="text-white">
+                            <p className="font-semibold text-sm drop-shadow-lg">{card.photographerName}</p>
+                            <p className="text-xs text-white/80 drop-shadow-lg">摄影师</p>
+                          </div>
+                        </div>
                         
                         {isActive && (
                           <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-all duration-500">
