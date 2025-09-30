@@ -117,13 +117,6 @@ const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
             }`}
           >
-            <div className="flex items-center mb-6">
-              <Camera className="w-10 h-10 text-white/80 mr-3" />
-              <span className="text-base font-light tracking-wider text-white/90">
-                Visual Storytelling
-              </span>
-            </div>
-            
             <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6 leading-tight">
               Capturing Moments,
               <br />
