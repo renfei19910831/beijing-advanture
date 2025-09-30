@@ -42,10 +42,10 @@ const Navigation = () => {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-[1000] backdrop-blur-md border-b transition-all duration-500",
+        "fixed top-0 left-0 right-0 z-[1000] backdrop-blur-xl border-b transition-all duration-500",
         isScrolled 
-          ? "bg-white/98 border-border shadow-sm" 
-          : "bg-white/95 border-border/50"
+          ? "bg-white/98 border-border shadow-lg" 
+          : "bg-white/90 border-border/50 shadow-sm"
       )}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -53,7 +53,8 @@ const Navigation = () => {
           {/* Logo */}
           <Link 
             to="/" 
-            className="font-serif text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-300 drop-shadow-sm"
+            className="font-serif text-2xl font-semibold text-foreground hover:text-primary transition-colors duration-300 drop-shadow-[0_2px_3px_rgba(255,255,255,0.8)]"
+            style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}
           >
             Atelier Capture
           </Link>
@@ -65,7 +66,7 @@ const Navigation = () => {
                 key={item.path}
                 to={item.path}
                 className={cn(
-                  'text-sm font-medium tracking-wide transition-all duration-300 relative drop-shadow-sm',
+                  'text-sm font-medium tracking-wide transition-all duration-300 relative',
                   'after:content-[""] after:absolute after:w-full after:h-[3px] after:bottom-[-4px] after:left-0',
                   'after:bg-primary after:scale-x-0 after:transition-transform after:duration-300',
                   'hover:after:scale-x-100 hover:text-primary',
@@ -73,6 +74,7 @@ const Navigation = () => {
                     ? 'text-primary after:scale-x-100'
                     : 'text-foreground'
                 )}
+                style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}
               >
                 {item.name}
               </Link>
@@ -80,7 +82,7 @@ const Navigation = () => {
             <Link
               to="/favorites"
               className={cn(
-                'text-sm font-medium tracking-wide transition-all duration-300 relative drop-shadow-sm',
+                'text-sm font-medium tracking-wide transition-all duration-300 relative',
                 'after:content-[""] after:absolute after:w-full after:h-[3px] after:bottom-[-4px] after:left-0',
                 'after:bg-primary after:scale-x-0 after:transition-transform after:duration-300',
                 'hover:after:scale-x-100 hover:text-primary',
@@ -88,6 +90,7 @@ const Navigation = () => {
                   ? 'text-primary after:scale-x-100'
                   : 'text-foreground'
               )}
+              style={{ textShadow: '0 1px 2px rgba(255, 255, 255, 0.8)' }}
             >
               我的收藏
             </Link>
