@@ -7,14 +7,14 @@ const Footer = () => {
   return (
     <footer className="bg-foreground text-background py-16">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           {/* Brand */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-1">
             <div className="flex items-center mb-4">
               <Camera className="w-8 h-8 mr-3" />
               <h3 className="font-serif text-2xl font-semibold">Atelier Capture</h3>
             </div>
-            <p className="text-background/70 leading-relaxed mb-6 max-w-md">
+            <p className="text-background/70 leading-relaxed max-w-md">
               Transforming fleeting moments into timeless visual stories through 
               passionate photography and thoughtful composition.
             </p>
@@ -32,11 +32,11 @@ const Footer = () => {
           </div>
 
           {/* Xiaohongshu QR Code */}
-          <div className="flex flex-col items-center md:items-start">
-            <div className="bg-white p-4 rounded-lg shadow-lg mb-3">
-              <img src={xiaohongshuQR} alt="小红书官方账号" className="w-32 h-32" />
+          <div className="flex flex-col items-start">
+            <h4 className="font-semibold text-lg mb-4">关注我们</h4>
+            <div className="bg-background/10 p-3 rounded-lg backdrop-blur-sm">
+              <img src={xiaohongshuQR} alt="小红书官方账号" className="w-24 h-24" />
             </div>
-            <p className="text-background/70 text-sm">关注我们</p>
           </div>
         </div>
 
