@@ -42,10 +42,10 @@ const Navigation = () => {
   return (
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-[1000] backdrop-blur-xl border-b transition-all duration-500",
+        "fixed top-0 left-0 right-0 z-[1000] bg-white backdrop-blur-md border-b transition-all duration-500",
         isScrolled 
-          ? "bg-white/98 border-border shadow-lg" 
-          : "bg-white/90 border-border/50 shadow-sm"
+          ? "border-border shadow-lg" 
+          : "border-border/50 shadow-sm"
       )}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
