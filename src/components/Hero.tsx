@@ -86,7 +86,7 @@ const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
   };
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden pt-[120px] md:pt-[120px] pb-[15vh]">
+    <section className="relative h-[85vh] flex items-center justify-center overflow-hidden pt-[120px] md:pt-[120px] pb-[10vh]">
       {/* Hero Background Media */}
       <div className="absolute inset-0">
         {isVideo ? (
