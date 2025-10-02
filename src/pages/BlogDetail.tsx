@@ -19,10 +19,10 @@ const BlogDetail = () => {
     title: 'The Art of Golden Hour Photography',
     excerpt: 'Discover the secrets behind capturing that perfect golden light and how it transforms ordinary scenes into magical moments.',
     content: `
-      <h2>Understanding Golden Hour</h2>
+      <h2 id="understanding-golden-hour">Understanding Golden Hour</h2>
       <p>Golden hour, also known as the magic hour, occurs twice daily - shortly after sunrise and just before sunset. During this time, the sun sits low on the horizon, creating warm, soft light that photographers dream about.</p>
       
-      <h3>Why Golden Hour is Special</h3>
+      <h3 id="why-golden-hour-is-special">Why Golden Hour is Special</h3>
       <p>The low angle of the sun during golden hour creates several unique lighting conditions:</p>
       <ul>
         <li>Warm color temperature (2500K-3500K)</li>
@@ -31,7 +31,7 @@ const BlogDetail = () => {
         <li>Natural rim lighting and backlighting opportunities</li>
       </ul>
 
-      <h3>Camera Settings for Golden Hour</h3>
+      <h3 id="camera-settings">Camera Settings for Golden Hour</h3>
       <p>To make the most of golden hour lighting, consider these camera settings:</p>
       <ul>
         <li><strong>ISO:</strong> Keep it low (100-400) for clean images</li>
@@ -40,7 +40,7 @@ const BlogDetail = () => {
         <li><strong>Metering:</strong> Spot or center-weighted for precise exposure</li>
       </ul>
 
-      <h3>Planning Your Golden Hour Shoot</h3>
+      <h3 id="planning-your-shoot">Planning Your Golden Hour Shoot</h3>
       <p>Successful golden hour photography requires careful planning. Use apps like PhotoPills or Sun Surveyor to predict the sun's position and plan your compositions accordingly.</p>
     `,
     category: 'Techniques',
@@ -135,6 +135,13 @@ const BlogDetail = () => {
                         <a
                           key={item.id}
                           href={`#${item.id}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            document.getElementById(item.id)?.scrollIntoView({ 
+                              behavior: 'smooth',
+                              block: 'start'
+                            });
+                          }}
                           className="block text-sm text-muted-foreground hover:text-primary transition-colors py-1"
                         >
                           {item.title}
