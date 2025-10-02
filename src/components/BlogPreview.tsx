@@ -2,8 +2,11 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 const BlogPreview = () => {
+  const { t } = useLanguage();
+  
   const latestPosts = [
     {
       id: 1,
@@ -40,10 +43,10 @@ const BlogPreview = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">
-            旅行攻略 & 拍摄指南
+            {t('blog.title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            最佳拍摄地点推荐、摄影技巧分享和旅行拍摄攻略，让你的每次拍摄都收获满满
+            {t('blog.subtitle')}
           </p>
         </div>
 
@@ -120,7 +123,7 @@ const BlogPreview = () => {
             to="/blog" 
             className="inline-flex items-center px-8 py-3 text-primary hover:text-primary/80 font-medium transition-colors duration-300 group"
           >
-            <span className="mr-2">查看所有攻略</span>
+            <span className="mr-2">{t('blog.viewAll')}</span>
             <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>

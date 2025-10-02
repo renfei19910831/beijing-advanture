@@ -3,35 +3,38 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Star } from 'lucide-react';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import { useLanguage } from '@/contexts/LanguageContext';
 import testimonialSarah from '@/assets/testimonial-sarah.jpg';
 import testimonialMichael from '@/assets/testimonial-michael.jpg';
 import testimonialLisa from '@/assets/testimonial-lisa.jpg';
 
 const Testimonials = () => {
+  const { t } = useLanguage();
+  
   const testimonials = [
     {
       id: 1,
-      name: "Sarah Chen",
+      name: "陈雨萱",
       avatar: testimonialSarah,
       rating: 5,
-      comment: "Amazing experience! The photos captured the essence of Beijing perfectly. Professional and creative.",
-      service: "Wedding Photography"
+      comment: "摄影师非常专业，拍摄过程轻松愉快。照片完美捕捉了我们婚礼的每个珍贵瞬间，家人朋友都赞不绝口！",
+      service: "婚礼摄影"
     },
     {
       id: 2, 
-      name: "Michael Zhang",
+      name: "张明浩",
       avatar: testimonialMichael,
       rating: 5,
-      comment: "Exceptional quality and service. The photographer knew all the best spots in Beijing. Highly recommend!",
-      service: "Corporate Portraits"
+      comment: "合作非常愉快！摄影师对北京的拍摄地点了如指掌，给了很多专业建议。最终成片质量超出预期，强烈推荐！",
+      service: "商业人像"
     },
     {
       id: 3,
-      name: "Lisa Wang", 
+      name: "王思琪", 
       avatar: testimonialLisa,
       rating: 5,
-      comment: "Beautiful portfolio shots that exceeded expectations. Great attention to detail and lighting.",
-      service: "Fashion Portfolio"
+      comment: "作品质量非常高，摄影师对光线和构图的把握很到位。整个拍摄过程很舒适，最终照片完全超出预期！",
+      service: "时尚写真"
     }
   ];
 
@@ -39,12 +42,12 @@ const Testimonials = () => {
     <section className="py-24 px-6 bg-gradient-to-b from-muted/30 to-background">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
-          <p className="text-sm text-muted-foreground uppercase tracking-wider mb-2">What Our Clients Say</p>
+          <p className="text-sm text-muted-foreground uppercase tracking-wider mb-2">{t('testimonials.title')}</p>
           <h2 className="text-3xl md:text-4xl font-light text-foreground mb-4">
-            Trusted by Amazing People
+            {t('testimonials.subtitle')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Don't just take our word for it - hear from our satisfied clients
+            {t('testimonials.description')}
           </p>
         </div>
 

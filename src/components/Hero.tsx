@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ArrowDown, Camera, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 import heroImage from '@/assets/hero-landscape.jpg';
 import architectureImg from '@/assets/portfolio-architecture.jpg';
 import portraitImg from '@/assets/portfolio-portrait.jpg';
@@ -54,6 +55,7 @@ const featuredCards = [
 
 const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [isVisible, setIsVisible] = useState(false);
   const [activeCard, setActiveCard] = useState(0);
 
@@ -118,13 +120,11 @@ const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
             }`}
           >
             <h1 className="font-serif text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              Capturing Moments,
-              <br />
-              <span className="text-white/90">Creating Art</span>
+              {t('hero.title')}
             </h1>
             
             <p className="text-lg md:text-xl font-light mb-8 text-white/80 max-w-lg leading-relaxed">
-              通过镜头，平凡的瞬间转化为非凡的故事。欢迎来到光影与情感交织的世界。
+              {t('hero.subtitle')}
             </p>
             
             <Button
@@ -132,7 +132,7 @@ const Hero = ({ backgroundSrc = heroImage, isVideo = false }: HeroProps) => {
               className="bg-white/10 backdrop-blur-sm border border-white/20 hover:bg-white/20 text-white px-8 py-6 text-lg font-medium shadow-2xl transition-all duration-300"
               onClick={scrollToGallery}
             >
-              发现更多优秀摄影师
+              {t('hero.cta')}
             </Button>
           </div>
 

@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { ExternalLink, Eye, Share2 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
+import { useLanguage } from '@/contexts/LanguageContext';
 import portraitImage from '@/assets/portfolio-portrait.jpg';
 import architectureImage from '@/assets/portfolio-architecture.jpg';
 import streetImage from '@/assets/portfolio-street.jpg';
@@ -12,33 +13,7 @@ const FeaturedWork = () => {
   const [hoveredItem, setHoveredItem] = useState<number | null>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
-
-  const featuredWorks = [
-    {
-      id: 1,
-      title: 'Urban Portraits',
-      category: 'Portrait',
-      image: portraitImage,
-      description: 'Intimate character studies capturing the essence of urban life',
-      tags: ['Portrait', 'Black & White', 'Street'],
-    },
-    {
-      id: 2,
-      title: 'Architectural Lines',
-      category: 'Architecture',
-      image: architectureImage,
-      description: 'Modern structures showcasing geometric beauty and light interplay',
-      tags: ['Architecture', 'Modern', 'Geometry'],
-    },
-    {
-      id: 3,
-      title: 'City Stories',
-      category: 'Street',
-      image: streetImage,
-      description: 'Candid moments that reveal the poetry of everyday urban existence',
-      tags: ['Street', 'Documentary', 'Urban'],
-    },
-  ];
+  const { t } = useLanguage();
 
   return (
     <section id="featured-work" className="py-20 bg-background">
@@ -46,17 +21,20 @@ const FeaturedWork = () => {
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Featured Work
+            {t('featured.title')}
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            A curated selection of my most compelling visual narratives, 
-            each telling a unique story through light, composition, and emotion.
+            {t('featured.subtitle')}
           </p>
         </div>
 
         {/* Gallery Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {featuredWorks.map((work, index) => (
+          {[
+            { id: 1, titleKey: 'featured.portrait', descKey: 'featured.portrait.desc', category: '人像', image: portraitImage, tags: ['人像', '都市', '情感'] },
+            { id: 2, titleKey: 'featured.architecture', descKey: 'featured.architecture.desc', category: '建筑', image: architectureImage, tags: ['建筑', '现代', '几何'] },
+            { id: 3, titleKey: 'featured.street', descKey: 'featured.street.desc', category: '街拍', image: streetImage, tags: ['街拍', '纪实', '生活'] },
+          ].map((work, index) => (
             <Card
               key={work.id}
               className="group relative overflow-hidden bg-card border-border shadow-elegant hover:shadow-hover transition-all duration-500 cursor-pointer"
@@ -67,7 +45,7 @@ const FeaturedWork = () => {
               <div className="relative overflow-hidden aspect-square">
                 <img
                   src={work.image}
-                  alt={work.title}
+                  alt={t(work.titleKey)}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 
@@ -89,22 +67,22 @@ const FeaturedWork = () => {
                           if (navigator.share) {
                             try {
                               await navigator.share({
-                                title: work.title,
-                                text: work.description,
+                                title: t(work.titleKey),
+                                text: t(work.descKey),
                                 url: url,
                               });
                             } catch (error) {
                               await navigator.clipboard.writeText(url);
                               toast({
-                                title: "Link copied!",
-                                description: "Photo URL has been copied to your clipboard.",
+                                title: t('action.copied'),
+                                description: "照片链接已复制到剪贴板",
                               });
                             }
                           } else {
                             await navigator.clipboard.writeText(url);
                             toast({
-                              title: "Link copied!",
-                              description: "Photo URL has been copied to your clipboard.",
+                              title: t('action.copied'),
+                              description: "照片链接已复制到剪贴板",
                             });
                           }
                         }}
@@ -121,7 +99,7 @@ const FeaturedWork = () => {
               <div className="p-6">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="font-serif text-xl font-semibold text-foreground">
-                    {work.title}
+                    {t(work.titleKey)}
                   </h3>
                   <Badge variant="secondary" className="text-xs">
                     {work.category}
@@ -129,7 +107,7 @@ const FeaturedWork = () => {
                 </div>
                 
                 <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-                  {work.description}
+                  {t(work.descKey)}
                 </p>
                 
                 <div className="flex flex-wrap gap-2">
@@ -153,7 +131,7 @@ const FeaturedWork = () => {
             to="/gallery" 
             className="inline-flex items-center px-8 py-3 text-primary hover:text-primary/80 font-medium transition-colors duration-300 group"
           >
-            <span className="mr-2">View Complete Gallery</span>
+            <span className="mr-2">{t('featured.view')}</span>
             <ExternalLink size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>

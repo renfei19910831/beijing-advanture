@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Star, MapPin, Eye, Heart, Camera, User, Calendar, ImageIcon, Edit, CheckCircle, Download, Search, X } from 'lucide-react';
 import { Photographer } from '@/types/photographer';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 // 导入图片资源
 import portfolioPortrait from '@/assets/portfolio-portrait.jpg';
@@ -127,15 +128,16 @@ const FeaturedPhotographersSection = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('全部');
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   const steps = [
-    { icon: ImageIcon, title: '浏览照片', description: '查看作品集' },
-    { icon: User, title: '选择摄影师', description: '找到心仪风格' },
-    { icon: Calendar, title: '预约时间', description: '选择拍摄日期' },
-    { icon: Camera, title: '拍摄照片', description: '专业现场拍摄' },
-    { icon: Edit, title: '修改照片', description: '精细后期处理' },
-    { icon: CheckCircle, title: '确认照片', description: '满意后确认' },
-    { icon: Download, title: '交付照片', description: '获得高清作品' }
+    { icon: ImageIcon, title: t('process.step1.title'), description: t('process.step1.desc') },
+    { icon: User, title: t('process.step2.title'), description: t('process.step2.desc') },
+    { icon: Star, title: t('process.step3.title'), description: t('process.step3.desc') },
+    { icon: Calendar, title: t('process.step4.title'), description: t('process.step4.desc') },
+    { icon: Camera, title: t('process.step5.title'), description: t('process.step5.desc') },
+    { icon: Edit, title: t('process.step6.title'), description: t('process.step6.desc') },
+    { icon: Download, title: t('process.step7.title'), description: t('process.step7.desc') }
   ];
 
   const categories = ['全部', '人像摄影', '建筑摄影', '风光摄影', '婚纱摄影', '时尚摄影', '商业摄影', '街拍摄影'];
@@ -163,8 +165,8 @@ const FeaturedPhotographersSection = () => {
     <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-foreground mb-4">探索优秀摄影师作品</h2>
-          <p className="text-muted-foreground text-lg mb-8">浏览精选摄影师的优质作品，找到最适合您需求的摄影风格</p>
+          <h2 className="text-3xl font-bold text-foreground mb-4">{t('photographers.title')}</h2>
+          <p className="text-muted-foreground text-lg mb-8">{t('photographers.subtitle')}</p>
           
           {/* 搜索栏 */}
           <div className="max-w-xl mx-auto mb-8">
@@ -174,7 +176,7 @@ const FeaturedPhotographersSection = () => {
                 <div className="flex items-center px-6 py-4">
                   <Search className="text-muted-foreground w-5 h-5 mr-4 group-focus-within:text-primary transition-colors duration-300" />
                   <Input
-                    placeholder="搜索摄影师、地点或拍摄风格..."
+                    placeholder={t('photographers.search')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="border-0 bg-transparent text-foreground placeholder:text-muted-foreground focus-visible:ring-0 focus-visible:outline-0 text-base"
@@ -350,7 +352,7 @@ const FeaturedPhotographersSection = () => {
           ) : (
             <div className="text-center py-12">
               <Camera className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">未找到相关摄影师</h3>
+              <h3 className="text-xl font-semibold text-foreground mb-2">{t('photographers.noResults')}</h3>
               <p className="text-muted-foreground mb-4">
                 没有找到匹配"{searchTerm}"的摄影师，试试调整搜索条件或选择其他分类
               </p>
@@ -361,7 +363,7 @@ const FeaturedPhotographersSection = () => {
                   setSelectedCategory('全部');
                 }}
               >
-                清除筛选条件
+                {t('photographers.clearFilters')}
               </Button>
             </div>
           )}
@@ -380,7 +382,7 @@ const FeaturedPhotographersSection = () => {
             onClick={() => navigate('/photographers')}
             className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
           >
-            查看所有摄影师
+            {t('photographers.viewAll')}
           </Button>
         </div>
       </div>
