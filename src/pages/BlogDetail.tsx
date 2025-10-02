@@ -120,8 +120,8 @@ const BlogDetail = () => {
 
       {/* Article Content */}
       <section className="py-16 bg-background">
-        <div className="max-w-4xl mx-auto px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
+        <div className="max-w-5xl mx-auto px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
             {/* Table of Contents - Sidebar */}
             {blogPost.wordCount > 800 && (
               <div className="lg:col-span-1">
@@ -147,7 +147,7 @@ const BlogDetail = () => {
             )}
 
             {/* Main Content */}
-            <div className={cn("lg:col-span-3", blogPost.wordCount <= 800 && "lg:col-span-4")}>
+            <div className={cn("lg:col-span-2", blogPost.wordCount <= 800 && "lg:col-span-3")}>
               {/* Article Header */}
               <div className="mb-8">
                 <div className="flex items-center space-x-4 mb-4">
